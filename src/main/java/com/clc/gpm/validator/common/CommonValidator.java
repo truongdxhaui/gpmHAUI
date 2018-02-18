@@ -1,24 +1,15 @@
-package com.tau.validator.common;
+package com.clc.gpm.validator.common;
 
-import java.lang.reflect.Field;
-import java.util.List;
-
+import com.clc.gpm.common.Constants;
+import com.clc.gpm.exception.InputCheckException;
+import com.clc.gpm.utils.CheckUtil;
+import com.clc.gpm.utils.StringUtil;
+import com.clc.gpm.validator.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.tau.common.Constants;
-import com.tau.exception.InputCheckException;
-import com.tau.utils.CheckUtil;
-import com.tau.utils.StringUtil;
-import com.tau.validator.annotation.Format;
-import com.tau.validator.annotation.Format.FormatType;
-import com.tau.validator.annotation.Fullsize;
-import com.tau.validator.annotation.HaftsizeNumber;
-import com.tau.validator.annotation.HalftsizeAlphabet;
-import com.tau.validator.annotation.HalftsizeAlphabetNumber;
-import com.tau.validator.annotation.HalftsizeAlphabetNumberSymbol;
-import com.tau.validator.annotation.MaxLength;
-import com.tau.validator.annotation.Required;
+import java.lang.reflect.Field;
+import java.util.List;
 
 /**
  * <p>ファイル名 : CommonValidator</p>
@@ -151,7 +142,7 @@ public class CommonValidator {
             Format anno = field.getAnnotation(Format.class);
 
             // Check date format
-            if (anno.type().equals(FormatType.DATE)) {
+            if (anno.type().equals(Format.FormatType.DATE)) {
                 boolean isValidDate = checkUtil.isDateFormat(fieldVal,
                         anno.pattern());
                 if (!isValidDate) {

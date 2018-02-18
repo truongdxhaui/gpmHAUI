@@ -1,4 +1,6 @@
-package com.tau.utils;
+package com.clc.gpm.utils;
+
+import org.springframework.stereotype.Component;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
@@ -7,7 +9,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 //import org.apache.commons.validator.EmailValidator;
-import org.springframework.stereotype.Component;
 
 /**
  * <p>ファイル名 : CheckUtil</p>
@@ -158,7 +159,6 @@ public class CheckUtil {
      * 
      * @param dateString
      * @param formatString
-     * @param date pattern
      * @return boolean
      * true : string is valid date format
      * false : string is invalid date format

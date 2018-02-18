@@ -1,22 +1,19 @@
-package com.tau.validator.common;
+package com.clc.gpm.validator.common;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.annotation.PostConstruct;
-
+import com.clc.gpm.exception.BaseException;
+import com.clc.gpm.form.AppForm;
+import com.clc.gpm.utils.CheckUtil;
+import com.clc.gpm.utils.StringUtil;
+import com.clc.gpm.validator.annotation.Ignore;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.tau.exception.BaseException;
-import com.tau.forms.AppForm;
-import com.tau.utils.CheckUtil;
-import com.tau.utils.MessageUtil;
-import com.tau.utils.StringUtil;
-import com.tau.validator.annotation.Ignore;
+import javax.annotation.PostConstruct;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>ファイル名 : AppValidator</p>
@@ -26,58 +23,25 @@ import com.tau.validator.annotation.Ignore;
  */
 public abstract class AppValidator {
 
-    /**
-     * HAS_ERROR
-     */
     private static final String HAS_ERROR = "] has error: ";
 
-    /**
-     * FIELD_STRING_END
-     */
     private static final String FIELD_STRING_END = "] is ignore validate.";
 
-    /**
-     * FIELD_STRING_BEGIN
-     */
     private static final String FIELD_STRING_BEGIN = "Field [";
 
-    /**
-     * logger
-     */
     protected Log logger;
 
-    /**
-     * strUtil
-     */
     @Autowired
     protected StringUtil strUtil;
 
-    /**
-     * checkUtil
-     */
     @Autowired
     protected CheckUtil checkUtil;
 
-    /**
-     * msgUtil
-     */
-    @Autowired
-    protected MessageUtil msgUtil;
-
-    /**
-     * commonValidator
-     */
     @Autowired
     protected CommonValidator commonValidator;
 
-    /**
-     * errorItemNameList
-     */
     private List<String> errorItemNameList;
 
-    /**
-     * init variable
-     */
     @PostConstruct
     public void init() {
 
@@ -86,36 +50,12 @@ public abstract class AppValidator {
     }
 
 
-    /**
-     * <p>説明 : validateField</p> 
-     * @author : [dts.bp34]
-     * @since : [2017/12/26]
-     * @param fieldName String
-     * @param fieldValue String
-     * @param errors 
-     */
     public abstract void validateField(String fieldName, String fieldValue,
             BindingResult errors);
 
-    /**
-     * 
-     * <p>説明 : Validate logic</p>
-     * @author [bp.truong.pq]
-     * @since [2017/11/25] 
-     * @param clazz AppForm
-     * @param errors BindingResult
-     */
+
     public abstract void validateLogic(AppForm clazz, BindingResult errors);
 
-    
-    /**
-     * <p>説明 : validate</p> 
-     * @author : [dts.bp34]
-     * @since : [2017/12/26]
-     * @param targetObj Object
-     * @param errors BindingResult
-     * @param items 
-     */
     public void validate(Object targetObj, BindingResult errors,
             String... items) {
 
@@ -185,14 +125,6 @@ public abstract class AppValidator {
         }
     }
 
-    /**
-     * Validate item
-     *
-     * @param field Field
-     * @param fieldVal String
-     * @param property String
-     * @param errors BindingResult
-     */
     private void validateItem(Field field, String fieldVal, String property,
             BindingResult errors) {
 
@@ -218,22 +150,12 @@ public abstract class AppValidator {
         }
     }
 
-    /**
-     * <p>説明 : getErrorItemNameList</p> 
-     * @author : [dts.bp34]
-     * @since : [2017/12/26]
-     * @return List<String>
-     */
+
     public List<String> getErrorItemNameList() {
         return errorItemNameList;
     }
 
-    /**
-     * <p>説明 : ???</p> 
-     * @author : [dts.bp34]
-     * @since : [2017/12/26]
-     * @param errorItemNameList 
-     */
+
     public void setErrorItemNameList(List<String> errorItemNameList) {
         this.errorItemNameList = errorItemNameList;
     }

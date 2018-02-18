@@ -1,8 +1,8 @@
-package com.tau.validator.common;
+package com.clc.gpm.validator.common;
 
+import com.clc.gpm.form.AppForm;
 import org.springframework.stereotype.Service;
 
-import com.tau.forms.AppForm;
 
 /**
  * <p>ファイル名 : SimpleValidator</p>
@@ -21,7 +21,7 @@ public class SimpleValidator extends AppValidator {
      * @param errors BindingResult
      */
     public void validateField(String field, String fieldValue,
-            BindingResult errors) {
+           BindingResult errors) {
     }
 
     /** validateLogic

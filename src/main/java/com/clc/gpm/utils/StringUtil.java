@@ -1,8 +1,8 @@
-package com.tau.utils;
-
-import java.math.BigInteger;
+package com.clc.gpm.utils;
 
 import org.springframework.stereotype.Component;
+
+import java.math.BigInteger;
 
 /**
  * <p>ファイル名 : StringUtil</p>

@@ -1,4 +1,4 @@
-package com.tau.validator.common;
+package com.clc.gpm.validator.common;
 
 import java.io.Serializable;
 
