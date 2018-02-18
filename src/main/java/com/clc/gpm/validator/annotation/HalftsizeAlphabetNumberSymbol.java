@@ -1,4 +1,4 @@
-package com.clc.gpm.validator.annotation;
+package com.tau.validator.annotation;
 
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;

@@ -1,6 +1,4 @@
-package com.clc.gpm.utils;
-
-import org.springframework.stereotype.Component;
+package com.tau.utils;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
@@ -8,6 +6,15 @@ import java.time.format.DateTimeFormatter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+//import org.apache.commons.validator.EmailValidator;
+import org.springframework.stereotype.Component;
+
+/**
+ * <p>ファイル名 : CheckUtil</p>
+ * <p>説明 : CheckUtil</p>
+ * @author bp.truong.pq
+ * @since 2017/11/25
+ */
 @Component("CheckUtil")
 public class CheckUtil {
 
@@ -27,16 +34,28 @@ public class CheckUtil {
             "&", "*", "(", ")", "-", "_", "=", "+", ":", ";", "'", "\"", ",",
             "<", "/", "?", "`", "~" };
 
-    public boolean isFullSize(String input){
+    /**
+     * Input valid : Katakana/Numbers/Letters
+     * 
+     * @param input String
+     * @return boolean
+     */
+    public boolean isFullSize(String input) {
         if (input == null && !"".equals(input)) {
             return true;
         }
-        Pattern p = Pattern.compile("^[０-９,Ａ-ｚ]+$");
+        Pattern p = Pattern.compile("^[ァ-ン,０-９,Ａ-ｚ]+$");
         Matcher m = p.matcher(input);
 
         return m.find();
     }
 
+    /**
+     * Check HaftSizeAlphabet
+     * 
+     * @param input String
+     * @return boolean
+     */
     public boolean isHaftSizeAlphabet(String input) {
         if (input == null && !"".equals(input)) {
             return true;
@@ -47,6 +66,12 @@ public class CheckUtil {
         return m.find();
     }
 
+    /**
+     * チェック文字列が数値である
+     * 
+     * @param input String
+     * @return 数値は、trueの場合はnullまたは空白である
+     */
     public boolean isHaftsizeNumeric(String input) {
         if (input == null && !"".equals(input)) {
             return true;
@@ -57,6 +82,12 @@ public class CheckUtil {
         return m.find();
     }
 
+    /**
+     * Check string is haft size alphabet and is haft size number
+     *
+     * @param input String
+     * @return true if string is haft size engligh
+     */
     public boolean isHalfSizeAlphabetAndNumber(String input) {
         if (input == null && !"".equals(input)) {
             return true;
@@ -68,6 +99,12 @@ public class CheckUtil {
         return m.find();
     }
 
+    /**
+     * Check HalfSizeAlphabetAndNumber
+     * 
+     * @param val String
+     * @return boolean
+     */
     public boolean isHalfSizeAlphabetAndNumber2(String val) {
         if (isNull(val)) {
             return false;
@@ -91,7 +128,7 @@ public class CheckUtil {
 
     /**
      * check HalfAlphabet or Number or Symbol
-     *
+     * 
      * @param input String
      * @return boolean
      */
@@ -117,7 +154,12 @@ public class CheckUtil {
     }
 
     /**
-     * Check format of date string
+     * Check format of date string.
+     * 
+     * @param dateString
+     * @param formatString
+     * @param date pattern
+     * @return boolean
      * true : string is valid date format
      * false : string is invalid date format
      */
@@ -133,7 +175,7 @@ public class CheckUtil {
 
     /**
      * Validate email address.
-     *
+     * 
      * @param email
      * @return boolean
      */

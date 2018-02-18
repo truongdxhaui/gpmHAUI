@@ -1,17 +1,29 @@
-package com.clc.gpm.utils;
-
-import org.springframework.stereotype.Component;
+package com.tau.utils;
 
 import java.math.BigInteger;
 
+import org.springframework.stereotype.Component;
+
+/**
+ * <p>ファイル名 : StringUtil</p>
+ * <p>説明 : StringUtil</p>
+ * @author bp.truong.pq
+ * @since 2017/11/25
+ */
 @Component("StringUtil")
 public class StringUtil {
+
     /**
      * SPACE_HEX_IN_ASCII
      */
     private static final int SPACE_HEX_IN_ASCII = 0x20;
 
-    //Convert an object to a string, and if it is null, convert it to the space
+    /**
+     * オブジェクトを文字列に変換し、nullの場合空に変換する
+     *
+     * @param obj Object
+     * @return String
+     */
     public String convertNull(Object obj) {
         if (obj == null) {
             return "";
@@ -19,12 +31,22 @@ public class StringUtil {
         return obj.toString();
     }
 
-    //Check object is null
+    /**
+     * チェックオブジェクトがnullです
+     *
+     * @param str Object
+     * @return 真のオブジェクト入力はnullまたは長さです=0
+     */
     public boolean isNull(Object str) {
         return str == null || str.toString().length() <= 0;
     }
 
-    //trim String
+    /**
+     * 文字入力のトリム
+     *
+     * @param str String
+     * @return String
+     */
     public String trimStr(String str) {
         if (str != null) {
             return str.trim();
@@ -32,29 +54,52 @@ public class StringUtil {
         return "";
     }
 
-    //isEmpty
+    /**
+     * isEmpty
+     *
+     * @param str String
+     * @return boolean
+     */
     public static boolean isEmpty(String str) {
         return str == null || str.length() == 0;
     }
 
-    //isNotEmpty
+    /**
+     * isNotEmpty
+     *
+     * @param str String
+     * @return boolean
+     */
     public static boolean isNotEmpty(String str) {
         return !isEmpty(str);
     }
 
-
-     //isUppercaseAlpha
-
+    /**
+     * isUppercaseAlpha
+     * 
+     * @param c char
+     * @return boolean
+     */
     public static boolean isUppercaseAlpha(char c) {
         return (c >= 'A') && (c <= 'Z');
     }
 
-    //isLowercaseAlpha
+    /**
+     * isLowercaseAlpha
+     * 
+     * @param c char
+     * @return boolean
+     */
     public static boolean isLowercaseAlpha(char c) {
         return (c >= 'a') && (c <= 'z');
     }
 
-    //toUpperAscii
+    /**
+     * toUpperAscii
+     * 
+     * @param c char
+     * @return char
+     */
     public static char toUpperAscii(char c) {
         if (isLowercaseAlpha(c)) {
             c -= (char) SPACE_HEX_IN_ASCII;
@@ -64,7 +109,7 @@ public class StringUtil {
 
     /**
      * toLowerAscii
-     *
+     * 
      * @param c char
      * @return char
      */
@@ -76,8 +121,8 @@ public class StringUtil {
     }
 
     /**
-     *
-     * <p>説明 : camelhumpToUnderline</p>
+     * 
+     * <p>説明 : camelhumpToUnderline</p> 
      * @author : [bp.thien.nv]
      * @since : [2017/12/26]
      * @param str String
@@ -102,7 +147,7 @@ public class StringUtil {
 
     /**
      * String to int
-     *
+     * 
      * @param str String
      * @return Integer
      */
@@ -116,8 +161,8 @@ public class StringUtil {
 
     /**
      * String to long
-     *
-     * @param str String
+     * 
+     * @param str String 
      * @return Long
      */
     public static Long toLong(String str) {
@@ -129,8 +174,8 @@ public class StringUtil {
     }
 
     /**
-     *
-     * <p>説明 : String to BigInteger</p>
+     * 
+     * <p>説明 : String to BigInteger</p> 
      * @author : [bp.thien.nv]
      * @since : [2017/12/21]
      * @param str String

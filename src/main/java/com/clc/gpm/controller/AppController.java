@@ -6,6 +6,9 @@ public class AppController {
 
     protected Log logger;
 
+    protected  Log log;
+
+
 
 
 }
