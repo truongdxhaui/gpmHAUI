@@ -2,12 +2,6 @@ package com.clc.gpm.validator.common;
 
 import java.io.Serializable;
 
-/**
- * <p>ファイル名 : ErrorInfoValue</p>
- * <p>説明 : Value class contain info error</p>
- * @author bp.truong.pq
- * @since 2017/11/25
- */
 public class ErrorInfoValue implements Serializable {
 
     private static final long serialVersionUID = 5552835254119417468L;

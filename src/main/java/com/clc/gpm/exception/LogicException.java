@@ -1,11 +1,5 @@
 package com.clc.gpm.exception;
 
-/**
- * <p>ファイル名 : LogicException</p>
- * <p>説明 : LogicException</p>
- * @author bp.truong.pq
- * @since 2017/11/25
- */
 public class LogicException extends Exception {
 
     /**

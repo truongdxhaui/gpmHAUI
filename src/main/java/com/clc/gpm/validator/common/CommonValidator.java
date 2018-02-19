@@ -11,15 +11,9 @@ import org.springframework.stereotype.Component;
 import java.lang.reflect.Field;
 import java.util.List;
 
-/**
- * <p>ファイル名 : CommonValidator</p>
- * <p>説明 : CommonValidator</p>
- * @author bp.truong.pq
- * @since 2017/11/25
- */
 @Component("commonValidator")
 public class CommonValidator {
-    /** StringUtilのインスタンス */
+
     @Autowired
     protected StringUtil strUtil;
 
@@ -29,16 +23,7 @@ public class CommonValidator {
     @Autowired
     protected CheckUtil checkUtil;
 
-    /**
-     * <p>説明 : validateWithAnnotation</p> 
-     * @author : [dts.bp34]
-     * @since : [2017/12/26]
-     * @param field Field
-     * @param fieldVal String
-     * @param errorItemNameList List<String>
-     * @throws InputCheckException
-     * @throws Exception 
-     */
+
     public void validateWithAnnotation(Field field, String fieldVal,
             List<String> errorItemNameList) throws Exception {
         String val = fieldVal == null ? fieldVal : fieldVal.trim();

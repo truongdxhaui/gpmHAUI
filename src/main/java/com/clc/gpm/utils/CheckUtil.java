@@ -10,12 +10,7 @@ import java.util.regex.Pattern;
 
 //import org.apache.commons.validator.EmailValidator;
 
-/**
- * <p>ファイル名 : CheckUtil</p>
- * <p>説明 : CheckUtil</p>
- * @author bp.truong.pq
- * @since 2017/11/25
- */
+
 @Component("CheckUtil")
 public class CheckUtil {
 
@@ -68,8 +63,7 @@ public class CheckUtil {
     }
 
     /**
-     * チェック文字列が数値である
-     * 
+
      * @param input String
      * @return 数値は、trueの場合はnullまたは空白である
      */

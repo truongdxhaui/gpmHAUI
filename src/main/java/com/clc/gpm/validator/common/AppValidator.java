@@ -15,12 +15,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * <p>ファイル名 : AppValidator</p>
- * <p>説明 : AppValidator</p>
- * @author bp.truong.pq
- * @since 2017/11/25
- */
+
 public abstract class AppValidator {
 
     private static final String HAS_ERROR = "] has error: ";

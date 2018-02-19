@@ -7,12 +7,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-/**
- * <p>ファイル名 : BindingResult</p>
- * <p>説明 : ErrorResult class contain info error</p>
- * @author bp.truong.pq
- * @since 2017/11/25
- */
+
 @Component
 // @Scope("request")
 public class BindingResult implements Serializable {

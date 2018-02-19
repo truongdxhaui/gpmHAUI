@@ -4,12 +4,7 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigInteger;
 
-/**
- * <p>ファイル名 : StringUtil</p>
- * <p>説明 : StringUtil</p>
- * @author bp.truong.pq
- * @since 2017/11/25
- */
+
 @Component("StringUtil")
 public class StringUtil {
 
@@ -18,12 +13,6 @@ public class StringUtil {
      */
     private static final int SPACE_HEX_IN_ASCII = 0x20;
 
-    /**
-     * オブジェクトを文字列に変換し、nullの場合空に変換する
-     *
-     * @param obj Object
-     * @return String
-     */
     public String convertNull(Object obj) {
         if (obj == null) {
             return "";
@@ -31,22 +20,11 @@ public class StringUtil {
         return obj.toString();
     }
 
-    /**
-     * チェックオブジェクトがnullです
-     *
-     * @param str Object
-     * @return 真のオブジェクト入力はnullまたは長さです=0
-     */
+
     public boolean isNull(Object str) {
         return str == null || str.toString().length() <= 0;
     }
 
-    /**
-     * 文字入力のトリム
-     *
-     * @param str String
-     * @return String
-     */
     public String trimStr(String str) {
         if (str != null) {
             return str.trim();
@@ -76,7 +54,7 @@ public class StringUtil {
 
     /**
      * isUppercaseAlpha
-     * 
+     *
      * @param c char
      * @return boolean
      */
@@ -86,7 +64,7 @@ public class StringUtil {
 
     /**
      * isLowercaseAlpha
-     * 
+     *
      * @param c char
      * @return boolean
      */
@@ -96,7 +74,7 @@ public class StringUtil {
 
     /**
      * toUpperAscii
-     * 
+     *
      * @param c char
      * @return char
      */
@@ -109,7 +87,7 @@ public class StringUtil {
 
     /**
      * toLowerAscii
-     * 
+     *
      * @param c char
      * @return char
      */
@@ -121,12 +99,12 @@ public class StringUtil {
     }
 
     /**
-     * 
-     * <p>説明 : camelhumpToUnderline</p> 
-     * @author : [bp.thien.nv]
-     * @since : [2017/12/26]
+     * <p>説明 : camelhumpToUnderline</p>
+     *
      * @param str String
      * @return String
+     * @author : [bp.thien.nv]
+     * @since : [2017/12/26]
      */
     public static String camelhumpToUnderline(String str) {
         final int size;
@@ -147,7 +125,7 @@ public class StringUtil {
 
     /**
      * String to int
-     * 
+     *
      * @param str String
      * @return Integer
      */
@@ -161,8 +139,8 @@ public class StringUtil {
 
     /**
      * String to long
-     * 
-     * @param str String 
+     *
+     * @param str String
      * @return Long
      */
     public static Long toLong(String str) {
@@ -174,12 +152,12 @@ public class StringUtil {
     }
 
     /**
-     * 
-     * <p>説明 : String to BigInteger</p> 
-     * @author : [bp.thien.nv]
-     * @since : [2017/12/21]
+     * <p>説明 : String to BigInteger</p>
+     *
      * @param str String
      * @return BigInteger
+     * @author : [bp.thien.nv]
+     * @since : [2017/12/21]
      */
     public static BigInteger toBigInteger(String str) {
         if (str != null && str.length() > 0) {

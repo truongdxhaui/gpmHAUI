@@ -1,11 +1,6 @@
 package com.clc.gpm.exception;
 
-/**
- * <p>ファイル名 : InputCheckException</p>
- * <p>説明 : InputCheckException</p>
- * @author bp.truong.pq
- * @since 2017/11/25
- */
+
 public class InputCheckException extends BaseException {
 
     private static final long serialVersionUID = 1920098082744310558L;

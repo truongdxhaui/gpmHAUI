@@ -1,36 +1,20 @@
 package com.clc.gpm.exception;
 
-/**
- * <p>ファイル名 : BaseException</p>
- * <p>説明 : BaseException</p>
- * @author bp.truong.pq
- * @since 2017/11/25
- */
+
 public class BaseException extends Exception {
 
     private static final long serialVersionUID = -3130750938679514286L;
 
-    /**
-     * エラーコード
-     */
+
     private String messsageId = null;
-    /**
-     * エラー項目property
-     */
+
     private String fieldName = null;
 
-    /**
-     * defaultMessage
-     */
+
     private String defaultMessage = null;
-    /**
-     * エラーコードに対応するメッセージ引数
-     */
+
     private String[] param = null;
 
-    /**
-     * 更新ログに出力するエラーかどうか判定するフラグ
-     */
     private boolean logOutput = false;
 
     /**
@@ -67,7 +51,7 @@ public class BaseException extends Exception {
      * @param code String
      * @param param String[]
      * @param errorId String
-     */ 
+     */
     public BaseException(String code, String[] param, String errorId) {
         this.messsageId = code;
         this.param = param;
@@ -101,7 +85,7 @@ public class BaseException extends Exception {
 
     /**
      * init attribute code and param
-     * 
+     *
      * @param code String
      * @param param String[]
      */
@@ -128,7 +112,7 @@ public class BaseException extends Exception {
 
     /**
      * get exception code
-     * 
+     *
      * @return String
      */
     public String getMessageId() {
@@ -137,7 +121,7 @@ public class BaseException extends Exception {
 
     /**
      * get error id
-     * 
+     *
      * @return String
      */
     public String getFieldName() {
@@ -146,7 +130,7 @@ public class BaseException extends Exception {
 
     /**
      * Set Error ID
-     * 
+     *
      * @param errorId String
      */
     public void setFieldName(String errorId) {
@@ -155,7 +139,7 @@ public class BaseException extends Exception {
 
     /**
      * get error parameter
-     * 
+     *
      * @return String[]
      */
     public String[] getParam() {
@@ -164,7 +148,7 @@ public class BaseException extends Exception {
 
     /**
      * set error code
-     * 
+     *
      * @param code String
      */
     public void setMessageId(String code) {
@@ -173,7 +157,7 @@ public class BaseException extends Exception {
 
     /**
      * set error parameter
-     * 
+     *
      * @param param String[]
      */
     public void setParam(String[] param) {

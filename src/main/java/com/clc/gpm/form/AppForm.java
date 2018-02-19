@@ -6,12 +6,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
-/**
- * <p>ファイル名 : AppForm</p>
- * <p>説明 : AppForm</p>
- * @author bp.truong.pq
- * @since 2017/11/25
- */
+
 public class AppForm implements Serializable {
 
     private static final long serialVersionUID = -410827961360725279L;
@@ -71,7 +66,6 @@ public class AppForm implements Serializable {
     }
 
     /**
-     * errorsを設定します。
      *
      * @param error List<ErrorInfoValue>
      */
