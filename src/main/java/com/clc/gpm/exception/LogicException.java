@@ -1,5 +1,8 @@
 package com.clc.gpm.exception;
 
+/**
+ * The type Logic exception.
+ */
 public class LogicException extends Exception {
 
     /**
@@ -18,9 +21,10 @@ public class LogicException extends Exception {
     private String[] param;
 
     /**
-     * LogicException
-     * @param messageId String
-     * @param param String[]
+     * Instantiates a new Logic exception.
+     *
+     * @param messageId the message id
+     * @param param     the param
      */
     public LogicException(String messageId, String[] param) {
         this.messageId = messageId;
@@ -28,40 +32,45 @@ public class LogicException extends Exception {
     }
 
     /**
-     * LogicException
-     * @param messageId String
+     * Instantiates a new Logic exception.
+     *
+     * @param messageId the message id
      */
     public LogicException(String messageId) {
         this.messageId = messageId;
     }
 
     /**
-     * get messageId
-     * @return the messageId
+     * Gets message id.
+     *
+     * @return the message id
      */
     public String getMessageId() {
         return messageId;
     }
 
     /**
-     * set messageId
-     * @param messageId the messageId to set
+     * Sets message id.
+     *
+     * @param messageId the message id
      */
     public void setMessageId(String messageId) {
         this.messageId = messageId;
     }
 
     /**
-     * get param
-     * @return the param
+     * Get param string [ ].
+     *
+     * @return the string [ ]
      */
     public String[] getParam() {
         return param;
     }
 
     /**
-     * set param
-     * @param param the param to set
+     * Sets param.
+     *
+     * @param param the param
      */
     public void setParam(String[] param) {
         this.param = param;

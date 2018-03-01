@@ -11,6 +11,9 @@ import java.util.regex.Pattern;
 //import org.apache.commons.validator.EmailValidator;
 
 
+/**
+ * The type Check util.
+ */
 @Component("CheckUtil")
 public class CheckUtil {
 
@@ -32,9 +35,9 @@ public class CheckUtil {
 
     /**
      * Input valid : Katakana/Numbers/Letters
-     * 
+     *
      * @param input String
-     * @return boolean
+     * @return boolean boolean
      */
     public boolean isFullSize(String input) {
         if (input == null && !"".equals(input)) {
@@ -48,9 +51,9 @@ public class CheckUtil {
 
     /**
      * Check HaftSizeAlphabet
-     * 
+     *
      * @param input String
-     * @return boolean
+     * @return boolean boolean
      */
     public boolean isHaftSizeAlphabet(String input) {
         if (input == null && !"".equals(input)) {
@@ -63,9 +66,10 @@ public class CheckUtil {
     }
 
     /**
-
+     * Is haftsize numeric boolean.
+     *
      * @param input String
-     * @return 数値は、trueの場合はnullまたは空白である
+     * @return 数値は 、trueの場合はnullまたは空白である
      */
     public boolean isHaftsizeNumeric(String input) {
         if (input == null && !"".equals(input)) {
@@ -96,9 +100,9 @@ public class CheckUtil {
 
     /**
      * Check HalfSizeAlphabetAndNumber
-     * 
+     *
      * @param val String
-     * @return boolean
+     * @return boolean boolean
      */
     public boolean isHalfSizeAlphabetAndNumber2(String val) {
         if (isNull(val)) {
@@ -123,9 +127,9 @@ public class CheckUtil {
 
     /**
      * check HalfAlphabet or Number or Symbol
-     * 
+     *
      * @param input String
-     * @return boolean
+     * @return boolean boolean
      */
     public boolean isHalfAlphabetNumberSymbol(String input) {
         if (isNull(input)) {
@@ -150,12 +154,10 @@ public class CheckUtil {
 
     /**
      * Check format of date string.
-     * 
-     * @param dateString
-     * @param formatString
-     * @return boolean
-     * true : string is valid date format
-     * false : string is invalid date format
+     *
+     * @param dateString   the date string
+     * @param formatString the format string
+     * @return boolean  true : string is valid date format false : string is invalid date format
      */
     public boolean isDateFormat(String dateString, String formatString) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(formatString);
@@ -169,9 +171,9 @@ public class CheckUtil {
 
     /**
      * Validate email address.
-     * 
-     * @param email
-     * @return boolean
+     *
+     * @param email the email
+     * @return boolean boolean
      */
     public boolean isValidEmailAddress(String email) {
         String ePattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\"
@@ -185,7 +187,7 @@ public class CheckUtil {
      * Check String input is number
      *
      * @param number String
-     * @return true: String input is number. false: String input is not number
+     * @return true : String input is number. false: String input is not number
      */
     public boolean isSignNumber(String number) {
         if (isNull(number)) {
@@ -212,7 +214,7 @@ public class CheckUtil {
      * Check char input is number
      *
      * @param c char
-     * @return true: char is number. false: char not number
+     * @return true : char is number. false: char not number
      */
     public boolean isDigit(char c) {
         int x = (int) c;

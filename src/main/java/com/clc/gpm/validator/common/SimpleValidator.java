@@ -4,6 +4,9 @@ import com.clc.gpm.form.AppForm;
 import org.springframework.stereotype.Service;
 
 
+/**
+ * The type Simple validator.
+ */
 @Service
 public class SimpleValidator extends AppValidator {
 

@@ -1,5 +1,8 @@
 package com.clc.gpm.common;
 
+/**
+ * The type Constants.
+ */
 public class Constants {
 
 

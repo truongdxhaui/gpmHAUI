@@ -8,9 +8,17 @@ import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 
+/**
+ * The interface Halftsize alphabet.
+ */
 @Target({ FIELD })
 @Retention(RUNTIME)
 @Documented
 public @interface HalftsizeAlphabet {
-	String displayFieldName() default "N/A";
+    /**
+     * Display field name string.
+     *
+     * @return the string
+     */
+    String displayFieldName() default "N/A";
 }

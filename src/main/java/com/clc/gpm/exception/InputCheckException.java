@@ -1,88 +1,92 @@
 package com.clc.gpm.exception;
 
 
+/**
+ * The type Input check exception.
+ */
 public class InputCheckException extends BaseException {
 
     private static final long serialVersionUID = 1920098082744310558L;
 
     /**
-     * InputCheckException
-     * @see common.exception.BaseException (Throwable)
-     * @param e Throwable
+     * Instantiates a new Input check exception.
+     *
+     * @param e the e
      */
     public InputCheckException(Throwable e) {
         super(e);
     }
 
     /**
-     * InputCheckException
-     * @param code String
-     * @param param String[]
-     * @param e String
-     * @param errorId String
+     * Instantiates a new Input check exception.
+     *
+     * @param code    the code
+     * @param param   the param
+     * @param errorId the error id
+     * @param e       the e
      */
     public InputCheckException(String code, String[] param, String errorId,
-            Throwable e) {
+                               Throwable e) {
         super(code, param, e);
     }
 
     /**
-     * InputCheckException
-     * @see exception.BaseException (String, String[], String)
-     * @param code String
-     * @param param String[]
-     * @param errorId String
+     * Instantiates a new Input check exception.
+     *
+     * @param code    the code
+     * @param param   the param
+     * @param errorId the error id
      */
     public InputCheckException(String code, String[] param, String errorId) {
         super(code, param, errorId);
     }
 
     /**
-     * InputCheckException
-     * @see exception.BaseException (String, String[], Throwable)
-     * @param code String
-     * @param param String[]
-     * @param e Throwable
+     * Instantiates a new Input check exception.
+     *
+     * @param code  the code
+     * @param param the param
+     * @param e     the e
      */
     public InputCheckException(String code, String[] param, Throwable e) {
         super(code, param, e);
     }
 
     /**
-     * InputCheckException
-     * @see exception.BaseException (String, String, Throwable)
-     * @param code String
-     * @param errorId String
-     * @param e Throwable
+     * Instantiates a new Input check exception.
+     *
+     * @param code    the code
+     * @param errorId the error id
+     * @param e       the e
      */
     public InputCheckException(String code, String errorId, Throwable e) {
         super(code, errorId, e);
     }
 
     /**
-     * InputCheckException
-     * @see exception.BaseException (String, String[])
-     * @param code String
-     * @param param String[]
+     * Instantiates a new Input check exception.
+     *
+     * @param code  the code
+     * @param param the param
      */
     public InputCheckException(String code, String[] param) {
         super(code, param);
     }
 
     /**
-     * InputCheckException
-     * @see exception.BaseException (String, String)
-     * @param code String
-     * @param errorId String
+     * Instantiates a new Input check exception.
+     *
+     * @param code    the code
+     * @param errorId the error id
      */
     public InputCheckException(String code, String errorId) {
         super(code, errorId);
     }
 
     /**
-     * InputCheckException
-     * @see exception.BaseException (String)
-     * @param code String
+     * Instantiates a new Input check exception.
+     *
+     * @param code the code
      */
     public InputCheckException(String code) {
         super(code);

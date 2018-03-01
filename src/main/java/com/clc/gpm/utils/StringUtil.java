@@ -5,6 +5,9 @@ import org.springframework.stereotype.Component;
 import java.math.BigInteger;
 
 
+/**
+ * The type String util.
+ */
 @Component("StringUtil")
 public class StringUtil {
 
@@ -13,6 +16,12 @@ public class StringUtil {
      */
     private static final int SPACE_HEX_IN_ASCII = 0x20;
 
+    /**
+     * Convert null string.
+     *
+     * @param obj the obj
+     * @return the string
+     */
     public String convertNull(Object obj) {
         if (obj == null) {
             return "";
@@ -21,10 +30,22 @@ public class StringUtil {
     }
 
 
+    /**
+     * Is null boolean.
+     *
+     * @param str the str
+     * @return the boolean
+     */
     public boolean isNull(Object str) {
         return str == null || str.toString().length() <= 0;
     }
 
+    /**
+     * Trim str string.
+     *
+     * @param str the str
+     * @return the string
+     */
     public String trimStr(String str) {
         if (str != null) {
             return str.trim();
@@ -36,7 +57,7 @@ public class StringUtil {
      * isEmpty
      *
      * @param str String
-     * @return boolean
+     * @return boolean boolean
      */
     public static boolean isEmpty(String str) {
         return str == null || str.length() == 0;
@@ -46,7 +67,7 @@ public class StringUtil {
      * isNotEmpty
      *
      * @param str String
-     * @return boolean
+     * @return boolean boolean
      */
     public static boolean isNotEmpty(String str) {
         return !isEmpty(str);
@@ -56,7 +77,7 @@ public class StringUtil {
      * isUppercaseAlpha
      *
      * @param c char
-     * @return boolean
+     * @return boolean boolean
      */
     public static boolean isUppercaseAlpha(char c) {
         return (c >= 'A') && (c <= 'Z');
@@ -66,7 +87,7 @@ public class StringUtil {
      * isLowercaseAlpha
      *
      * @param c char
-     * @return boolean
+     * @return boolean boolean
      */
     public static boolean isLowercaseAlpha(char c) {
         return (c >= 'a') && (c <= 'z');
@@ -76,7 +97,7 @@ public class StringUtil {
      * toUpperAscii
      *
      * @param c char
-     * @return char
+     * @return char char
      */
     public static char toUpperAscii(char c) {
         if (isLowercaseAlpha(c)) {
@@ -89,7 +110,7 @@ public class StringUtil {
      * toLowerAscii
      *
      * @param c char
-     * @return char
+     * @return char char
      */
     public static char toLowerAscii(char c) {
         if (isUppercaseAlpha(c)) {
@@ -102,7 +123,7 @@ public class StringUtil {
      * <p>説明 : camelhumpToUnderline</p>
      *
      * @param str String
-     * @return String
+     * @return String string
      * @author : [bp.thien.nv]
      * @since : [2017/12/26]
      */
@@ -127,7 +148,7 @@ public class StringUtil {
      * String to int
      *
      * @param str String
-     * @return Integer
+     * @return Integer integer
      */
     public static Integer toInt(String str) {
         if (str != null && str.length() > 0) {
@@ -141,7 +162,7 @@ public class StringUtil {
      * String to long
      *
      * @param str String
-     * @return Long
+     * @return Long long
      */
     public static Long toLong(String str) {
         if (str != null && str.length() > 0) {
@@ -155,7 +176,7 @@ public class StringUtil {
      * <p>説明 : String to BigInteger</p>
      *
      * @param str String
-     * @return BigInteger
+     * @return BigInteger big integer
      * @author : [bp.thien.nv]
      * @since : [2017/12/21]
      */

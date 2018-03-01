@@ -7,9 +7,23 @@ import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 
+/**
+ * The interface Max length.
+ */
 @Target({ FIELD })
 @Retention(RUNTIME)
 public @interface MaxLength {
-	int maxlength() default 1;
-	String displayFieldName() default "N/A";
+    /**
+     * Maxlength int.
+     *
+     * @return the int
+     */
+    int maxlength() default 1;
+
+    /**
+     * Display field name string.
+     *
+     * @return the string
+     */
+    String displayFieldName() default "N/A";
 }

@@ -11,9 +11,15 @@ import org.springframework.stereotype.Component;
 import java.lang.reflect.Field;
 import java.util.List;
 
+/**
+ * The type Common validator.
+ */
 @Component("commonValidator")
 public class CommonValidator {
 
+    /**
+     * The Str util.
+     */
     @Autowired
     protected StringUtil strUtil;
 
@@ -24,6 +30,14 @@ public class CommonValidator {
     protected CheckUtil checkUtil;
 
 
+    /**
+     * Validate with annotation.
+     *
+     * @param field             the field
+     * @param fieldVal          the field val
+     * @param errorItemNameList the error item name list
+     * @throws Exception the exception
+     */
     public void validateWithAnnotation(Field field, String fieldVal,
             List<String> errorItemNameList) throws Exception {
         String val = fieldVal == null ? fieldVal : fieldVal.trim();

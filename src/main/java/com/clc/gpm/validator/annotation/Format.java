@@ -7,6 +7,9 @@ import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 
+/**
+ * The interface Format.
+ */
 @Target({FIELD})
 @Retention(RUNTIME)
 public @interface Format {
@@ -15,35 +18,35 @@ public @interface Format {
      */
     public static final String N_A = "N/A";
 
-
     /**
-     * FormatType
-     * DATE
-     * <p>説明 : ???</p>
-     *
-     * @author dts.bp34
-     * @
-     * @since : [2017/12/26]
+     * The enum Format type.
      */
     enum FormatType {
         /**
          * DATE
          */
         DATE,
-        /**
-         * EMAIL
-         */
-        EMAIL,
-        /**
-         * PHONENUMBER
-         */
-        PHONENUMBER
     }
 
 
+    /**
+     * Type format type.
+     *
+     * @return the format type
+     */
     FormatType type();
 
+    /**
+     * Display field name string.
+     *
+     * @return the string
+     */
     String displayFieldName() default N_A;
 
+    /**
+     * Pattern string.
+     *
+     * @return the string
+     */
     String pattern() default N_A;
 }

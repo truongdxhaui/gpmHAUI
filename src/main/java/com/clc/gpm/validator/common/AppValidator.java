@@ -16,6 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+/**
+ * The type App validator.
+ */
 public abstract class AppValidator {
 
     private static final String HAS_ERROR = "] has error: ";
@@ -24,19 +27,34 @@ public abstract class AppValidator {
 
     private static final String FIELD_STRING_BEGIN = "Field [";
 
+    /**
+     * The Logger.
+     */
     protected Log logger;
 
+    /**
+     * The Str util.
+     */
     @Autowired
     protected StringUtil strUtil;
 
+    /**
+     * The Check util.
+     */
     @Autowired
     protected CheckUtil checkUtil;
 
+    /**
+     * The Common validator.
+     */
     @Autowired
     protected CommonValidator commonValidator;
 
     private List<String> errorItemNameList;
 
+    /**
+     * Init.
+     */
     @PostConstruct
     public void init() {
 
@@ -45,12 +63,32 @@ public abstract class AppValidator {
     }
 
 
+    /**
+     * Validate field.
+     *
+     * @param fieldName  the field name
+     * @param fieldValue the field value
+     * @param errors     the errors
+     */
     public abstract void validateField(String fieldName, String fieldValue,
             BindingResult errors);
 
 
+    /**
+     * Validate logic.
+     *
+     * @param clazz  the clazz
+     * @param errors the errors
+     */
     public abstract void validateLogic(AppForm clazz, BindingResult errors);
 
+    /**
+     * Validate.
+     *
+     * @param targetObj the target obj
+     * @param errors    the errors
+     * @param items     the items
+     */
     public void validate(Object targetObj, BindingResult errors,
             String... items) {
 
@@ -146,11 +184,21 @@ public abstract class AppValidator {
     }
 
 
+    /**
+     * Gets error item name list.
+     *
+     * @return the error item name list
+     */
     public List<String> getErrorItemNameList() {
         return errorItemNameList;
     }
 
 
+    /**
+     * Sets error item name list.
+     *
+     * @param errorItemNameList the error item name list
+     */
     public void setErrorItemNameList(List<String> errorItemNameList) {
         this.errorItemNameList = errorItemNameList;
     }

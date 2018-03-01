@@ -16,11 +16,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Iterator;
 
+/**
+ * The type App controller.
+ */
 public class AppController {
     private static final String SCREEN_MESSAGE = "screenMessage";
 
+    /**
+     * The Logger.
+     */
     protected Log logger;
 
+    /**
+     * The Log.
+     */
     protected  Log log;
 
     private AppValidator validator;
@@ -28,20 +37,35 @@ public class AppController {
     @Autowired
     private ApplicationContext context;
 
+    /**
+     * The Request.
+     */
     @Autowired
     protected HttpServletRequest request;
 
+    /**
+     * The Response.
+     */
     @Autowired
     protected HttpServletResponse response;
 
+    /**
+     * The Str util.
+     */
     @Autowired
     protected StringUtil strUtil;
 
 
+    /**
+     * The Binding result.
+     */
     @Autowired
     protected BindingResult bindingResult;
 
-    //Constructor
+    /**
+     * Instantiates a new App controller.
+     */
+//Constructor
     public AppController() {
     }
 
@@ -74,10 +98,11 @@ public class AppController {
 
     /**
      * <p>説明 : Validate form input</p>
-     * @author [bp.truong.pq]
-     * @since [2017/11/25]
+     *
      * @param targetObj Object
-     * @param result BindingResult
+     * @param result    BindingResult
+     * @author [bp.truong.pq]
+     * @since [2017 /11/25]
      */
     protected void validate(Object targetObj,
                             org.springframework.validation.BindingResult result) {
@@ -116,17 +141,36 @@ public class AppController {
     }
 
 
+    /**
+     * Redirect to model and view.
+     *
+     * @param viewName the view name
+     * @return the model and view
+     */
     protected ModelAndView redirectTo(String viewName) {
         return new ModelAndView("redirect:" + viewName);
     }
 
 
+    /**
+     * Add logic error.
+     *
+     * @param result  the result
+     * @param message the message
+     */
     public void addLogicError(
             org.springframework.validation.BindingResult result,
             String message) {
         result.rejectValue(SCREEN_MESSAGE, message);
     }
 
+    /**
+     * Add logic error.
+     *
+     * @param result    the result
+     * @param messageId the message id
+     * @param paramMsg  the param msg
+     */
     public void addLogicError(
             org.springframework.validation.BindingResult result,
             String messageId, Object[] paramMsg) {

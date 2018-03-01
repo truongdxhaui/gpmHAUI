@@ -7,15 +7,38 @@ import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 
+/**
+ * The interface Size.
+ */
 @Target({ FIELD })
 @Retention(RUNTIME)
 public @interface Size {
-	int min() default 1;
+    /**
+     * Min int.
+     *
+     * @return the int
+     */
+    int min() default 1;
 
-	int max() default 1;
+    /**
+     * Max int.
+     *
+     * @return the int
+     */
+    int max() default 1;
 
-	String displayFieldName() default "N/A";
+    /**
+     * Display field name string.
+     *
+     * @return the string
+     */
+    String displayFieldName() default "N/A";
 
-	String message() default "N/A";
+    /**
+     * Message string.
+     *
+     * @return the string
+     */
+    String message() default "N/A";
 
 }
