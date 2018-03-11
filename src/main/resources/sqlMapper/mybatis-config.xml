@@ -13,6 +13,7 @@
 <configuration>
     <typeAliases>
         <package name="com.clc.gpm.entity"/>
+        <package name="com.clc.gpm.dto"/>
     </typeAliases>
 
     <typeHandlers>

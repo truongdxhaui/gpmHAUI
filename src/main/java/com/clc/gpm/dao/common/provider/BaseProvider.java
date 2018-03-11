@@ -63,12 +63,12 @@ public class BaseProvider {
 
                 for (Field field : table.getSuperclass().getDeclaredFields()) {
                     selectClause = genarateSelectedField(selectClause, field);
-
                 }
 
                 for (Field field : table.getDeclaredFields()) {
                     selectClause = genarateSelectedField(selectClause, field);
                 }
+
                 selectClause = selectClause.substring(0,
                         selectClause.length() - 1);
                 SELECT(selectClause);
