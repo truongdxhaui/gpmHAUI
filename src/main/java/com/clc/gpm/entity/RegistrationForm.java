@@ -4,6 +4,7 @@ import com.clc.gpm.dao.common.annotation.Column;
 import com.clc.gpm.dao.common.annotation.Table;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.ibatis.type.Alias;
 
 import java.util.Date;
 
@@ -17,6 +18,7 @@ import java.util.Date;
 @Table(name = "REGISTRATION_FORM")
 @Getter
 @Setter
+@Alias("RegistrationForm")
 public class RegistrationForm extends BaseEntity {
 
     @Column(name = "ID")

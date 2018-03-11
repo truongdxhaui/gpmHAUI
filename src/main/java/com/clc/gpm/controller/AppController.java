@@ -46,7 +46,6 @@ public class AppController {
     /**
      * The Response.
      */
-    @Autowired
     protected HttpServletResponse response;
 
     /**

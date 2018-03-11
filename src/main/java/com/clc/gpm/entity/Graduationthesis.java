@@ -5,6 +5,7 @@ import com.clc.gpm.dao.common.annotation.PrimaryKey;
 import com.clc.gpm.dao.common.annotation.Table;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.ibatis.type.Alias;
 
 /**
  * The type Graduationthesis.
@@ -12,6 +13,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(name = "GRADUATION_THESIS")
+@Alias("Graduationthesis")
 public class Graduationthesis extends BaseEntity {
 
     @PrimaryKey(name = "ID")

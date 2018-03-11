@@ -5,6 +5,7 @@ import com.clc.gpm.dao.common.annotation.PrimaryKey;
 import com.clc.gpm.dao.common.annotation.Table;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.ibatis.type.Alias;
 
 /**
  * The type Message.
@@ -12,6 +13,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(name = "MESSAGE")
+@Alias("Message")
 public class Message extends BaseEntity {
 
     @PrimaryKey(name = "ID")
@@ -20,8 +22,8 @@ public class Message extends BaseEntity {
     @Column(name = "SEND_ID")
     private String sendID;
 
-    @Column(name = "RECIVER_ID")
-    private String reciverID;
+    @Column(name = "RECEIVER_ID")
+    private String receiver;
 
     @Column(name = "STATUS")
     private String status;

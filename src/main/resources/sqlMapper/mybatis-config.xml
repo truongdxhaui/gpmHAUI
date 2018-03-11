@@ -11,12 +11,30 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-	<typeAliases>
-	</typeAliases>
+    <typeAliases>
+        <package name="com.clc.gpm.entity"/>
+    </typeAliases>
 
-	<typeHandlers>
-	</typeHandlers>
+    <typeHandlers>
+    </typeHandlers>
 
-	<mappers>
-	</mappers>
+    <mappers>
+        <mapper resource="sqlMapper/UserMapper.xml"/>
+        <mapper resource="sqlMapper/TeamMapper.xml"/>
+        <mapper resource="sqlMapper/TaskMapper.xml"/>
+        <mapper resource="sqlMapper/StudentMapper.xml"/>
+        <mapper resource="sqlMapper/SessionGPMapper.xml"/>
+        <mapper resource="sqlMapper/SchoolMapper.xml"/>
+        <mapper resource="sqlMapper/RoleMapper.xml"/>
+        <mapper resource="sqlMapper/RegistrationFormMapper.xml"/>
+        <mapper resource="sqlMapper/ProjectMapper.xml"/>
+        <mapper resource="sqlMapper/MessageMapper.xml"/>
+        <mapper resource="sqlMapper/ListLecturerMapper.xml"/>
+        <mapper resource="sqlMapper/LevelMapper.xml"/>
+        <mapper resource="sqlMapper/LecturerMapper.xml"/>
+        <mapper resource="sqlMapper/GroupProjectMapper.xml"/>
+        <mapper resource="sqlMapper/GraduationthesisMapper.xml"/>
+        <mapper resource="sqlMapper/ExaminationCouncilMapper.xml"/>
+        <mapper resource="sqlMapper/ClassesMapper.xml"/>
+    </mappers>
 </configuration>

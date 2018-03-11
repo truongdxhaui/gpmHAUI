@@ -5,9 +5,10 @@ import com.clc.gpm.dao.common.annotation.PrimaryKey;
 import com.clc.gpm.dao.common.annotation.Table;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.ibatis.type.Alias;
 
 /**
- * The type Team.
+ *
  *
  * @author truon
  * @version 1.0
@@ -16,6 +17,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(name = "TEAM")
+@Alias("Team")
 public class Team extends BaseEntity{
 
     @PrimaryKey(name = "ID")

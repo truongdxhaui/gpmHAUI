@@ -9,6 +9,7 @@ import com.clc.gpm.dao.common.annotation.Column;
 import com.clc.gpm.dao.common.annotation.Table;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.ibatis.type.Alias;
 
 /**
  * The type Group project.
@@ -16,6 +17,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(name = "GROUP_PROJECT")
+@Alias("GroupProject")
 public class GroupProject extends BaseEntity {
 
     @Column(name = "ID")

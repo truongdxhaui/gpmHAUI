@@ -5,6 +5,7 @@ import com.clc.gpm.dao.common.annotation.PrimaryKey;
 import com.clc.gpm.dao.common.annotation.Table;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.ibatis.type.Alias;
 
 import java.util.Date;
 
@@ -14,6 +15,7 @@ import java.util.Date;
 @Getter
 @Setter
 @Table(name = "USER")
+@Alias("User")
 public class User extends BaseEntity {
 
     @PrimaryKey(name = "ID")

@@ -4,6 +4,7 @@ import com.clc.gpm.dao.common.annotation.Column;
 import com.clc.gpm.dao.common.annotation.Table;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.ibatis.type.Alias;
 
 /**
  * The type Project.
@@ -15,6 +16,7 @@ import lombok.Setter;
 @Table(name = "PROJECT")
 @Getter
 @Setter
+@Alias("Project")
 public class Project extends BaseEntity {
 
     @Column(name = "ID")

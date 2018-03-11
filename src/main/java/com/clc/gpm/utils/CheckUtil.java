@@ -43,7 +43,7 @@ public class CheckUtil {
         if (input == null && !"".equals(input)) {
             return true;
         }
-        Pattern p = Pattern.compile("^[ァ-ン,０-９,Ａ-ｚ]+$");
+        Pattern p = Pattern.compile("^[０-９,Ａ-ｚ]+$");
         Matcher m = p.matcher(input);
 
         return m.find();

@@ -2,6 +2,9 @@ package com.clc.gpm.entity;
 
 import com.clc.gpm.dao.common.annotation.Column;
 import com.clc.gpm.dao.common.annotation.Table;
+import lombok.Getter;
+import lombok.Setter;
+import org.apache.ibatis.type.Alias;
 
 import java.util.Date;
 
@@ -12,7 +15,10 @@ import java.util.Date;
  * @version 1.0
  * @created 05 -Nov-2017 4:08:32 PM
  */
+@Getter
+@Setter
 @Table(name = "SESSION_GP")
+@Alias("SessionGP")
 public class SessionGP extends BaseEntity{
 
 	@Column(name = "ID")

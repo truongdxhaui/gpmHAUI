@@ -4,6 +4,7 @@ import com.clc.gpm.dao.common.annotation.Column;
 import com.clc.gpm.dao.common.annotation.Table;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.ibatis.type.Alias;
 
 /**
  * The type Student.
@@ -15,12 +16,13 @@ import lombok.Setter;
 @Table(name = "STUDENT")
 @Getter
 @Setter
+@Alias("Student")
 public class Student extends BaseEntity {
 
     @Column(name = "USER_ID")
     private int userId;
 
-        @Column(name = "STUDENT_ID")
+    @Column(name = "STUDENT_ID")
     private String studentId;
 
     @Column(name = "CLASS_ID")
@@ -31,5 +33,8 @@ public class Student extends BaseEntity {
 
     @Column(name = "TEAM_ID")
     private int teamId;
+
+    @Column(name = "LEVEL_ID")
+    private int levelId;
 
 }
