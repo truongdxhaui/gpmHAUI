@@ -3,4 +3,35 @@
 
 <mapper namespace="com.clc.gpm.dao.mapper.LecturerMapper">
 
+    <select id="getAllLecturerSummary" parameterType="SearchLecturerDTO" >
+        SELECT
+            l.LECTURER_ID, FIRSTNAME, LASTNAME, p.NAME, f.NAME
+        FROM
+            user AS u,
+            lecturer AS l,
+            faculty AS f,
+            job_position AS p
+        WHERE
+            l.USER_ID = u.ID
+            AND l.FACULTY_ID = f.ID
+            AND l.POSITION = p.ID
+            AND l.DELETE_FLG = '0'
+    </select>
+
+    <select id="getListLecturerByFacultyId" resultType="LecturerDTO">
+        SELECT
+        l.LECTURER_ID as lecturerId,
+        u.FIRSTNAME as firstName,
+        u.LASTNAME AS lastName,
+        u.DESCRIPTION as description,
+        (SELECT count(*) FROM project as p WHERE p.LECTURER_ID = l.LECTURER_ID AND p.DELETE_FLG = '0' AND p.STATUS = '1') as projectNum
+        FROM lecturer as l, user as u
+        WHERE
+        u.ID = l.USER_ID AND
+        l.FACULTY_ID = #{facultyId} AND
+        l.DELETE_FLG = '0'
+    </select>
+
+
+
 </mapper>

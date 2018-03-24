@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <title>INSPINIA | Empty Page</title>
+
+    <!-- CSS -->
+    <th:block th:replace="/sites/common/admin_layout :: admin-default-css"></th:block>
+
+    <!-- FooTable -->
+    <link th:href="@{/css/plugins/footable/footable.core.css}" rel="stylesheet">
+    <link th:href="@{/css/animate.css}" rel="stylesheet">
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+
+</head>
+
+<body class="">
+
+<div id="wrapper">
+
+    <nav class="navbar-default navbar-static-side" role="navigation"
+         th:replace="/sites/common/admin_layout :: admin-nav"></nav>
+    <div id="page-wrapper" class="gray-bg">
+        <div class="row border-bottom" th:replace="/sites/common/admin_layout :: admin-header"></div>
+
+        <!-- Content-->
+        <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-lg-10">
+                <h2>Quản lý tài khoản sinh viên</h2>
+                <ol class="breadcrumb">
+                    <li>
+                        <a href="/admin/">Home</a>
+                    </li>
+                    <li class="active">
+                        <strong>Danh sách khoa</strong>
+                    </li>
+                </ol>
+            </div>
+            <div class="col-lg-2">
+
+            </div>
+        </div>
+        <!--Main Content-->
+        <form action="/admin/list-faculty" th:object="${searchFacultyForm}" id="searchForm">
+            <th:block th:replace="/sites/common/search-block :: search-block"></th:block>
+        </form>
+        <div class="wrapper wrapper-content ">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Danh sách khoa giảng dạy tại ĐH Công Nghiệp Hà Nội</h5>
+                            <div class="ibox-tools">
+                                <a class="dropdown-toggle" href="#" data-toggle="modal" data-target="#myModal">
+                                    <i class="fa fa-plus"></i>
+                                </a>
+                                <a class="dropdown-toggle editOption no-modal" href="#" data-target="#editModal" onclick="initEditFaculty(this)">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                                <a class="dropdown-toggle editOption" href="#" onclick="deleteFaculty(this)">
+                                    <i class="fa fa-trash-o"></i>
+                                </a>
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <th:block>
+                            <div class="ibox-content">
+                                <input type="text" class="form-control input-sm m-b-xs" id="filter"
+                                       placeholder="Tìm kiếm">
+                                <div class="pagging">
+                                    <div th:replace="/sites/common/table::table-header"></div>
+                                </div>
+                                <table id="facultyTable" class="footable table table-stripped" data-page-size="8"
+                                       th:unless="${#lists.isEmpty(lstFaculty)}"
+                                       data-filter=#filter>
+                                    <thead>
+                                    <tr>
+                                        <th onclick="doSort(0)">ID</th>
+                                        <th onclick="doSort(1)">Mã khoa</th>
+                                        <th onclick="doSort(2)">Tên khoa</th>
+                                        <th onclick="doSort(3)" data-hide="phone,tablet">Trưởng khoa</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr class="gradeX" th:each="item : ${lstFaculty}">
+                                        <td th:text="${item.getId()}"></td>
+                                        <td th:text="${item.getFacultyId()}"></td>
+                                        <td th:text="${item.getName()}"></td>
+                                        <td class="center"></td>
+
+                                    </tr>
+                                    <tfoot>
+
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </th:block>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- End Content -->
+
+        <div class="footer" th:replace="/sites/common/admin_layout :: admin-footer"></div>
+
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <form id="faculty-add" method="post" class="form-horizontal">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Thêm khoa</h4>
+                </div>
+
+                <div class="modal-body">
+                    <div class="form-group"><label class="col-sm-2 control-label">Mã khoa </label>
+
+                        <div class="col-sm-10"><input type="text" name="facultyId" class="form-control"></div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group"><label class="col-sm-2 control-label">Tên khoa</label>
+                        <div class="col-sm-10"><input type="text" name="name" class="form-control"></div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group"><label class="col-sm-2 control-label">Trường khoa</label>
+                        <div class="col-sm-10"><input type="text" list="browsers"  name="leaderId" class="form-control"></div>
+                    </div>
+                    <datalist id="browsers">
+                        <option value="MST001" text="">Chrome</option>
+
+                    </datalist>
+                    <div class="form-group" style="text-align: center" id="message-add"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-default">Thêm</button>
+                    <button id="btn_clear" type="reset" class="btn btn-default">Làm mới</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="location.reload();">
+                        Close
+                    </button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Modal EDIT-->
+<div class="modal fade" id="editModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <form id="faculty-edit" method="post" class="form-horizontal">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Sửa thông tin Khoa</h4>
+                </div>
+
+                <div class="modal-body">
+                    <div class="form-group"><label class="col-sm-2 control-label">Mã khoa </label>
+
+                        <div class="col-sm-10"><input type="text" name="facultyId" class="form-control"></div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group"><label class="col-sm-2 control-label">Tên khoa</label>
+                        <div class="col-sm-10"><input type="text" name="name" class="form-control"></div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group"><label class="col-sm-2 control-label">Trường khoa</label>
+                        <div class="col-sm-10"><input type="text" list="browsers"  name="leaderId" class="form-control"></div>
+                    </div>
+                    <datalist id="leaderId">
+                        <option value="MST001" data-value="Test" text="">Chrome</option>
+                    </datalist>
+                    <div class="form-group" style="text-align: center" id="message-add"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-default">Thêm</button>
+                    <button id="btn_clear" type="reset" class="btn btn-default">Làm mới</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="location.reload();">
+                        Close
+                    </button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- JS -->
+<th:block th:replace="/sites/common/admin_layout :: admin-default-js"></th:block>
+
+<!-- FooTable -->
+<script th:src="@{/js/plugins/footable/footable.all.min.js}"></script>
+
+<!-- Custom and plugin javascript -->
+<script th:src="@{/js/inspinia.js}"></script>
+<script th:src="@{/js/plugins/pace/pace.min.js}"></script>
+<script th:src="@{/js/common/table.js}"></script>
+
+</body>
+
+<script type="text/javascript">
+    
+    function initEditFaculty(x) {
+        var lstId = [];
+        var countRecord = $(".checkedRow").length;
+        if( countRecord <= 0){
+            alert("Chưa có bản ghi nào được chọn!")
+        }else if(countRecord == 1){
+            var currentItm = $(".checkedRow").find("td");
+            var obj = {id: $(currentItm[0]).html(), facultyId:$(currentItm[1]).html(), name:$(currentItm[2]).html(), leaderId:$(currentItm[3]).html()};
+            var lstInp = $('#editModal').find('input');
+            $(lstInp[0]).val(obj.id);
+            $(lstInp[1]).val(obj.facultyId);
+            $(lstInp[2]).val(obj.leaderId);
+            $('#editModal').modal("show");
+        }else{
+            alert("Chọn 1 bản ghi thôi. ĐM!")
+        }
+    }
+
+    function editFaculty() {
+        $.ajax({
+            url: "editFaculty",
+            data: JSON.stringify(itm),
+            type: "POST",
+            cache: false,
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("Accept", "application/json");
+                xhr.setRequestHeader("Content-Type", "application/json");
+            },
+            success: function (data) {
+                //location.reload();
+                alert("Sửa thành công!")
+                location.reload();
+            },
+            error: function () {
+                alert("Sửa thất bại!")
+            }
+        });
+    }
+
+
+    function deleteFaculty(x) {
+        var lstId = [];
+        $(".checkedRow td:first-child").each(function () {
+            lstId.push({id: $(this).text(), deleteFlg: '0'});
+        });
+        if (!confirm("Chú ý: Dữ liệu đã xóa không thể khôi phục!"))
+            return false;
+        $.ajax({
+            url: "deleteFaculty",
+            data: JSON.stringify(lstId),
+            type: "POST",
+            cache: false,
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("Accept", "application/json");
+                xhr.setRequestHeader("Content-Type", "application/json");
+            },
+            success: function (data) {
+                //location.reload();
+                alert("Xóa thành công!")
+                location.reload();
+            },
+            error: function () {
+                alert("Xóa thất bại!")
+            }
+        });
+    }
+</script>
+
+<script>
+    $(document).ready(function () {
+
+
+        $("#test").click(function () {
+            alert("button");
+        });
+
+        $("#myModal").on("hidden.bs.modal", function () {
+            location.reload();
+        });
+
+
+        editFlag = $("#editFlag").val();
+
+
+        $("#faculty-add").submit(function (event) {
+            event.preventDefault();
+            addFaculty();
+        });
+
+        function addFaculty() {
+            var objAdd = getFormData($('#faculty-add'));
+
+            $.ajax({
+                url: "addFaculty",
+                data: JSON.stringify(objAdd),
+                type: "POST",
+                cache: false,
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("Accept", "application/json");
+                    xhr.setRequestHeader("Content-Type", "application/json");
+                },
+                success: function (data) {
+                    //location.reload();
+                    $('#message-add').removeClass();
+                    $('#message-add').addClass("text-success");
+                    $('#message-add').text("Thêm thành công!");
+
+                    $('#btn_clear').click();
+                },
+                error: function () {
+                    $('#message-add').removeClass();
+                    $('#message-add').addClass("text-danger");
+                    $('#message-add').text("Xẩy ra lỗi. Vui lòng thử lại!")
+                }
+            });
+        }
+    });
+
+    $("tr").click(function () {
+        if ($(this).hasClass("checkedRow"))
+            $(this).removeClass("checkedRow");
+        else {
+            $(this).addClass("checkedRow");
+        }
+    });
+
+
+    function getFormData($form) {
+        var unindexed_array = $form.serializeArray();
+        var indexed_array = {};
+
+        $.map(unindexed_array, function (n, i) {
+            indexed_array[n['name']] = n['value'];
+        });
+
+        return indexed_array;
+    }
+</script>
+
+</html>

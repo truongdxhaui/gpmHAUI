@@ -3,4 +3,46 @@
 
 <mapper namespace="com.clc.gpm.dao.mapper.ProjectMapper">
 
+    <select id="getAllProjectByFaculty" resultType="ProjectDTO">
+        SELECT
+        p.ID as id, p.NAME as name, p.DESCRIPTION as description, p.LECTURER_ID as lecturerId, level.LEVEL_NAME as
+        levelName
+        FROM project as p, lecturer as l, level
+        <where>
+            p.DELETE_FLG = '0' AND
+            <if test="level != null and level.length > 0">
+                p.LEVEL = #{level} AND
+            </if>
+            p.LECTURER_ID = l.LECTURER_ID AND l.DELETE_FLG = '0' AND
+            <if test="facultyId != null and facultyId.length > 0">
+                l.FACULTY_ID = #{facultyId} AND
+            </if>
+            LEVEL_ID = p.LEVEL
+            <if test="orderBy == null or orderBy.length == 0">
+                ORDER BY FACULTY_ID ASC
+            </if>
+            <if test="orderBy !=null and orderBy.length > 0">
+                ORDER BY ${orderBy} ${orderType}
+            </if>
+            LIMIT #{offset}, #{limit}
+        </where>
+
+    </select>
+
+    <select id="getListProjectByLecturerId" resultType="ProjectDTO">
+        SELECT p.ID as id, p.NAME as name, p.DESCRIPTION as description, p.LECTURER_ID as lecturerId, level.LEVEL_NAME
+        as levelName
+        FROM project as p, level
+        <where>
+            p.DELETE_FLG ='0' AND p.LECTURER_ID = #{lecturerId} AND LEVEL_ID = p.LEVEL
+            <if test="orderBy == null or orderBy.length == 0">
+                ORDER BY FACULTY_ID ASC
+            </if>
+            <if test="orderBy !=null and orderBy.length > 0">
+                ORDER BY ${orderBy} ${orderType}
+            </if>
+            LIMIT #{offset}, #{limit}
+        </where>
+    </select>
+
 </mapper>

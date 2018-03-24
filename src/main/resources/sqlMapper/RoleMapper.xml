@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.clc.gpm.dao.mapper.RoleMapper">
+<mapper namespace="com.clc.gpm.dao.mapper.RolesMapper">
+
+    <select id="getAllRoleByUserId" resultType="Role">
+        SELECT r.ID as id, r.NAME as name
+        FROM role as r, user_role as u
+        WHERE
+        r.DELETE_FLG = '0' AND
+        r.ID = u.role_id AND
+        u.user_id = #{userId}
+    </select>
 
 </mapper>

@@ -1,3 +1,10 @@
+/*
+ *
+ *   INSPINIA - Responsive Admin Theme
+ *   version 2.7
+ *
+ */
+
 $(document).ready(function () {
 
 
@@ -87,7 +94,6 @@ $(document).ready(function () {
         label.toggleClass('todo-completed');
         return false;
     });
-
 
     // Minimalize menu
     $('.navbar-minimalize').on('click', function () {

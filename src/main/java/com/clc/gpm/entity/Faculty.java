@@ -1,6 +1,7 @@
 package com.clc.gpm.entity;
 
 import com.clc.gpm.dao.common.annotation.Column;
+import com.clc.gpm.dao.common.annotation.PrimaryKey;
 import com.clc.gpm.dao.common.annotation.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,7 +21,7 @@ import org.apache.ibatis.type.Alias;
 @Alias("Faculty")
 public class Faculty extends BaseEntity{
 
-	@Column(name = "ID")
+	@PrimaryKey(name = "ID")
 	private int id;
 
 	@Column(name = "FACULTY_ID")
@@ -44,4 +45,8 @@ public class Faculty extends BaseEntity{
 		this.name = name;
 		this.leaderId = leaderId;
 	}
+
+    public Faculty() {
+
+    }
 }

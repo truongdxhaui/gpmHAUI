@@ -1,0 +1,33 @@
+<div class="row" style="margin-top: 30px;">
+    <div class="x_panel" style="margin-top: 10px; position: relative">
+        <th:block>
+            <table id="myTable" class="table table-striped table-bordered"
+                   style="width: 99%; position: relative; z-index: 0">
+                <thead style="position: relative">
+                <tr>
+                    <th style="text-align: center">Mã giảng viên</th>
+                    <th style="text-align: center">Tên giảng viên</th>
+                    <th style="text-align: center">Giới thiệu</th>
+                    <th style="text-align: center">Số đề tài hướng dẫn</th>
+                    <th style="text-align: center">Đăng ký</th>
+                </tr>
+                </thead>
+                <tbody style="position: relative">
+                <tr th:each="itm : ${userVO.getLstLecturer()}">
+                    <td style="text-align: center; " th:text="${itm.lecturerId}"></td>
+                    <td style="text-align: center; "><a th:text="|${itm.lastName}  ${itm.firstName}|"></a></td>
+                    <td style="text-align: center; " th:text="${itm.description}"></td>
+                    <td style="text-align: center; " th:text="${itm.projectNum}"></td>
+                    <td>
+                        <a style=" display: flex; align-items: center; justify-content: center;" th:href="|/user/list-lecturer/list-project?lecturerId=${itm.lecturerId}|">
+                            <button class="btn btn-success new-btn">Danh sách đề tài đăng kí❯</button>
+                        </a>
+                    </td>
+                    <!--  <td th:text="${lsProject[i.index].name}"></td>-->
+                </tr>
+                </tbody>
+            </table>
+        </th:block>
+    </div>
+</div>
+

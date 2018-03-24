@@ -72,6 +72,4 @@ public class User extends BaseEntity {
     @Column(name = "STATUS")
     private int status;
 
-    @Column(name = "FACULTY_ID")
-    private int facultyId;
 }

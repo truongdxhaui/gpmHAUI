@@ -16,10 +16,13 @@ import org.apache.ibatis.type.Alias;
 @Alias("Level")
 public class Level extends BaseEntity {
 
-    @Column(name = "CLASS_ID")
-    private Integer id;
+    @Column(name = "LEVEL_ID")
+    private String id;
 
-    @Column(name = "NAME")
+    @Column(name = "LEVEL_NAME")
     private String name;
+
+    @Column(name = "STATUS")
+    private String status;
 
 }

@@ -11,6 +11,9 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+    <settings>
+        <setting name="callSettersOnNulls" value="true" />
+    </settings>
     <typeAliases>
         <package name="com.clc.gpm.entity"/>
         <package name="com.clc.gpm.dto"/>
@@ -37,5 +40,6 @@
         <mapper resource="sqlMapper/GraduationthesisMapper.xml"/>
         <mapper resource="sqlMapper/ExaminationCouncilMapper.xml"/>
         <mapper resource="sqlMapper/ClassesMapper.xml"/>
+        <mapper resource="sqlMapper/FacultyMapper.xml"/>
     </mappers>
 </configuration>

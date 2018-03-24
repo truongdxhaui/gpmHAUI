@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Hệ thống quản lý đồ án tốt nghiệp Đại Học Công Nghiệp Hà
+        Nội</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link th:href="@{/css/custom.css}"
+          rel="stylesheet"/>
+</head>
+
+<body style="background: #FFF">
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container ">
+        <div class="navbar-header">
+            <div class="logo">
+                <div>
+                    <a href="/"> <img src="../static/images/haui_lg.png"
+                                      th:src="@{/img/haui_lg.png}" width="40px"
+                                      alt="Đại học công nghiệp hà nội"/> <span
+                            style="color: white; font-weight: bold">HỆ THỐNG QUẢN LÝ
+							ĐỒ ÁN TỐT NGHIỆP</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <ul class="nav navbar-nav navbar-right" th:unless="${session.user}">
+            <li><a href="/admin/"><span class="glyphicon glyphicon-log-in"></span> Đăng nhập</a></li>
+        </ul>
+
+        <ul class="nav navbar-nav navbar-right" th:if="${session.user}">
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <span>
+                            <img alt="image" class="img-circle" th:src="@{/img/profile_small.jpg}"/>
+                    </span> 
+                    <strong>TruongDX</strong>
+                    <span class="glyphicon glyphicon-chevron-down"></span>
+                </a>
+                <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                    <li><a href="profile.html">Profile</a></li>
+                    <li><a href="contacts.html">Contacts</a></li>
+                    <li><a href="mailbox.html">Mailbox</a></li>
+                    <li class="divider"></li>
+                    <li><a href="/logout">Logout</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="row col-md-12"
+     style="height: 300px; background: #eee; margin-top: 60px; color: black">
+    <div class="container">
+        <h1 style="font-size: 65px; font-weight: bold">Xin chào!</h1>
+        <p>Chào mừng bạn đến với hệ thống hỗ trợ làm đồ án tốt nghiệp!</p>
+        <p>Hệ thống được thiết kế nhằm hỗ trợ sinh tra cứu, đăng kí, đề
+            xuất đề tài đồ án tốt nghiệp. Hỗ trợ tương tác giữa sinh viên và
+            giảng viên trong quá trình làm đồ án. Được phát triển bởi khoa CNTT
+            trường ĐH Công Nghiệp Hà Nội..!</p>
+        <p>
+            <button class="btn btn-success">Chi tiết</button>
+        </p>
+    </div>
+
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <h2 style="font-size: 20px; font-weight: bold">Danh sách giảng
+                viên hướng dẫn</h2>
+            <p>Tra cứu danh sách giảng viên hướng dẫn theo từng khoa...</p>
+            <p>
+                <a href="/user/list-lecturer">
+                    <button class="btn btn-default">Chi
+                        tiết
+                    </button>
+                </a>
+            </p>
+        </div>
+        <div class="col-md-4">
+            <h2 style="font-size: 20px; font-weight: bold">Đăng kí đề tài
+                đồ án tốt nghiệp</h2>
+            <p>Đăng kí đề tài đồ án tốt nghiệp...</p>
+            <p>
+                <a href="/user/list-project">
+                    <button class="btn btn-default">Đăng kí</button>
+                </a>
+            </p>
+        </div>
+        <div class="col-md-4">
+            <h2 style="font-size: 20px; font-weight: bold">Quản lý tiến độ
+                dự án</h2>
+            <p>Vào hệ thống quản lý đồ án...</p>
+            <p>
+                <a href="/student">
+                    <button class="btn btn-default">Login</button>
+                </a>
+            </p>
+        </div>
+    </div>
+</div>
+</body>
+<script th:src="@{/js/jquery-3.1.1.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+
+</html>

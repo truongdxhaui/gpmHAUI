@@ -1,0 +1,5 @@
+<div th:fragment="insert-block">
+	<br/>
+    <input th:onclick="|if(!validateDataInput()) return false;|" class="SeiSubmit" type="submit" name="btn_submit" th:value="#{btn.registration}"/>&nbsp;
+    <input onclick="" class="SeiClear" type="button" name="btnClear" th:value="#{btnClear}" th:onclick="|clearInputTau(this)|"/> <br/>
+</div>

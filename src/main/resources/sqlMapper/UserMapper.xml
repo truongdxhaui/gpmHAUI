@@ -2,5 +2,44 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.clc.gpm.dao.mapper.UserMapper">
+    <select id="findByUsername" resultMap="checkExitByUsernameResult">
+        SELECT *
+        FROM user
+        WHERE
+            USERNAME = #{username} AND
+            DELETE_FLG = "0"
+    </select>
 
+    <select id="selectAllUser" parameterType="SearchUserDTO" resultMap="checkExitByUsernameResult">
+        SELECT * FROM user WHERE DELETE_FLG != "1"
+        <if test="orderBy == null or orderBy.length == 0">
+            ORDER BY ID ASC
+        </if>
+        <if test="orderBy !=null and orderBy.length > 0">
+            ORDER BY ${orderBy} ${orderType}
+        </if>
+        LIMIT #{offset}, #{limit}
+    </select>
+
+    <resultMap id="checkExitByUsernameResult" type="User">
+        <result property="id" column="ID"/>
+        <result property="username" column="USERNAME"/>
+        <result property="password" column="PASSWORD"/>
+        <result property="firstName" column="FIRSTNAME"/>
+        <result property="lastName" column="LASTNAME"/>
+        <result property="dob" column="DOB"/>
+        <result property="email" column="EMAIL"/>
+        <result property="gender" column="GENDER"/>
+        <result property="access" column="ACCESS"/>
+        <result property="address" column="ADDRESS"/>
+        <result property="hktt" column="HKTT"/>
+        <result property="moble" column="MOBILE"/>
+        <result property="nation" column="NATION"/>
+        <result property="religion" column="RELIGION"/>
+        <result property="avatar" column="AVATAR"/>
+        <result property="degree" column="DEGREE"/>
+        <result property="description" column="DESCRIPTION"/>
+        <result property="status" column="STATUS"/>
+        <result property="facultyId" column="FACULTY_ID"/>
+    </resultMap>
 </mapper>

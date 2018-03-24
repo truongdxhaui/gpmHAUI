@@ -3,9 +3,11 @@ package com.clc.gpm.validator.common;
 import com.clc.gpm.form.AppForm;
 import org.springframework.stereotype.Service;
 
-
 /**
- * The type Simple validator.
+ * <p>ファイル名 : SimpleValidator</p>
+ * <p>説明 : User validate class</p>
+ * @author bp.truong.pq
+ * @since 2017/11/25
  */
 @Service
 public class SimpleValidator extends AppValidator {
@@ -16,9 +18,10 @@ public class SimpleValidator extends AppValidator {
      * @param field String 
      * @param fieldValue String
      * @param errors BindingResult
+     * @param clazz AppForm
      */
-    public void validateField(String field, String fieldValue,
-           BindingResult errors) {
+    public void validateField(AppForm clazz, String field, String fieldValue,
+                              BindingResult errors) {
     }
 
     /** validateLogic

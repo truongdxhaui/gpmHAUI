@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.clc.gpm.dao.mapper.FacultyMapper">
+
+    <select id="getAllFaculty" parameterType="SearchFacultyDTO" resultMap="FacultyResult" >
+        SELECT
+          faculty.FACULTY_ID,
+          faculty.NAME
+        FROM faculty
+          WHERE
+          faculty.DELETE_FLG = '0'
+        <if test="orderBy == null or orderBy.length == 0">
+            ORDER BY FACULTY_ID ASC
+        </if>
+        <if test="orderBy !=null and orderBy.length > 0">
+            ORDER BY ${orderBy} ${orderType}
+        </if>
+        LIMIT #{offset}, #{limit}
+    </select>
+
+    <select id="countAllFaculty" resultType="int">
+        SELECT COUNT(*)
+        FROM faculty
+         WHERE
+          faculty.DELETE_FLG = '0'
+    </select>
+
+    <update id="deleteFaculty" >
+      UPDATE faculty
+      SET DELETE_FLG = '1'
+      WHERE FACULTY_ID = #{id}
+    </update>
+
+    <resultMap id="FacultyResult" type="FacultyDTO">
+        <result column="FACULTY_ID" property="facultyId" />
+        <result column="NAME" property="name" />
+        <result column="FIRSTNAME" property="firstName"/>
+        <result column="LASTNAME" property="lastName"/>
+    </resultMap>
+    
+</mapper>

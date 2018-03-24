@@ -6,7 +6,7 @@
 <link href="../static/css/back-end-login.css"
 	th:href="@{/css/back-end-login.css}" rel="stylesheet" />
 <script type="text/javascript" src="../static/js/jquery-3.2.1.min.js"
-	th:src="@{/js/jquery-3.2.1.min.js}"></script>
+	th:src="@{/js/jquery-3.1.1.min.js}"></script>
 </head>
 <body>
   <div class="container">
@@ -15,7 +15,7 @@
     </div>
   </div>
   <div class="form">
-    <div class="thumbnail"><img src="../static/images/hat.svg" th:src="@{/images/hat.svg}"/></div>
+    <div class="thumbnail"><img src="../static/images/hat.svg" th:src="@{/img/hat.svg}"/></div>
     
     <form class="login-form" th:action="@{/login}" method="post">
       <input type="text" placeholder="username" name="username"/>
@@ -26,7 +26,5 @@
     </form>
 
   </div>
-    <script type="text/javascript" src="js/custom.js">
-  </script>
 </body>
 </html>

@@ -3,64 +3,68 @@ package com.clc.gpm.form;
 import com.clc.gpm.validator.common.ErrorInfoValue;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
-
 /**
- * The type App form.
+ * <p>ファイル名 : AppForm</p>
+ * <p>説明 : AppForm</p>
+ * @author bp.truong.pq
+ * @since 2017/11/25
  */
-@Getter
 @Setter
+@Getter
 public class AppForm implements Serializable {
 
     private static final long serialVersionUID = -410827961360725279L;
 
-    /**
-     * screenMessage
-     */
+    /** screenMessage */
     private String screenMessage;
 
-    /**
-     * createTime
-     */
+    /** createTime */
     private LocalDateTime createTime;
 
-    /**
-     * createUser
-     */
+    /** createUser */
     private String createUser;
 
-    /**
-     * createClass
-     */
+    /** createClass */
     private String createClass;
 
-    /**
-     * updateTime
-     */
-    private LocalDateTime updateTime;
+    /**updateTime */
+    @DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss")
+    protected LocalDateTime updateTime;
 
-    /**
-     * updateUser
-     */
+    /**updateUser */
     private String updateUser;
 
-    /**
-     * updateClass
-     */
+    /**updateClass */
     private String updateClass;
 
-    /**
-     * screenName
-     */
+    /**screenName */
     private String screenName;
 
-    /**
-     * Error list
-     */
+    /**dayCalendar */
+    private String dayCalendar;
+
+    /**Error list */
     private List<ErrorInfoValue> error;
 
+    /**current page number */
+    private int page;
+
+    /** paging flag*/
+    private boolean paging = false;
+
+    /**
+     * ソートフィルドインデックス
+     */
+    private int sortIndex;
+
+    /**
+     * ソート順
+     */
+    private String sortType;
 }

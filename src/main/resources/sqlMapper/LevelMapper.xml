@@ -3,4 +3,13 @@
 
 <mapper namespace="com.clc.gpm.dao.mapper.LevelMapper">
 
+    <select id="getAllLevel" resultMap="getAllLevel">
+        SELECT * FROM level WHERE level.DELETE_FLG = '0'
+    </select>
+    
+    <resultMap id="getAllLevel" type="Level">
+        <result property="id" column="LEVEL_ID" ></result>
+        <result property="name" column="LEVEL_NAME" ></result>
+        <result property="status" column="STATUS" ></result>
+    </resultMap>
 </mapper>
