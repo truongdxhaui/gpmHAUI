@@ -17,7 +17,6 @@ import java.util.Date;
 @Table(name = "USER")
 @Alias("User")
 public class User extends BaseEntity {
-
     @PrimaryKey(name = "ID")
     private int id;
 
@@ -72,4 +71,14 @@ public class User extends BaseEntity {
     @Column(name = "STATUS")
     private int status;
 
+    public User(int id) {
+        this.id = id;
+    }
+
+    public User(String username) {
+        this.username = username;
+    }
+
+    public User() {
+    }
 }

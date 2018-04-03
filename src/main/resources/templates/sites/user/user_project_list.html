@@ -5,9 +5,13 @@
     <meta charset="UTF-8"/>
     <title>Hệ thống quản lý đồ án tốt nghiệp Đại Học Công Nghiệp Hà
         Nội</title>
-    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link href="../../../static/css/bootstrap.min.css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+    <link href="../../../static/font-awesome/css/font-awesome.css" rel="stylesheet"
+          th:href="@{/font-awesome/css/font-awesome.css}"/>
+
+    <link th:href="@{/css/animate.css}" rel="stylesheet">
+    <link th:href="@{/css/style.css}" rel="stylesheet">
     <link th:href="@{/css/custom.css}" rel="stylesheet"/>
-    <link th:href="@{/css/style.css}" rel="stylesheet"/>
 </head>
 
 <body style="background: #FFF">
@@ -64,26 +68,29 @@
 
         <hr/>
         <div class="margin-left: 15px">
-            <h2 style="font-size: 30px">Danh sách giảng viên hướng dẫn</h2>
+            <h2 style="font-size: 30px">Danh sách đề tài </h2>
         </div>
-        <div class="col-md-4 col-sm-12">
-            <select class="form-control" name="faculty" id="faculty">
-                <option value="" th:hidden="true">Hãy lựa chọn khoa</option>
-                <th:block th:unless="${#lists.isEmpty(userVO.getLstFaculty())}">
-                    <option th:each="faculty, i : ${userVO.getLstFaculty()}"
-                            th:value="${faculty.facultyId}" th:text="${faculty.name}"></option>
-                </th:block>
-            </select>
-        </div>
-        <div class="col-md-4 col-sm-12">
-            <select class="form-control" name="level" id="level">
-                <option value="" th:hidden="true">Chọn hệ đào tạo</option>
-                <th:block th:unless="${#lists.isEmpty(userVO.getLstLevel())}">
-                    <option th:each="level, i : ${userVO.getLstLevel()}"
-                            th:value="${level.id}" th:text="${level.name}"></option>
-                </th:block>
-            </select>
-        </div>
+        <form id="searchForm" th:object="${searchProjectForm}">
+            <div class="col-md-4 col-sm-12">
+                <select th:field="*{facultyId}" class="form-control">
+                    <option value="" th:hidden="true">Hãy lựa chọn khoa</option>
+                    <th:block th:unless="${#lists.isEmpty(userVO.getLstFaculty())}">
+                        <option th:each="faculty, i : ${userVO.getLstFaculty()}"
+                                th:value="${faculty.facultyId}" th:text="${faculty.name}"></option>
+                    </th:block>
+                </select>
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <select th:field="*{level}" class="form-control">
+                    <option value="" th:hidden="true">Chọn hệ đào tạo</option>
+                    <th:block th:unless="${#lists.isEmpty(userVO.getLstLevel())}">
+                        <option th:each="level, i : ${userVO.getLstLevel()}"
+                                th:value="${level.id}" th:text="${level.name}"></option>
+                    </th:block>
+                </select>
+            </div>
+            <th:block th:replace="/sites/common/search-block :: search-block"></th:block>
+        </form>
     </div>
     <div id="main-content" class="row" style="margin-top: 30px;"></div>
 
@@ -92,27 +99,51 @@
 </body>
 <script th:src="@{/js/jquery-3.1.1.min.js}"></script>
 <script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/custom.js}"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#faculty").change(function() {
+
+        $("#searchForm").submit(function (e) {
+            e.preventDefault();
             loadListProject();
         });
-        
+
+        $("#facultyId").change(function () {
+            loadListProject();
+        });
+
         $("#level").change(function () {
             loadListProject();
         })
     });
 
     function loadListProject() {
-        var x = $("#faculty").val();
-        var y = $("#level").val();
+        var x = getFormData($('#searchForm'));
         $.get("/user/get-project", {
-            facultyId : x,
-            levelId : y
-        }, function(data) {
+            facultyId : x.facultyId,
+            level : x.level,
+            page : x.page,
+            sortIndex : x.sortIndex,
+            sortType : x.sortType,
+
+        }, function (data) {
             $("#main-content").html(data);
         });
     }
+
+    function doSortAjax(sortIndex) {
+        if ($("#sortBy").val() == sortIndex && $("#sortType").val() == 'ASC') {
+            $("#sortType").val('DESC');
+        } else {
+            $("#sortBy").val(sortIndex);
+            $("#sortType").val('ASC');
+        }
+        var form = document.getElementById('searchForm');
+        createHiddenInput(form, "paging", true);
+        loadListProject();
+    }
+
+
 </script>
 
 </html>

@@ -20,7 +20,7 @@ public class MockData implements ApplicationListener<ContextRefreshedEvent> {
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
-        if(userMapper.findByUsername("admin") == null){
+        if (userMapper.findByUsername("admin") == null) {
             User user = new User();
             user.setUsername("admin");
             user.setPassword(passwordEncoder.encode("admin"));
@@ -28,9 +28,17 @@ public class MockData implements ApplicationListener<ContextRefreshedEvent> {
 
             userMapper.insert(user);
         }
-        if(userMapper.findByUsername("gv") == null){
+        if (userMapper.findByUsername("gv") == null) {
             User user = new User();
             user.setUsername("gv");
+            user.setPassword(passwordEncoder.encode("123456"));
+            user.setDeleteFlg("0");
+
+            userMapper.insert(user);
+        }
+        if (userMapper.findByUsername("sv") == null) {
+            User user = new User();
+            user.setUsername("sv");
             user.setPassword(passwordEncoder.encode("123456"));
             user.setDeleteFlg("0");
 

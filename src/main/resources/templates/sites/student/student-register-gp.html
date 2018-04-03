@@ -5,7 +5,7 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-    <title>INSPINIA | Empty Page</title>
+    <title>Sinh viên | Hệ thống quản lý đồ án tốt nghiệp HAUI</title>
 
     <!-- CSS -->
     <th:block th:replace="/sites/common/student_layout :: admin-default-css"></th:block>
@@ -42,6 +42,7 @@
         </div>
         <div class="wrapper wrapper-content ">
             <div class="row">
+
                 <div class="col-lg-12">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
@@ -65,24 +66,27 @@
                         <th:block>
                             <div class="ibox-content">
                                 <div class="row">
-                                    <div class="col-md-4 col-sm-12">
-                                        <select class="form-control" name="faculty" id="faculty">
-                                            <option value="" th:hidden="true">Hãy lựa chọn khoa</option>
-                                            <option th:each="faculty, i : ${studentVO.getLstFaculty()}"
-                                                    th:value="${faculty.facultyId}" th:text="${faculty.name}"></option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-4 col-sm-12">
-                                        <select class="form-control" name="level" id="level">
-                                            <option value="" th:hidden="true">Chọn hệ đào tạo</option>
-                                            <option th:each="itm, i : ${studentVO.getLstLevel()}"
-                                                    th:value="${itm.id}" th:text="${itm.name}"></option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-4 col-sm-12">
-                                        <button class="btn btn-primary">Đề xuất đề tài</button>
-                                    </div>
-
+                                    <form id="searchForm" th:object="${searchProjectForm}">
+                                        <div class="col-md-4 col-sm-12">
+                                            <select class="form-control" name="facultyId" id="facultyId">
+                                                <option value="" th:hidden="true">Hãy lựa chọn khoa</option>
+                                                <option th:each="faculty, i : ${studentVO.getLstFaculty()}"
+                                                        th:value="${faculty.facultyId}"
+                                                        th:text="${faculty.name}"></option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4 col-sm-12">
+                                            <select class="form-control" name="level" id="level">
+                                                <option value="" th:hidden="true">Chọn hệ đào tạo</option>
+                                                <option th:each="itm, i : ${studentVO.getLstLevel()}"
+                                                        th:value="${itm.id}" th:text="${itm.name}"></option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4 col-sm-12">
+                                            <button class="btn btn-primary">Đề xuất đề tài</button>
+                                        </div>
+                                        <th:block th:replace="/sites/common/search-block :: search-block"></th:block>
+                                    </form>
                                 </div>
                                 <div id="main-content" style="margin-top: 30px;"></div>
                             </div>
@@ -107,9 +111,15 @@
 <!-- Custom and plugin javascript -->
 <script th:src="@{/js/inspinia.js}"></script>
 <script th:src="@{/js/plugins/pace/pace.min.js}"></script>
+<script th:src="@{/js/custom.js}"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#faculty").change(function() {
+        $("#searchForm").submit(function (e) {
+            e.preventDefault();
+            loadListProject();
+        });
+
+        $("#facultyId").change(function () {
             loadListProject();
         });
 
@@ -119,15 +129,31 @@
     });
 
     function loadListProject() {
-        var x = $("#faculty").val();
-        var y = $("#level").val();
+        var x = getFormData($('#searchForm'))
+
         $.get("/user/get-project", {
-            facultyId : x,
-            levelId : y
-        }, function(data) {
+            facultyId: x.facultyId,
+            level: x.level,
+            page : x.page,
+            sortIndex : x.sortIndex,
+            sortType : x.sortType
+        }, function (data) {
             $("#main-content").html(data);
         });
     }
+
+    function doSortAjax(sortIndex) {
+        if ($("#sortBy").val() == sortIndex && $("#sortType").val() == 'ASC') {
+            $("#sortType").val('DESC');
+        } else {
+            $("#sortBy").val(sortIndex);
+            $("#sortType").val('ASC');
+        }
+        var form = document.getElementById('searchForm');
+        createHiddenInput(form, "paging", true);
+        loadListProject();
+    }
+
 </script>
 </body>
 

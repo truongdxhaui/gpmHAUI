@@ -41,5 +41,36 @@
         <input id="cntPage" th:value="${totalPage}" type="hidden" />
         <input id="curPage" th:value="${currentPage}" type="hidden" />
     </div>
+    <div th:fragment="table-header-ajax">
+        <div>
+            <div style="float: left;">
+                <span th:text="${totalRecord}">100</span> <span>bản ghi</span>
+            </div>
+            <th:block th:if="${totalPage > 1}">
+                <div style="text-align: center;" th:unless="${#lists.isEmpty(displayData)}">
+                    <a href="#" th:if="${currentPage} > 1" id="firstPage" onclick="firstPagebtn()"><span>Trang đầu</span></a>
+                    <span th:unless="${currentPage} > 1">Trang đầu</span>
+                    <a href="#" id="prevPage" th:if="${currentPage} > 1" th:onclick="|prevbtn(${currentPage})|"><span>| trước</span></a>
+                    <span th:unless="${currentPage} > 1">| trước</span>
+
+                    <th:block th:each="page, i : ${displayData}">
+                        <a th:if="${page} != ${currentPage}" style="cursor: pointer" onclick="pagination(this)" th:id="${page}">
+                            [<span th:text="${page}"></span>]
+                        </a>
+                        <span th:unless="${page} != ${currentPage}">
+                            <label th:id="${page}" th:text="'[' + ${page} +']'" style="font-weight: bold;"></label>
+                        </span>
+                    </th:block>
+
+                    <a href="#" id="nextPage" th:if="${currentPage} &lt; ${totalPage}" th:onclick="|nextbtn(${currentPage})|"><span> &nbsp;sau |</span></a>
+                    <span th:unless="${currentPage} &lt; ${totalPage}"> sau|</span>
+                    <a href="#" id="lastPage" th:if="${currentPage} &lt; ${totalPage}" th:onclick="|lastPagebtn(${totalPage})|"><span>Trang cuối</span></a>
+                    <span th:unless="${currentPage} &lt; ${totalPage}">Trang cuối</span>
+                </div>
+            </th:block>
+        </div>
+        <input id="cntPage" th:value="${totalPage}" type="hidden" />
+        <input id="curPage" th:value="${currentPage}" type="hidden" />
+    </div>
 </body>
 </html>

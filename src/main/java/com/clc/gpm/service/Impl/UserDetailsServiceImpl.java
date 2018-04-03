@@ -5,10 +5,17 @@ import com.clc.gpm.dto.FacultyDTO;
 import com.clc.gpm.dto.LecturerDTO;
 import com.clc.gpm.dto.ProjectDTO;
 import com.clc.gpm.dto.search.SearchFacultyDTO;
+import com.clc.gpm.dto.search.SearchLecturerDTO;
+import com.clc.gpm.dto.search.SearchProjectDTO;
+import com.clc.gpm.entity.Lecturer;
 import com.clc.gpm.entity.Level;
 import com.clc.gpm.entity.Role;
 import com.clc.gpm.entity.User;
+import com.clc.gpm.form.search.SearchLecturerForm;
+import com.clc.gpm.form.search.SearchProjectForm;
+import com.clc.gpm.service.CommonService;
 import com.clc.gpm.service.UserService;
+import com.clc.gpm.utils.PageUtil;
 import com.clc.gpm.vo.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -17,6 +24,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import javax.transaction.Transactional;
 import java.util.HashSet;
@@ -28,6 +36,25 @@ import java.util.Set;
  */
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService, UserService{
+
+    /**
+     * default sort
+     */
+    private static final String DEFAULT_SORT_PROJECT = "p.ID";
+
+    /**
+     * LST_COLUMN_ID
+     */
+    private static final String[] HEADER_SORT = {DEFAULT_SORT_PROJECT, "p.NAME", "p.DESCRIPTION", "p.LECTURER_ID", "level.LEVEL_NAME"};
+
+    private static final String DEFAULT_SORT_LIST_LECTURER = "l.LECTURER_ID";
+
+    private static final String[] HEADER_SORT_LIST_LECTURER = {DEFAULT_SORT_LIST_LECTURER, "u.FIRSTNAME", "u.LASTNAME", "u.DESCRIPTION", "projectNum"};
+
+    private static final String DEFAULT_SORT_LIST_PROJECT_BY_LEADERID = "p.ID";
+
+    private static final String[] HEADER_SORT_LIST_PROJECT_BY_LEADERID = {DEFAULT_SORT_LIST_PROJECT_BY_LEADERID, "p.NAME", "p.DESCRIPTION", "p.LECTURER_ID", "level.LEVEL_NAME"};
+
 
     @Autowired
     private UserMapper userMapper;
@@ -46,6 +73,9 @@ public class UserDetailsServiceImpl implements UserDetailsService, UserService{
 
     @Autowired
     private ProjectMapper projectMapper;
+
+    @Autowired
+    private CommonService commonService;
 
     @Override
     @Transactional
@@ -78,9 +108,12 @@ public class UserDetailsServiceImpl implements UserDetailsService, UserService{
     }
 
     @Override
-    public UserVO getListLecturer(String facultyId) {
+    public UserVO getListLecturer(SearchLecturerForm searchLecturerForm) {
         UserVO userVO = new UserVO();
-        List<LecturerDTO> lstLecturer = lecturerMapper.getListLecturerByFacultyId(facultyId);
+        SearchProjectDTO searchProjectDTO = new SearchProjectDTO();
+        CommonService.map(searchLecturerForm, searchProjectDTO);
+        PageUtil.initSearchDTO(searchProjectDTO, HEADER_SORT_LIST_LECTURER, DEFAULT_SORT_LIST_LECTURER);
+        List<LecturerDTO> lstLecturer = lecturerMapper.getListLecturerByFacultyId(searchProjectDTO);
         userVO.setLstLecturer(lstLecturer);
         return userVO;
     }
@@ -97,21 +130,90 @@ public class UserDetailsServiceImpl implements UserDetailsService, UserService{
     }
 
     @Override
-    public UserVO getListProjectByFacultyIdAndLevelId(String facultyId, String levelId) {
+    public UserVO getListProjectByFacultyIdAndLevelId(SearchProjectForm searchProjectForm) {
         UserVO userVO = new UserVO();
 
-        List<ProjectDTO> lstProject = projectMapper.getAllProjectByFaculty(facultyId, levelId);
+        SearchProjectDTO searchProjectDTO = new SearchProjectDTO();
+        CommonService.map(searchProjectForm, searchProjectDTO);
+        PageUtil.initSearchDTO(searchProjectDTO, HEADER_SORT, DEFAULT_SORT_PROJECT);
+        List<ProjectDTO> lstProject = projectMapper.getAllProjectByFaculty(searchProjectDTO);
         userVO.setLstProject(lstProject);
 
         return userVO;
     }
 
     @Override
-    public UserVO getListProjectByLeaderId(String lecturerId) {
+    public UserVO getListProjectByLeaderId(SearchProjectForm searchProjectForm) {
+        if (searchProjectForm.getLecturerId() == null) {
+            Integer userId = commonService.getCurrentUserId();
+            Lecturer lecturer = new Lecturer();
+            lecturer.setUserId(userId);
+            List<Lecturer> newLecturer = lecturerMapper.selectWithExample(lecturer);
+            if (!CollectionUtils.isEmpty(newLecturer)) {
+                searchProjectForm.setLecturerId(newLecturer.get(0).getLecturerId().toString());
+            }
+        }
+        SearchProjectDTO searchProjectDTO = new SearchProjectDTO();
+        CommonService.map(searchProjectForm, searchProjectDTO);
+        PageUtil.initSearchDTO(searchProjectDTO, HEADER_SORT_LIST_PROJECT_BY_LEADERID, DEFAULT_SORT_LIST_PROJECT_BY_LEADERID);
         UserVO userVO = new UserVO();
-        userVO.setLstProject(projectMapper.getListProjectByLecturerId(lecturerId));
+        userVO.setLstProject(projectMapper.getListProjectByLecturerId(searchProjectDTO));
 
         return userVO;
+    }
+
+    @Override
+    public UserVO getListProjectEnableByLeaderId(SearchProjectForm searchProjectForm) {
+        if (searchProjectForm.getLecturerId() == null) {
+            Integer userId = commonService.getCurrentUserId();
+            Lecturer lecturer = new Lecturer();
+            lecturer.setUserId(userId);
+            List<Lecturer> newLecturer = lecturerMapper.selectWithExample(lecturer);
+            if (!CollectionUtils.isEmpty(newLecturer)) {
+                searchProjectForm.setLecturerId(newLecturer.get(0).getLecturerId().toString());
+            }
+        }
+        SearchProjectDTO searchProjectDTO = new SearchProjectDTO();
+        CommonService.map(searchProjectForm, searchProjectDTO);
+        PageUtil.initSearchDTO(searchProjectDTO, HEADER_SORT_LIST_PROJECT_BY_LEADERID, DEFAULT_SORT_LIST_PROJECT_BY_LEADERID);
+        UserVO userVO = new UserVO();
+        userVO.setLstProject(projectMapper.getListProjectByLecturerId(searchProjectDTO));
+
+        return userVO;
+    }
+
+    @Override
+    public Integer countAllProject(SearchProjectForm searchProjectForm) {
+        SearchProjectDTO searchProjectDTO = new SearchProjectDTO();
+        CommonService.map(searchProjectForm, searchProjectDTO);
+        int result = projectMapper.countAllProjectByFacultyAndLevel(searchProjectDTO);
+        return result;
+    }
+
+    @Override
+    public Integer countAllProjectEnable(SearchProjectForm searchProjectForm) {
+        SearchProjectDTO searchProjectDTO = new SearchProjectDTO();
+        CommonService.map(searchProjectForm, searchProjectDTO);
+        int result = projectMapper.countAllProjectEnableByFacultyAndLevel(searchProjectDTO);
+        return result;
+    }
+
+    @Override
+    public Integer countAllLecturer(SearchLecturerForm searchLecturerForm) {
+        SearchLecturerDTO searchLecturerDTO = new SearchLecturerDTO();
+        CommonService.map(searchLecturerForm, searchLecturerDTO);
+        return lecturerMapper.countAllLecturerByFacultyId(searchLecturerDTO);
+    }
+
+    @Override
+    public Boolean checkExitsRegisterByUserId() {
+        if (commonService.checkExitsGP()) {
+            return true;
+        }
+        if (commonService.checkExitsRegistForm()) {
+            return true;
+        }
+        return false;
     }
 
 

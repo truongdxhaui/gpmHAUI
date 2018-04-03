@@ -3,4 +3,36 @@
 
 <mapper namespace="com.clc.gpm.dao.mapper.RegistrationFormMapper">
 
+    <select id="getStudentByUserId" resultType="RegisterFormDTO">
+        SELECT
+            s.STUDENT_ID as studentId,
+            u.FIRSTNAME as firstName,
+            u.LASTNAME as lastName,
+            p.ID as projectId,
+            p.NAME as projectName,
+            gr.NAME as groupName,
+            p.CONTENT_PROJECT_GP as content,
+            lvl.LEVEL_NAME as level,
+            p.REQUIREMENT_GP as requirement,
+            u.ID as userId
+        FROM
+          student as s, user as u, project as p, group_project as gr, lecturer AS l, level as lvl
+        WHere
+            s.USER_ID = #{userId} and
+            u.id = #{userId} and
+            p.ID = #{projectId} and
+            gr.id = p.GROUP_PROJECT_ID and
+            p.LECTURER_ID = l.LECTURER_ID AND
+            lvl.LEVEL_ID = p.LEVEL AND
+            p.DELETE_FLG = '0'
+    </select>
+
+    <select id="checkExitsByUserId" resultType="Integer">
+        SELECT COUNT(*)
+        FROM registration_form as r, team_user as tu
+        WHERE
+        tu.user_id = #{userId} AND
+        r.TEAM_ID = tu.team_id
+    </select>
+
 </mapper>

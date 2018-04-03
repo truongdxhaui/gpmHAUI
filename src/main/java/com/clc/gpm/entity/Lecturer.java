@@ -24,14 +24,14 @@ public class Lecturer extends BaseEntity{
     private int userId;
 
     @PrimaryKey(name = "LECTURER_ID")
-    private Integer lecturerId;
+    private String lecturerId;
 
     @Column(name = "POSITION")
-    private int position;
+    private String position;
 
     @Column(name = "SPECIALIZE")
     private String specialize;
 
     @Column(name = "FACULTY_ID")
-    private int facultyId;
+    private String facultyId;
 }

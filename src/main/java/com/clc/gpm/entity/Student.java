@@ -1,6 +1,7 @@
 package com.clc.gpm.entity;
 
 import com.clc.gpm.dao.common.annotation.Column;
+import com.clc.gpm.dao.common.annotation.PrimaryKey;
 import com.clc.gpm.dao.common.annotation.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,7 +23,7 @@ public class Student extends BaseEntity {
     @Column(name = "USER_ID")
     private int userId;
 
-    @Column(name = "STUDENT_ID")
+    @PrimaryKey(name = "STUDENT_ID")
     private String studentId;
 
     @Column(name = "CLASS_ID")

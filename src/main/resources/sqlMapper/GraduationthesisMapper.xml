@@ -3,4 +3,14 @@
 
 <mapper namespace="com.clc.gpm.dao.mapper.GraduationthesisMapper">
 
+    <select id="checkExitsByUserId" resultType="Integer">
+        select COUNT(*)
+        from graduation_thesis as gp, registration_form as f, team_user
+        WHERE
+        gp.REGISTRATION_FORM_ID = f.id AND
+        team_user.user_id = 2 and
+        gp.DELETE_FLG = '0'  and
+        f.DELETE_FLG = '0'
+    </select>
+    
 </mapper>

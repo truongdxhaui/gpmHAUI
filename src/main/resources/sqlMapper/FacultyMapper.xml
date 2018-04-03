@@ -10,13 +10,6 @@
         FROM faculty
           WHERE
           faculty.DELETE_FLG = '0'
-        <if test="orderBy == null or orderBy.length == 0">
-            ORDER BY FACULTY_ID ASC
-        </if>
-        <if test="orderBy !=null and orderBy.length > 0">
-            ORDER BY ${orderBy} ${orderType}
-        </if>
-        LIMIT #{offset}, #{limit}
     </select>
 
     <select id="countAllFaculty" resultType="int">

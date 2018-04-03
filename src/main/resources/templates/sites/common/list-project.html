@@ -3,6 +3,7 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <div class="row" style="margin-top: 30px;">
     <div class="x_panel" style="margin-top: 10px; position: relative">
+
         <th:block>
             <div class="pagging">
                 <div th:replace="/sites/common/table::table-header"></div>
@@ -11,11 +12,11 @@
                    style="width: 99%; position: relative; z-index: 0">
                 <thead style="position: relative">
                 <tr>
-                    <th style="text-align: center">Mã đề tài</th>
-                    <th style="text-align: center">Tên đề tài</th>
-                    <th style="text-align: center">Thông tin đề tài</th>
-                    <th style="text-align: center">Giảng viên hướng dẫn</th>
-                    <th style="text-align: center">Hệ đào tạo</th>
+                    <th style="text-align: center" onclick="doSortAjax(0)">Mã đề tài</th>
+                    <th style="text-align: center" onclick="doSortAjax(1)">Tên đề tài</th>
+                    <th style="text-align: center" onclick="doSortAjax(2)">Thông tin đề tài</th>
+                    <th style="text-align: center" onclick="doSortAjax(3)">Giảng viên hướng dẫn</th>
+                    <th style="text-align: center" onclick="doSortAjax(4)">Hệ đào tạo</th>
                     <th style="text-align: center"></th>
                 </tr>
                 </thead>
@@ -27,16 +28,18 @@
                     <td style="text-align: center; " th:text="${itm.lecturerId}"></td>
                     <td style="text-align: center; " th:text="${itm.levelName}"></td>
                     <td>
-                        <a>
+                        <a th:if="${registed == null}" th:href="@{|register-gp/register-form?projectId=${itm.id}|}">
+                            <button class="btn btn-success new-btn" >Đăng ký ❯</button>
+                        </a>
+                        <a th:unless="${registed == null}" onclick="alert('Bạn đã đăng ký đề tài! Vui lòng không đăng kí lại!')">
                             <button class="btn btn-success new-btn" >Đăng ký ❯</button>
                         </a>
                     </td>
-                    <!--  <td th:text="${lsProject[i.index].name}"></td>-->
                 </tr>
                 </tbody>
             </table>
         </th:block>
     </div>
 </div>
-
+<script th:src="@{/js/common/table.js}"></script>
 </html>

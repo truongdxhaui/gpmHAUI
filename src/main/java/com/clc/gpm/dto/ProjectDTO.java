@@ -19,4 +19,6 @@ public class ProjectDTO extends BaseDTO {
     private String lecturerId;
 
     private String levelName;
+
+    private int status;
 }

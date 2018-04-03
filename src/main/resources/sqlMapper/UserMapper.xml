@@ -21,6 +21,18 @@
         LIMIT #{offset}, #{limit}
     </select>
 
+    <select id="getLecturerInfoForRegistform" resultType="UserDTO">
+        SELECT
+            user.FIRSTNAME AS firstnameLecturer,
+            user.LASTNAME AS lastnameLecturer,
+            lecturer.SPECIALIZE AS specialize,
+            lecturer.LECTURER_ID AS lecturerId
+        FROM
+            lecturer, user
+        WHERE
+            user.ID = lecturer.USER_ID AND user.ID = #{userId}
+    </select>
+
     <resultMap id="checkExitByUsernameResult" type="User">
         <result property="id" column="ID"/>
         <result property="username" column="USERNAME"/>

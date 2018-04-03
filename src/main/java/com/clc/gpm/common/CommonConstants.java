@@ -1,5 +1,8 @@
 package com.clc.gpm.common;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -9,6 +12,8 @@ import java.util.List;
  * @author truong.pq
  * @since 2017/11/25
  */
+@Getter
+@Setter
 public class CommonConstants {
     // root directory
     /**  ROOT_DIRECTORY */
@@ -89,7 +94,7 @@ public class CommonConstants {
     public static final String DATE_FORMAT_YYYYMMDD = "yyyy/MM/dd";
 
     /** GRID_ROW_COUNT */
-    public static final Integer GRID_ROW_COUNT = 10;
+    public static final Integer GRID_ROW_COUNT = 1;
 
     // validate constan
     /** 船会社名 max length */
@@ -305,4 +310,5 @@ public class CommonConstants {
 
     /** STR_YEAR */
     public static final String STR_YEAR_PATTERN = "%s年/%s";
+
 }

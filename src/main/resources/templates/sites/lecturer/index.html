@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <title>Sinh viên | Hệ thống quản lý đồ án tốt nghiệp HAUI</title>
+
+    <!-- CSS -->
+    <th:block th:replace="/sites/common/lecturer_layout :: admin-default-css"></th:block>
+
+    <link th:href="@{/css/animate.css}" rel="stylesheet">
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+</head>
+
+<body class="">
+
+<div id="wrapper">
+
+    <nav class="navbar-default navbar-static-side" role="navigation"
+         th:replace="/sites/common/lecturer_layout :: admin-nav"></nav>
+    <div id="page-wrapper" class="gray-bg">
+        <div class="row border-bottom" th:replace="/sites/common/lecturer_layout :: admin-header"></div>
+
+
+        <!-- Content-->
+
+        <!-- End Content -->
+
+        <div class="footer" th:replace="/sites/common/lecturer_layout :: admin-footer"></div>
+
+    </div>
+</div>
+
+<!-- JS -->
+<th:block th:replace="/sites/common/lecturer_layout :: admin-default-js"></th:block>
+
+<!-- Custom and plugin javascript -->
+<script th:src="@{/js/inspinia.js}"></script>
+<script th:src="@{/js/plugins/pace/pace.min.js}"></script>
+
+</body>
+
+</html>

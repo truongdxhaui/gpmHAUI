@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+>
 <head>
     <meta charset="UTF-8"/>
     <title>Hệ thống quản lý đồ án tốt nghiệp Đại Học Công Nghiệp Hà
@@ -67,37 +67,66 @@
             <h2 style="font-size: 30px">Danh sách giảng viên hướng dẫn</h2>
         </div>
         <div class="col-md-4 col-sm-12">
-            <h2>Chọn khoa:</h2>
+            <form id="searchForm" th:object="${searchLecturerForm}">
+                <h2>Chọn khoa:</h2>
 
-            <select class="form-control" name="faculty" id="faculty">
-                <option value="" th:hidden="true">Hãy lựa chọn khoa</option>
-                <th:block th:unless="${#lists.isEmpty(userVO.getLstFaculty())}">
-                    <option th:each="faculty, i : ${userVO.getLstFaculty()}"
-                            th:value="${faculty.facultyId}" th:text="${faculty.name}"></option>
-                </th:block>
-            </select>
+                <select class="form-control" name="facultyId" id="facultyId">
+                    <option value="" th:hidden="true">Hãy lựa chọn khoa</option>
+                    <th:block th:unless="${#lists.isEmpty(userVO.getLstFaculty())}">
+                        <option th:each="faculty, i : ${userVO.getLstFaculty()}"
+                                th:value="${faculty.facultyId}" th:text="${faculty.name}"></option>
+                    </th:block>
+                </select>
+                <th:block th:replace="/sites/common/search-block :: search-block"></th:block>
+            </form>
         </div>
     </div>
     <div id="main-content" class="row" style="margin-top: 30px;"></div>
-
 </div>
 
 </body>
 <script th:src="@{/js/jquery-3.1.1.min.js}"></script>
 <script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/custom.js}"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#faculty").change(function() {
-            var x = $("#faculty").val();
 
-            $.get("/user/get-lecturer", {
-                facultyId : x
-            }, function(data) {
-                $("#main-content").html(data);
-            });
+        $("#searchForm").submit(function (e) {
+            e.preventDefault();
+            loadListLecturer();
+        });
 
+        $("#facultyId").change(function () {
+            loadListLecturer();
         });
     });
+
+    function loadListLecturer() {
+        var x = getFormData($('#searchForm'));
+
+        $.get("/user/get-lecturer", {
+            facultyId: x.facultyId,
+            level: x.level,
+            page: x.page,
+            sortIndex: x.sortIndex,
+            sortType: x.sortType,
+        }, function (data) {
+            $("#main-content").html(data);
+        });
+    }
+    function doSortAjax(sortIndex) {
+        if ($("#sortBy").val() == sortIndex && $("#sortType").val() == 'ASC') {
+            $("#sortType").val('DESC');
+        } else {
+            $("#sortBy").val(sortIndex);
+            $("#sortType").val('ASC');
+        }
+        var form = document.getElementById('searchForm');
+        createHiddenInput(form, "paging", true);
+        loadListLecturer();
+    }
+
+
 </script>
 
 </html>

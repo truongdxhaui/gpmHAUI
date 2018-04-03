@@ -3,6 +3,7 @@ package com.clc.gpm.vo;
 import com.clc.gpm.dto.FacultyDTO;
 import com.clc.gpm.dto.LecturerDTO;
 import com.clc.gpm.dto.ProjectDTO;
+import com.clc.gpm.dto.RegisterFormDTO;
 import com.clc.gpm.entity.Level;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,5 +22,7 @@ public class StudentVO {
     private List<LecturerDTO> lstLecturer;
 
     private List<Level> lstLevel;
+
+    private RegisterFormDTO registerFormDTO;
 
 }

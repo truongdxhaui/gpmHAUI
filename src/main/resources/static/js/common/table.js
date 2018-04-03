@@ -45,6 +45,8 @@ function doSort(sortIndex) {
     $("#searchForm").submit();
 }
 
+
+
 function nextbtn(n) {
     document.getElementById('page').value = ++n;
     $("#searchForm").submit();

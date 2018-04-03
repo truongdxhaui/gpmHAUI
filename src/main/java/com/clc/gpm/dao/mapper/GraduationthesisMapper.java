@@ -6,4 +6,5 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface GraduationthesisMapper extends BaseMapper<Graduationthesis> {
+    Integer checkExitsByUserId(int userId);
 }

@@ -3,7 +3,7 @@
 
 <mapper namespace="com.clc.gpm.dao.mapper.LecturerMapper">
 
-    <select id="getAllLecturerSummary" parameterType="SearchLecturerDTO" >
+    <select id="getAllLecturerSummary" parameterType="SearchLecturerDTO">
         SELECT
             l.LECTURER_ID, FIRSTNAME, LASTNAME, p.NAME, f.NAME
         FROM
@@ -18,20 +18,38 @@
             AND l.DELETE_FLG = '0'
     </select>
 
-    <select id="getListLecturerByFacultyId" resultType="LecturerDTO">
+    <select id="getListLecturerByFacultyId" parameterType="SearchProjectDTO" resultType="LecturerDTO">
         SELECT
-        l.LECTURER_ID as lecturerId,
-        u.FIRSTNAME as firstName,
-        u.LASTNAME AS lastName,
-        u.DESCRIPTION as description,
-        (SELECT count(*) FROM project as p WHERE p.LECTURER_ID = l.LECTURER_ID AND p.DELETE_FLG = '0' AND p.STATUS = '1') as projectNum
-        FROM lecturer as l, user as u
+            l.LECTURER_ID as lecturerId,
+            u.FIRSTNAME as firstName,
+            u.LASTNAME AS lastName,
+            u.DESCRIPTION as description,
+            (SELECT count(*) FROM project as p WHERE p.LECTURER_ID = l.LECTURER_ID AND p.DELETE_FLG = '0' AND p.STATUS =
+            '1') as projectNum
+        FROM
+            lecturer as l, user as u
+        WHERE
+            u.ID = l.USER_ID AND
+            l.FACULTY_ID = #{facultyId} AND
+            l.DELETE_FLG = '0'
+            <if test="orderBy == null or orderBy.length == 0">
+            ORDER BY l.LECTURER_ID ASC
+            </if>
+            <if test="orderBy !=null and orderBy.length > 0">
+                ORDER BY ${orderBy} ${orderType}
+            </if>
+            LIMIT #{offset}, #{limit}
+    </select>
+
+    <select id="countAllLecturerByFacultyId" parameterType="SearchProjectDTO" resultType="int">
+        SELECT
+       COUNT(*)
+        FROM
+        lecturer as l, user as u
         WHERE
         u.ID = l.USER_ID AND
         l.FACULTY_ID = #{facultyId} AND
         l.DELETE_FLG = '0'
     </select>
-
-
 
 </mapper>

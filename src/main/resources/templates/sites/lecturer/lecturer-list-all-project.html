@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <title>Sinh viên | Hệ thống quản lý đồ án tốt nghiệp HAUI</title>
+
+    <!-- CSS -->
+    <th:block th:replace="/sites/common/lecturer_layout :: admin-default-css"></th:block>
+
+    <link th:href="@{/css/animate.css}" rel="stylesheet">
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+</head>
+
+<body class="">
+
+<div id="wrapper">
+
+    <nav class="navbar-default navbar-static-side" role="navigation"
+         th:replace="/sites/common/lecturer_layout :: admin-nav"></nav>
+    <div id="page-wrapper" class="gray-bg">
+        <div class="row border-bottom" th:replace="/sites/common/lecturer_layout :: admin-header"></div>
+
+
+        <!-- Content-->
+        <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-lg-10">
+                <h2>Danh sách đề tài</h2>
+                <ol class="breadcrumb">
+                    <li>
+                        <a href="/lecturer/">Trang chủ</a>
+                    </li>
+                    <li class="active">
+                        <strong>Danh sách đề tài</strong>
+                    </li>
+                </ol>
+            </div>
+            <div class="col-lg-2">
+
+            </div>
+        </div>
+
+        <div class="wrapper wrapper-content ">
+            <div class="row">
+
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Danh sách đề tài</h5>
+                            <div class="ibox-tools">
+                                <a class="dropdown-toggle" href="#">
+                                    <i class="fa fa-plus"></i>
+                                </a>
+                                <a class="dropdown-toggle editOption no-modal" href="#" data-target="#editModal">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                                <a class="dropdown-toggle editOption" href="#">
+                                    <i class="fa fa-trash-o"></i>
+                                </a>
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <th:block>
+                            <div class="ibox-content">
+                                <div id="main-content" style="margin-top: 30px;">
+                                    <div class="pagging">
+                                        <div th:replace="/sites/common/table::table-header"></div>
+                                    </div>
+                                    <table id="myTable" class="table table-striped table-bordered"
+                                           style="width: 99%; position: relative; z-index: 0">
+                                        <thead style="position: relative">
+                                        <tr>
+                                            <th style="text-align: center" onclick="doSort(0)">Mã đề tài</th>
+                                            <th style="text-align: center" onclick="doSort(1)">Tên đề tài</th>
+                                            <th style="text-align: center" onclick="doSort(2)">Thông tin đề tài</th>
+                                            <th style="text-align: center" onclick="doSort(3)">Trạng thái</th>
+                                            <th style="text-align: center" onclick="doSort(4)">Hệ đào tạo</th>
+                                            <th style="text-align: center"></th>
+                                        </tr>
+                                        </thead>
+                                        <tr th:each="itm : ${userVO.getLstProject()}">
+                                            <td style="text-align: center; " th:text="${itm.id}"></td>
+                                            <td style="text-align: center; "><a th:text="${itm.name}"></a></td>
+                                            <td style="text-align: center; " th:text="${itm.description}"></td>
+                                            <td style="text-align: center; ">
+                                                <span th:id="|status-*{itm.id}|" class="label label-primary" th:if="*{itm.status == 1}">Enable</span>
+                                                <span th:id="|status-*{itm.id}|" class="label label-danger" th:unless="*{itm.status == 1}">Disabled</span>
+                                            </td>
+                                            <td style="text-align: center; " th:text="${itm.levelName}"></td>
+                                            <td>
+                                                <a th:if="*{itm.status == 1}">
+                                                    <button class="btn btn-danger new-btn" th:onclick="|disableProject(${itm.id})|">Dừng ❯</button>
+                                                </a>
+                                                <a th:unless="*{itm.status == 1}">
+                                                    <button class="btn btn-info new-btn" th:onclick="|enableProject(${itm.id})|">Kích hoạt ❯</button>
+                                                </a>
+                                            </td>
+                                            <!--  <td th:text="${lsProject[i.index].name}"></td>-->
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </th:block>
+                        <form id="searchForm" th:object="${searchProjectForm}">
+                            <input type="hidden" th:field="*{lecturerId}"/>
+                            <th:block th:replace="/sites/common/search-block :: search-block"></th:block>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- End Content -->
+
+        <div class="footer" th:replace="/sites/common/lecturer_layout :: admin-footer"></div>
+
+    </div>
+</div>
+
+
+<!-- JS -->
+<th:block th:replace="/sites/common/lecturer_layout :: admin-default-js"></th:block>
+
+<!-- Custom and plugin javascript -->
+<script th:src="@{/js/inspinia.js}"></script>
+<script th:src="@{/js/plugins/pace/pace.min.js}"></script>
+<script th:src="@{/js/common/table.js}"></script>
+<script type="text/javascript">
+
+    function enableProject(x) {
+
+        var val = {projectId : x};
+        $.ajax({
+            url: "activeProject",
+            data: val,
+            type: "GET",
+            cache: false,
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("Accept", "application/json");
+                xhr.setRequestHeader("Content-Type", "application/json");
+            },
+            success: function (data) {
+                $('#status'+x).replaceWith('<span id="status-'+ x +'" class="label label-danger" th:unless="*{itm.status == 1}">Disabled</span>');
+            },
+            error: function () {
+            }
+        });
+    }
+
+    function disableProject(x) {
+        $.ajax({
+            url: "editFaculty",
+            data: JSON.stringify(objAdd),
+            type: "POST",
+            cache: false,
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("Accept", "application/json");
+                xhr.setRequestHeader("Content-Type", "application/json");
+            },
+            success: function (data) {
+                //location.reload();
+                alert("Sửa thành công!")
+                location.reload();
+            },
+            error: function () {
+                alert("Sửa thất bại!")
+            }
+        });
+    }
+
+</script>
+
+</body>
+
+</html>

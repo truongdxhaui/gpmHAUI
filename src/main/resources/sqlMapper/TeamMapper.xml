@@ -3,4 +3,18 @@
 
 <mapper namespace="com.clc.gpm.dao.mapper.TeamMapper">
 
+    <select id="checkTeamIdByUserName" resultType="int">
+      SELECT COUNT(*)
+      FROM team_user
+      WHERE
+      user_id = #{userId}
+    </select>
+
+    <select id="getTeamId" resultType="int">
+        SELECT
+        team_id
+        FROM team_user
+        WHERE user_id = #{userId}
+    </select>
+
 </mapper>

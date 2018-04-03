@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <title>Sinh viên | Hệ thống quản lý đồ án tốt nghiệp HAUI</title>
+
+    <!-- CSS -->
+    <th:block th:replace="/sites/common/student_layout :: admin-default-css"></th:block>
+
+    <link th:href="@{/css/animate.css}" rel="stylesheet">
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+</head>
+
+<body class="">
+
+<div id="wrapper">
+
+    <nav class="navbar-default navbar-static-side" role="navigation"
+         th:replace="/sites/common/student_layout :: admin-nav"></nav>
+    <div id="page-wrapper" class="gray-bg">
+        <div class="row border-bottom" th:replace="/sites/common/student_layout :: admin-header"></div>
+
+        <!-- Content-->
+        <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-lg-10">
+                <h2>Đăng kí đề tài</h2>
+                <ol class="breadcrumb">
+                    <li>
+                        <a href="/student/">Trang chủ</a>
+                    </li>
+                    <li>
+                        <a>Danh sách đề tài</a>
+                    </li>
+                    <li class="active">
+                        <strong>Phiếu đăng kí đề tài</strong>
+                    </li>
+                </ol>
+            </div>
+            <div class="col-lg-2">
+
+            </div>
+        </div>
+        <div class="wrapper wrapper-content ">
+            <div class="row">
+
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Phiếu đăng kí đề tài
+                                <small>(Lưu ý kiểm tra đúng thông tin nhập vào)</small>
+                            </h5>
+                            <div class="ibox-tools">
+                                <a class="dropdown-toggle" href="#">
+                                    <i class="fa fa-plus"></i>
+                                </a>
+                                <a class="dropdown-toggle editOption">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                                <a class="dropdown-toggle editOption" href="#">
+                                    <i class="fa fa-trash-o"></i>
+                                </a>
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="ibox-content">
+                            Dang ki thanh cong
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- End Content -->
+
+        <div class="footer" th:replace="/sites/common/student_layout :: admin-footer"></div>
+
+    </div>
+</div>
+
+<!-- JS -->
+<th:block th:replace="/sites/common/student_layout :: admin-default-js"></th:block>
+
+<!-- Custom and plugin javascript -->
+<script th:src="@{/js/inspinia.js}"></script>
+<script th:src="@{/js/plugins/pace/pace.min.js}"></script>
+<script th:src="@{/js/custom.js}"></script>
+<script type="text/javascript">
+
+
+</script>
+</body>
+
+</html>
