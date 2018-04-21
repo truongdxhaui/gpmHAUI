@@ -5,4 +5,6 @@ import com.clc.gpm.vo.StudentVO;
 public interface StudentProjectService  {
 
     StudentVO getRegisterFormByProjectId(int projectId);
+
+    StudentVO getRegisterForm();
 }

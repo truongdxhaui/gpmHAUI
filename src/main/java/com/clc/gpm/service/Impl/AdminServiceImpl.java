@@ -57,6 +57,7 @@ public class AdminServiceImpl implements AdminService {
         Level level = gson.fromJson(obj, Level.class);
         level.setStatus("1");
         CommonService.copyCreateInfo(level);
+
         return levelMapper.insert(level);
     }
 }

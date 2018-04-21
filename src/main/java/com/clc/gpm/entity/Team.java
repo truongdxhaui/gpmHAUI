@@ -29,4 +29,10 @@ public class Team extends BaseEntity{
     @Column(name = "REGISTRATION_FORM_ID")
     private int registrationFormId;
 
+    public Team() {
+    }
+
+    public Team(int id) {
+        this.id = id;
+    }
 }

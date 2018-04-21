@@ -45,4 +45,6 @@ public class RegisterGPForm extends AppForm {
     private String type;
 
     private String teamId;
+
+    private String refresh;
 }

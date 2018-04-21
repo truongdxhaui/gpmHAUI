@@ -67,18 +67,24 @@ public class StudentServiceImpl extends BaseService implements StudentService {
         RegistrationForm registrationForm = new RegistrationForm();
         CommonService.map(registerFormDTO, registrationForm);
         registrationForm.setTeamId(teamId);
+        copyCreateInfoEntity(registrationForm);
         int result = registrationFormMapper.insert(registrationForm);
         if (result == 0) {
             rollBack("F0001");
             return false;
         }
+        Team team = teamMapper.selectByPK(new Team(teamId));
+        team.setRegistrationFormId(registrationForm.getId());
+
+        teamMapper.updateNotNullByPK(team);
+
         return true;
     }
 
     //Lay ma team cua sinh vien. Nei chua co thi tao moi
     private Integer getTeamId() {
         Integer currentUserId = commonService.getCurrentUserId();
-
+        
         int teamIdCheck = teamMapper.checkTeamIdByUserName(currentUserId);
 
         if (teamIdCheck <= 0) {

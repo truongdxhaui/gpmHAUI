@@ -8,7 +8,7 @@
     <title>Sinh viên | Hệ thống quản lý đồ án tốt nghiệp HAUI</title>
 
     <!-- CSS -->
-    <th:block th:replace="/sites/common/student_layout :: admin-default-css"></th:block>
+    <th:block th:replace="/sites/common/lecturer_layout :: admin-default-css"></th:block>
 
     <link th:href="@{/css/animate.css}" rel="stylesheet">
     <link th:href="@{/css/style.css}" rel="stylesheet">
@@ -19,9 +19,9 @@
 <div id="wrapper">
 
     <nav class="navbar-default navbar-static-side" role="navigation"
-         th:replace="/sites/common/student_layout :: admin-nav"></nav>
+         th:replace="/sites/common/lecturer_layout :: admin-nav"></nav>
     <div id="page-wrapper" class="gray-bg">
-        <div class="row border-bottom" th:replace="/sites/common/student_layout :: admin-header"></div>
+        <div class="row border-bottom" th:replace="/sites/common/lecturer_layout :: admin-header"></div>
 
         <!-- Content-->
         <div class="row wrapper border-bottom white-bg page-heading">
@@ -32,7 +32,7 @@
                         <a href="/student/">Trang chủ</a>
                     </li>
                     <li>
-                        <a>Danh sách đề tài</a>
+                        <a href="/lecturer/list-registrator-form">Danh sách đề tài</a>
                     </li>
                     <li class="active">
                         <strong>Phiếu đăng kí đề tài</strong>
@@ -49,9 +49,7 @@
                 <div class="col-lg-12">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
-                            <h5>Phiếu đăng kí đề tài
-                                <small>(Lưu ý kiểm tra đúng thông tin nhập vào)</small>
-                            </h5>
+                            <h5>Phiếu đăng kí đề tài</h5>
                             <div class="ibox-tools">
                                 <a class="dropdown-toggle" href="#">
                                     <i class="fa fa-plus"></i>
@@ -69,20 +67,25 @@
                         </div>
 
                         <div class="ibox-content">
-                            <form action="/student/register-gp/register-form" method="post" class="form-horizontal" th:object="${registerForm}">
+                            <form action="/student/register-gp/register-form" method="post" class="form-horizontal"
+                                  th:object="${registerForm}" th:if="${registerForm != null}">
 
                                 <h3>Thông tin cá nhân</h3>
                                 <p>Sinh viên điền thông tin cá nhân</p>
                                 <hr>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">Mã sinh viên: </label>
-                                    <div class="col-sm-10">
-                                        <label type="text" th:text="*{studentId}"></label></div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">Họ & tên: </label>
-                                    <div class="col-sm-10"><label type="text" th:text="|*{lastName} *{firstName}|">Nguyễn Văn A</div>
-                                </div>
+                                <th:block th:each="itm : *{lsStudent}">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Mã sinh viên: </label>
+                                        <div class="col-sm-10">
+                                            <label type="text" th:text="${itm.studentId}"></label></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Họ & tên: </label>
+                                        <div class="col-sm-10"><label type="text" th:text="|${itm.lastName} ${itm.firstName}|">Nguyễn
+                                            Văn A</div>
+                                    </div>
+                                    <hr>
+                                </th:block>
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">Hình thức: </label>
                                     <div class="col-sm-10">
@@ -114,12 +117,14 @@
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">Nhóm đề tài: </label>
                                     <div class="col-sm-10">
-                                        <label type="text" th:text="*{groupName}">Công nghệ web, dịch vụ web</label></div>
+                                        <label type="text" th:text="*{groupName}">Công nghệ web, dịch vụ web</label>
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">Nội dung: </label>
                                     <div class="col-sm-10">
-                                        <label type="text" th:text="*{content}">Xây dựng hệ thống quản lý và giám sát đồ án tốt nghiệp sinh
+                                        <label type="text" th:text="*{content}">Xây dựng hệ thống quản lý và giám sát đồ
+                                            án tốt nghiệp sinh
                                             viên trực tuyến</label></div>
                                 </div>
                                 <div class="form-group">
@@ -130,18 +135,14 @@
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">Yêu cầu : </label>
                                     <div class="col-sm-10">
-                                        <label type="text" th:text="*{requirement}">Xây dựng hệ thống quản lý và giám sát đồ án tốt nghiệp sinh
+                                        <label type="text" th:text="*{requirement}">Xây dựng hệ thống quản lý và giám
+                                            sát đồ án tốt nghiệp sinh
                                             viên trực tuyến</label></div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">Giảng viên hướng dẫn: </label>
-                                    <div class="col-sm-10">
-                                        <label type="text" th:text="|*{specialize} *{lastnameLecturer} *{firstnameLecturer}|">ThS Hoàng Quang Huy</label></div>
                                 </div>
                                 <hr>
                                 <div class="form-group">
                                     <div class="col-sm-4 col-sm-offset-5">
-                                        <button class="btn btn-white" type="submit">Hủy phiếu đăng kí</button>
+                                        <button class="btn btn-danger">Hủy phiếu đăng kí</button>
                                     </div>
                                 </div>
                                 <input type="hidden"
@@ -150,6 +151,11 @@
                                 <input type="hidden"
                                        th:field="*{refresh}"/>
                             </form>
+                            <div th:unless="${registerForm != null}" class="error">
+                                Lỗi hệ thống. Vui lòng hủy phiếu đăng kí!
+                                <div><button class="btn btn-danger">Hủy phiếu đăng kí</button> </div>
+                            </div>
+
                         </div>
 
                     </div>
@@ -166,7 +172,7 @@
 </div>
 
 <!-- JS -->
-<th:block th:replace="/sites/common/student_layout :: admin-default-js"></th:block>
+<th:block th:replace="/sites/common/lecturer_layout :: admin-default-js"></th:block>
 
 <!-- Custom and plugin javascript -->
 <script th:src="@{/js/inspinia.js}"></script>

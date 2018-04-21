@@ -40,6 +40,16 @@
             </if>
             LIMIT #{offset}, #{limit}
     </select>
+    
+    <select id="getLecturerIdByUserId" resultType="String">
+        SELECT
+          lecturer.LECTURER_ID
+        FROM
+          lecturer
+        WHERE
+          DELETE_FLG = '0' AND
+          USER_ID = #{userId}
+    </select>
 
     <select id="countAllLecturerByFacultyId" parameterType="SearchProjectDTO" resultType="int">
         SELECT

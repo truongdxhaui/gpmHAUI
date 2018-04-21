@@ -28,8 +28,8 @@
                              </span>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <span class="clear"> <span class="block m-t-xs"> <strong
-                                    class="font-bold">Trường Đào Xuân</strong>
-                             </span> <span class="text-muted text-xs block">Java Developer <b class="caret"></b></span> </span>
+                                    class="font-bold" th:text="|${session.user.getFirstName()} ${session.user.getLastName()}|">Trường Đào Xuân</strong>
+                             </span> <span class="text-muted text-xs block" th:text="${session.user.major}">Java Developer <b class="caret"></b></span> </span>
                         </a>
                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
                             <li><a href="profile.html">Profile</a></li>
@@ -52,15 +52,14 @@
                     <a href="#"><i class="fa fa-diamond"></i> <span class="nav-label">Quản lý danh sách đề tài</span></a>
                     <ul class="nav nav-second-level collapse">
                         <li><a href="/lecturer/list-project">Danh sách đề tài</a></li>
-                        <li><a href="form_advanced.html">Danh sách đề tài đang hướng dẫn</a></li>
-                        <li><a href="form_wizard.html">Hộp thư đã xóa</a></li>
+                        <li><a href="/lecturer/list-enable-project">Danh sách đề tài đang hướng dẫn</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="layouts.html"><i class="fa fa-diamond"></i> <span class="nav-label">Yêu cầu</span></a>
+                    <a href="/lecturer/list-registrator-form"><i class="fa fa-diamond"></i> <span class="nav-label">Yêu cầu</span></a>
                 </li>
                 <li>
-                    <a href="#"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Quản lý đồ án hướng dẫn</span></a>
+                    <a href="/lecturer/listGP"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Quản lý đồ án hướng dẫn</span></a>
                 </li>
                 <li>
                     <a href="mailbox.html"><i class="fa fa-envelope"></i> <span class="nav-label">Mailbox</span><span

@@ -39,7 +39,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
+            http
                 .authorizeRequests()
                 .antMatchers("/user/**").permitAll()
                 .antMatchers("/student/**").hasRole("STUDENT")
@@ -50,7 +50,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .loginPage("/login")
                     .usernameParameter("username")
                     .passwordParameter("password")
-                    .defaultSuccessUrl("/admin/")
+                    .defaultSuccessUrl("/")
                     .failureUrl("/login?error")
                 .and()
                     .exceptionHandling();

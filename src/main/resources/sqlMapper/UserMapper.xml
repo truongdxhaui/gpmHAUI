@@ -33,6 +33,17 @@
             user.ID = lecturer.USER_ID AND user.ID = #{userId}
     </select>
 
+    <select id="getLoginedInfor" resultType="UserDTO">
+        SELECT
+          FIRSTNAME as firstName,
+          LASTNAME as lastName,
+          AVATAR as avatar,
+          MAJOR as major
+        FROM user
+
+        WHERE USERNAME = #{username};
+    </select>
+
     <resultMap id="checkExitByUsernameResult" type="User">
         <result property="id" column="ID"/>
         <result property="username" column="USERNAME"/>

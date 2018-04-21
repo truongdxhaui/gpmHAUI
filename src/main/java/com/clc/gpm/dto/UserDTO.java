@@ -13,4 +13,12 @@ public class UserDTO {
     private String specialize;
 
     private String lecturerId;
+
+    private String avatar;
+
+    private String firstName;
+
+    private String lastName;
+
+    private String major;
 }

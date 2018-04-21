@@ -12,10 +12,11 @@ import java.util.List;
 @Mapper
 public interface UserMapper extends BaseMapper<User> {
 
-    public User findByUsername(String username);
+    User findByUsername(String username);
 
-    public List<User> selectAllUser(SearchUserDTO searchUserDTO);
+    List<User> selectAllUser(SearchUserDTO searchUserDTO);
 
-    public UserDTO getLecturerInfoForRegistform(@Param("userId") String userId);
+    UserDTO getLecturerInfoForRegistform(@Param("userId") String userId);
 
+    UserDTO getLoginedInfor(String currentUsername);
 }

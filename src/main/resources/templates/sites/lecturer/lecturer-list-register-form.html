@@ -33,7 +33,7 @@
                         <a href="/lecturer/">Trang chủ</a>
                     </li>
                     <li class="active">
-                        <strong>Danh sách đề tài</strong>
+                        <strong>Danh sách đăng kí đề tài</strong>
                     </li>
                 </ol>
             </div>
@@ -75,38 +75,24 @@
                                            style="width: 99%; position: relative; z-index: 0">
                                         <thead style="position: relative">
                                         <tr>
-                                            <th style="text-align: center" onclick="doSort(0)">Mã đề tài</th>
+                                            <th style="text-align: center" onclick="doSort(0)">Mã nhóm</th>
                                             <th style="text-align: center" onclick="doSort(1)">Tên đề tài</th>
-                                            <th style="text-align: center" onclick="doSort(2)">Thông tin đề tài</th>
-                                            <th style="text-align: center" onclick="doSort(3)">Trạng thái</th>
-                                            <th style="text-align: center" onclick="doSort(4)">Hệ đào tạo</th>
+                                            <th style="text-align: center" onclick="doSort(2)">Thời gian đăng kí</th>
                                             <th style="text-align: center"></th>
                                         </tr>
                                         </thead>
-                                        <tr th:each="itm : ${userVO.getLstProject()}">
-                                            <td style="text-align: center; " th:text="${itm.id}"></td>
-                                            <td style="text-align: center; "><a th:text="${itm.name}"></a></td>
-                                            <td style="text-align: center; " th:text="${itm.description}"></td>
-                                            <td style="text-align: center; ">
-                                                <span th:id="|status-*{itm.id}|" class="label label-primary"
-                                                      th:if="*{itm.status == 1}">Enable</span>
-                                                <span th:id="|status-*{itm.id}|" class="label label-danger"
-                                                      th:unless="*{itm.status == 1}">Disabled</span>
-                                            </td>
-                                            <td style="text-align: center; " th:text="${itm.levelName}"></td>
+                                        <tr th:each="itm : ${userVO.getLstRegisterFormDTO()}">
+                                            <td style="text-align: center;" th:text="${itm.teamId}"></td>
+                                            <td style="text-align: center;"><a th:text="${itm.projectName}"></a></td>
+                                            <td style="text-align: center;" th:text="${itm.createTime}"></td>
                                             <td>
-                                                <a th:if="*{itm.status == 1}">
-                                                    <button class="btn btn-danger new-btn"
-                                                            th:onclick="|disableProject(this,${itm.id})|">Dừng ❯
-                                                    </button>
-                                                </a>
-                                                <a th:unless="*{itm.status == 1}">
+                                                <a>
                                                     <button class="btn btn-info new-btn"
-                                                            th:onclick="|enableProject(this,${itm.id})|">Kích hoạt ❯
+                                                            th:onclick="|doRedirect(${itm.teamId}, 'registration-form-detail')|">
+                                                        Chi tiết ❯
                                                     </button>
                                                 </a>
                                             </td>
-                                            <!--  <td th:text="${lsProject[i.index].name}"></td>-->
                                         </tr>
                                         </tbody>
                                     </table>
@@ -114,7 +100,6 @@
                             </div>
                         </th:block>
                         <form id="searchForm" th:object="${searchProjectForm}">
-                            <input type="hidden" th:field="*{lecturerId}"/>
                             <th:block th:replace="/sites/common/search-block :: search-block"></th:block>
                         </form>
                     </div>
@@ -139,6 +124,7 @@
 <script th:src="@{/js/inspinia.js}"></script>
 <script th:src="@{/js/plugins/pace/pace.min.js}"></script>
 <script th:src="@{/js/common/table.js}"></script>
+<script th:src="@{/js/common/common.js}"></script>
 <script type="text/javascript">
 
     function enableProject(itm, x) {
@@ -175,13 +161,31 @@
             },
             success: function (data) {
                 var id = "status-" + x;
-                location.reload();
+                $('#status-' + x).replaceWith("<span id=" + id + " class='label label-danger'>Disabled</span>");
+                $(itm).replaceWith("<button class=\"btn btn-primary new-btn\" onclick=\"enableProject(this," + x + ")\">Kích hoạt ❯</button>");
             },
             error: function () {
             }
         });
     }
 
+
+</script>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var csrf_param = /*[[${_csrf.parameterName}]]*/ "";
+    var csrf_token = /*[[${_csrf.token}]]*/ "";
+
+
+    function doRedirect(teamId, action) {
+        var form = createPostFormSubmit(action);
+        createHiddenInput(form, "teamId", teamId);
+        createHiddenInput(form, csrf_param, csrf_token);
+        form.submit();
+    }
+
+    /*]]>*/
 </script>
 
 </body>

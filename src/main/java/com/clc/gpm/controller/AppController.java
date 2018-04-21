@@ -3,7 +3,9 @@ package com.clc.gpm.controller;
 import com.clc.gpm.common.CommonConstants;
 import com.clc.gpm.common.MessageConstants;
 import com.clc.gpm.dto.BaseDTO;
+import com.clc.gpm.dto.UserDTO;
 import com.clc.gpm.exception.BaseException;
+import com.clc.gpm.service.CommonService;
 import com.clc.gpm.utils.CheckUtil;
 import com.clc.gpm.validator.common.AppValidator;
 import com.clc.gpm.validator.common.BindingResult;
@@ -35,6 +37,9 @@ import java.util.List;
  * @since 2017/11/25
  */
 public abstract class AppController {
+
+    @Autowired
+    private CommonService commonService;
 
     /** logger*/
     protected final Logger logger = LogManager.getLogger(this.getClass());
@@ -439,4 +444,16 @@ public abstract class AppController {
         dto.setDeleteFlg(CommonConstants.DB_DELETED);
         dto.setDeleteTime(LocalDateTime.now());
     }
+
+
+    /**
+     * Access denied page string.
+     *
+     * @return the string
+     */
+    public String accessDeniedPage(){
+        return "";
+    }
+
+
 }

@@ -4,16 +4,20 @@ import com.clc.gpm.dao.mapper.*;
 import com.clc.gpm.dto.FacultyDTO;
 import com.clc.gpm.dto.LecturerDTO;
 import com.clc.gpm.dto.ProjectDTO;
+import com.clc.gpm.dto.RegisterFormDTO;
 import com.clc.gpm.dto.search.SearchFacultyDTO;
 import com.clc.gpm.dto.search.SearchLecturerDTO;
 import com.clc.gpm.dto.search.SearchProjectDTO;
+import com.clc.gpm.dto.search.SearchRegisterFormDTO;
 import com.clc.gpm.entity.Lecturer;
 import com.clc.gpm.entity.Level;
 import com.clc.gpm.entity.Role;
 import com.clc.gpm.entity.User;
 import com.clc.gpm.form.search.SearchLecturerForm;
 import com.clc.gpm.form.search.SearchProjectForm;
+import com.clc.gpm.form.search.SearchRegisterForm;
 import com.clc.gpm.service.CommonService;
+import com.clc.gpm.service.LecturerService;
 import com.clc.gpm.service.UserService;
 import com.clc.gpm.utils.PageUtil;
 import com.clc.gpm.vo.UserVO;
@@ -55,6 +59,9 @@ public class UserDetailsServiceImpl implements UserDetailsService, UserService{
 
     private static final String[] HEADER_SORT_LIST_PROJECT_BY_LEADERID = {DEFAULT_SORT_LIST_PROJECT_BY_LEADERID, "p.NAME", "p.DESCRIPTION", "p.LECTURER_ID", "level.LEVEL_NAME"};
 
+    private static final String DEFAULT_SORT_REGISTERFORM = "teamId";
+
+    private static final String[] HEADER_SORT_LIST_REGISTERFORM = {DEFAULT_SORT_REGISTERFORM, "projectName", "createTime"};
 
     @Autowired
     private UserMapper userMapper;
@@ -77,6 +84,12 @@ public class UserDetailsServiceImpl implements UserDetailsService, UserService{
     @Autowired
     private CommonService commonService;
 
+    @Autowired
+    private RegistrationFormMapper registrationFormMapper;
+
+    @Autowired
+    private LecturerService lecturerService;
+
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -95,7 +108,7 @@ public class UserDetailsServiceImpl implements UserDetailsService, UserService{
              roles) {
             grantedAuthorities.add(new SimpleGrantedAuthority(role.getName()));
         }
-        
+
         return new  org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), grantedAuthorities);
     }
 
@@ -177,7 +190,7 @@ public class UserDetailsServiceImpl implements UserDetailsService, UserService{
         CommonService.map(searchProjectForm, searchProjectDTO);
         PageUtil.initSearchDTO(searchProjectDTO, HEADER_SORT_LIST_PROJECT_BY_LEADERID, DEFAULT_SORT_LIST_PROJECT_BY_LEADERID);
         UserVO userVO = new UserVO();
-        userVO.setLstProject(projectMapper.getListProjectByLecturerId(searchProjectDTO));
+        userVO.setLstProject(projectMapper.getListProjectEnableByLecturerId(searchProjectDTO));
 
         return userVO;
     }
@@ -216,5 +229,42 @@ public class UserDetailsServiceImpl implements UserDetailsService, UserService{
         return false;
     }
 
+    @Override
+    public UserVO getRequestRegisterForm(SearchRegisterForm searchRegisterForm) {
+        UserVO userVO = new UserVO();
+        searchRegisterForm.setLecturerId(lecturerService.getLecturerId());
+        SearchRegisterFormDTO searchRegisterFormDTO = new SearchRegisterFormDTO();
+        CommonService.map(searchRegisterForm, searchRegisterFormDTO);
+        PageUtil.initSearchDTO(searchRegisterFormDTO, HEADER_SORT_LIST_REGISTERFORM, DEFAULT_SORT_REGISTERFORM);
+        List<RegisterFormDTO> lstRegisterFormDTO = registrationFormMapper.getAllRegistForm(searchRegisterFormDTO);
+        userVO.setLstRegisterFormDTO(lstRegisterFormDTO);
+
+        return userVO;
+    }
+
+    @Override
+    public int countAllListRegisterForm(SearchRegisterForm searchProjectForm) {
+        searchProjectForm.setLecturerId(lecturerService.getLecturerId());
+        return registrationFormMapper.countRequestRegistForm(searchProjectForm);
+    }
+
+    @Override
+    public UserVO getListGP(SearchRegisterForm searchRegisterForm) {
+        UserVO userVO = new UserVO();
+        searchRegisterForm.setLecturerId(lecturerService.getLecturerId());
+        SearchRegisterFormDTO searchRegisterFormDTO = new SearchRegisterFormDTO();
+        CommonService.map(searchRegisterForm, searchRegisterFormDTO);
+        PageUtil.initSearchDTO(searchRegisterFormDTO, HEADER_SORT_LIST_REGISTERFORM, DEFAULT_SORT_REGISTERFORM);
+        List<RegisterFormDTO> lstRegisterFormDTO = registrationFormMapper.getAllGP(searchRegisterFormDTO);
+        userVO.setLstRegisterFormDTO(lstRegisterFormDTO);
+
+        return userVO;
+    }
+
+    @Override
+    public int countAllGP(SearchRegisterForm searchProjectForm) {
+        searchProjectForm.setLecturerId(lecturerService.getLecturerId());
+        return registrationFormMapper.countGP(searchProjectForm);
+    }
 
 }

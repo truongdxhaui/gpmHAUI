@@ -3,9 +3,13 @@ package com.clc.gpm.dto;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
-public class RegisterFormDTO extends BaseDTO{
+public class RegisterFormDTO extends BaseDTO {
+
+    private Integer id;
 
     private String studentId;
 
@@ -43,7 +47,11 @@ public class RegisterFormDTO extends BaseDTO{
 
     private String teamId;
 
-    public void setLecturerInfo(UserDTO userDTO){
+    private String refresh = "0";
+
+    private List<StudentDTO> lsStudent;
+
+    public void setLecturerInfo(UserDTO userDTO) {
         this.firstnameLecturer = userDTO.getFirstnameLecturer();
         this.lastnameLecturer = userDTO.getLastnameLecturer();
         this.specialize = userDTO.getSpecialize();

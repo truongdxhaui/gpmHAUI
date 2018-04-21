@@ -18,4 +18,5 @@ public interface LecturerMapper extends BaseMapper<Lecturer> {
 
     int countAllLecturerByFacultyId(SearchLecturerDTO searchLecturerDTO);
 
+    String getLecturerIdByUserId(Integer currentUserId);
 }

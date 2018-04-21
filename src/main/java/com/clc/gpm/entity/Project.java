@@ -1,6 +1,7 @@
 package com.clc.gpm.entity;
 
 import com.clc.gpm.dao.common.annotation.Column;
+import com.clc.gpm.dao.common.annotation.PrimaryKey;
 import com.clc.gpm.dao.common.annotation.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,11 +20,11 @@ import org.apache.ibatis.type.Alias;
 @Alias("Project")
 public class Project extends BaseEntity {
 
-    @Column(name = "ID")
+    @PrimaryKey(name = "ID")
     private int id;
 
     @Column(name = "LECTURER_ID")
-    private int lectureId;
+    private String lectureId;
 
     @Column(name = "ADDRESS_APPLICABLE")
     private String addressApplicable;
@@ -41,7 +42,7 @@ public class Project extends BaseEntity {
     private String requirement;
 
     @Column(name = "LEVEL")
-    private Integer level;
+    private String level;
 
     //Nhom de tau
     @Column(name = "GROUP_PROJECT_ID")
@@ -76,4 +77,11 @@ public class Project extends BaseEntity {
     ===========================*/
     @Column(name = "TYPE")
     private int type;
+
+    public Project() {
+    }
+
+    public Project(int id) {
+        this.id = id;
+    }
 }

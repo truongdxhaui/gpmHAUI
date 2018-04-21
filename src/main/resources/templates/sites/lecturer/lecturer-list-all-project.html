@@ -94,10 +94,14 @@
                                             <td style="text-align: center; " th:text="${itm.levelName}"></td>
                                             <td>
                                                 <a th:if="*{itm.status == 1}">
-                                                    <button class="btn btn-danger new-btn" th:onclick="|disableProject(${itm.id})|">Dừng ❯</button>
+                                                    <button class="btn btn-danger new-btn"
+                                                            th:onclick="|disableProject(this,${itm.id})|">Dừng ❯
+                                                    </button>
                                                 </a>
                                                 <a th:unless="*{itm.status == 1}">
-                                                    <button class="btn btn-info new-btn" th:onclick="|enableProject(${itm.id})|">Kích hoạt ❯</button>
+                                                    <button class="btn btn-info new-btn"
+                                                            th:onclick="|enableProject(this,${itm.id})|">Kích hoạt ❯
+                                                    </button>
                                                 </a>
                                             </td>
                                             <!--  <td th:text="${lsProject[i.index].name}"></td>-->
@@ -135,11 +139,10 @@
 <script th:src="@{/js/common/table.js}"></script>
 <script type="text/javascript">
 
-    function enableProject(x) {
-
+    function enableProject(itm, x) {
         var val = {projectId : x};
         $.ajax({
-            url: "activeProject",
+            url: "/api/activeProject",
             data: val,
             type: "GET",
             cache: false,
@@ -148,30 +151,32 @@
                 xhr.setRequestHeader("Content-Type", "application/json");
             },
             success: function (data) {
-                $('#status'+x).replaceWith('<span id="status-'+ x +'" class="label label-danger" th:unless="*{itm.status == 1}">Disabled</span>');
+                var id = "status-" + x;
+                $('#status-' + x).replaceWith("<span id=" + id + " class='label label-primary'>Enable</span>");
+                $(itm).replaceWith("<button class=\"btn btn-danger new-btn\" onclick=\"disableProject(this," + x + ")\">Dừng ❯</button>");
             },
             error: function () {
             }
         });
     }
 
-    function disableProject(x) {
+    function disableProject(itm, x) {
+        var val = {projectId: x};
         $.ajax({
-            url: "editFaculty",
-            data: JSON.stringify(objAdd),
-            type: "POST",
+            url: "/api/disableProject",
+            data: val,
+            type: "GET",
             cache: false,
             beforeSend: function (xhr) {
                 xhr.setRequestHeader("Accept", "application/json");
                 xhr.setRequestHeader("Content-Type", "application/json");
             },
             success: function (data) {
-                //location.reload();
-                alert("Sửa thành công!")
-                location.reload();
+                var id = "status-" + x;
+                $('#status-' + x).replaceWith("<span id=" + id + " class='label label-danger'>Disabled</span>");
+                $(itm).replaceWith("<button class=\"btn btn-primary new-btn\" onclick=\"enableProject(this," + x + ")\">Kích hoạt ❯</button>");
             },
             error: function () {
-                alert("Sửa thất bại!")
             }
         });
     }

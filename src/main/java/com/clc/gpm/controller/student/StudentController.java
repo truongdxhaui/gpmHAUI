@@ -7,6 +7,7 @@ import com.clc.gpm.form.RegisterGPForm;
 import com.clc.gpm.form.search.SearchProjectForm;
 import com.clc.gpm.service.StudentProjectService;
 import com.clc.gpm.service.StudentService;
+import com.clc.gpm.service.UserService;
 import com.clc.gpm.vo.MessageVO;
 import com.clc.gpm.vo.StudentVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,9 @@ public class StudentController extends AppController {
 
     @Autowired
     StudentService studentService;
+
+    @Autowired
+    UserService userService;
 
     @Autowired
     StudentProjectService studentProjectService;
@@ -74,12 +78,33 @@ public class StudentController extends AppController {
         if(bindingResult.hasErrors()){
             modelAndView.addObject(CommonConstants.MESSAGE, new MessageVO(CommonConstants.MessageType.ERROR.toString(), MessageConstants.MSG_6));
         }
+        if (!userService.checkExitsRegisterByUserId()) {
+            boolean insertResult = studentService.submitRegisterGPForm(registerGPForm);
+        }
 
-        boolean insertResult = studentService.submitRegisterGPForm(registerGPForm);
-        modelAndView = initRegisterFormGP(registerGPForm.getProjectId());
+        StudentVO studentVO = studentProjectService.getRegisterFormByProjectId(registerGPForm.getProjectId());
+        studentVO.getRegisterFormDTO().setReason(registerGPForm.getReason());
+        studentVO.getRegisterFormDTO().setType(registerGPForm.getType());
+        studentVO.getRegisterFormDTO().setDescription(registerGPForm.getDescription());
+        studentVO.getRegisterFormDTO().setRefresh("1");
+
+        modelAndView.addObject("registerForm", studentVO.getRegisterFormDTO());
+
+
         modelAndView.addObject(CommonConstants.MESSAGE, new MessageVO(CommonConstants.MessageType.INFO.toString(), "S0001"));
         return modelAndView;
     }
+
+    @GetMapping("registration-form")
+    public ModelAndView getRegistrationForm() {
+        ModelAndView modelAndView = new ModelAndView("sites/student/student-registration-form");
+        StudentVO studentVO = studentProjectService.getRegisterForm();
+
+        modelAndView.addObject("registerForm", studentVO.getRegisterFormDTO());
+        return modelAndView;
+    }
+
+
 
 
 }

@@ -14,7 +14,8 @@
             p.CONTENT_PROJECT_GP as content,
             lvl.LEVEL_NAME as level,
             p.REQUIREMENT_GP as requirement,
-            u.ID as userId
+            u.ID as userId,
+            l.USER_ID as lecturerId
         FROM
           student as s, user as u, project as p, group_project as gr, lecturer AS l, level as lvl
         WHere
@@ -27,6 +28,126 @@
             p.DELETE_FLG = '0'
     </select>
 
+    <select id="getRegistrationForm" resultType="RegisterFormDTO">
+        SELECT
+            s.STUDENT_ID as studentId,
+            u.FIRSTNAME as firstName,
+            u.LASTNAME as lastName,
+            p.ID as projectId,
+            p.NAME as projectName,
+            gr.NAME as groupName,
+            p.CONTENT_PROJECT_GP as content,
+            lvl.LEVEL_NAME as level,
+            p.REQUIREMENT_GP as requirement,
+            u.ID as userId,
+            r.REASON as reason,
+            r.DESCRIPTION as description,
+            r.TYPE as type
+        FROM
+          student as s, user as u, project as p, group_project as gr, lecturer AS l, level as lvl, registration_form as r
+        WHere
+            s.USER_ID = #{userId} and
+            u.id = #{userId} and
+            p.ID = r.PROJECT_ID and
+            gr.id = p.GROUP_PROJECT_ID and
+            p.LECTURER_ID = l.LECTURER_ID AND
+            lvl.LEVEL_ID = p.LEVEL AND
+            p.DELETE_FLG = '0' AND
+            r.TEAM_ID = #{teamId}
+    </select>
+
+    <select id="getRequestRegisterFormDetail" resultMap="RegisterFormDTOMap">
+        SELECT
+          s.STUDENT_ID as studentId,
+          u.FIRSTNAME as firstName,
+          u.LASTNAME as lastName,
+          p.ID as projectId,
+          p.NAME as projectName,
+          gr.NAME as groupName,
+          p.CONTENT_PROJECT_GP as content,
+          lvl.LEVEL_NAME as level,
+          p.REQUIREMENT_GP as requirement,
+          u.ID as userId,
+          r.REASON as reason,
+          r.DESCRIPTION as description,
+          r.TYPE as type
+        FROM
+          student as s, user as u, project as p, group_project as gr, lecturer AS l, level as lvl, registration_form as r, team_user as tu
+        WHere
+          p.ID = r.PROJECT_ID and
+          gr.id = p.GROUP_PROJECT_ID and
+          p.LECTURER_ID = l.LECTURER_ID AND
+          lvl.LEVEL_ID = p.LEVEL AND
+          p.DELETE_FLG = '0' AND
+          r.TEAM_ID = #{teamId} AND
+          tu.user_id = u.ID AND
+          s.USER_ID = u.id AND
+          tu.team_id = #{teamId}
+    </select>
+
+    <select id="getAllRegistForm" resultType="SearchRegisterFormDTO">
+        SELECT
+        rf.ID as id,
+        TEAM_ID as teamId,
+        p.NAME as projectName,
+
+        rf.CREATE_TIME as createTime
+        FROm registration_form as rf, project as p
+        where rf.STATUS = 0 AND p.ID = rf.PROJECT_ID AND p.LECTURER_ID = #{lecturerId} AND p.DELETE_FLG = '0'
+        <if test="orderBy == null or orderBy.length == 0">
+            ORDER BY rf.CREATE_TIME ASC
+        </if>
+        <if test="orderBy !=null and orderBy.length > 0">
+            ORDER BY ${orderBy} ${orderType}
+        </if>
+        LIMIT #{offset}, #{limit}
+    </select>
+
+    <select id="getAllGP" resultType="SearchRegisterFormDTO">
+        SELECT
+        rf.ID as id,
+        TEAM_ID as teamId,
+        p.NAME as projectName,
+
+        rf.CREATE_TIME as createTime
+        FROm registration_form as rf, project as p
+        where rf.STATUS = 1 AND p.ID = rf.PROJECT_ID AND p.LECTURER_ID = #{lecturerId} AND p.DELETE_FLG = '0'
+        <if test="orderBy == null or orderBy.length == 0">
+            ORDER BY rf.CREATE_TIME ASC
+        </if>
+        <if test="orderBy !=null and orderBy.length > 0">
+            ORDER BY ${orderBy} ${orderType}
+        </if>
+        LIMIT #{offset}, #{limit}
+    </select>
+
+    <select id="countRequestRegistForm" resultType="Integer">
+          SELECT
+              COUNT(*)
+            FROm registration_form as rf, project as p
+            where rf.STATUS = 0 AND p.ID = rf.PROJECT_ID AND p.LECTURER_ID = #{lecturerId};
+    </select>
+
+    <select id="countGP" resultType="Integer">
+          SELECT
+              COUNT(*)
+            FROm registration_form as rf, project as p
+            where rf.STATUS = 1 AND p.ID = rf.PROJECT_ID AND p.LECTURER_ID = #{lecturerId} AND p.DELETE_FLG = '0';
+    </select>
+
+
+    <select id="getListApproveRegisterForm" resultType="Integer">
+        SELECT
+          ID
+        FROM registration_form, project
+        WHERE
+          STATUS = 0 AND
+          DELETE_FLG = '0' AND
+          project.ID = registration_form.PROJECT_ID AND
+          project.LECTURER_ID = #{lecturerId};
+    </select>
+
+
     <select id="checkExitsByUserId" resultType="Integer">
         SELECT COUNT(*)
         FROM registration_form as r, team_user as tu
@@ -34,5 +155,41 @@
         tu.user_id = #{userId} AND
         r.TEAM_ID = tu.team_id
     </select>
+
+    <select id="getNextTeamId" resultType="String">
+        SELECT TEAM_ID
+        FROM registration_form, project
+        WHERE registration_form.STATUS = '0' and registration_form.DELETE_FLG = '0' and LECTURER_ID = "GV001" and
+              PROJECT_ID = project.ID;
+    </select>
+
+    <select id="findByTeamId" resultType="RegistrationForm">
+        SELECT ID as id
+        FROM registration_form
+        WHERE
+        TEAM_ID = #{teamId} AND
+        DELETE_FLG = '0'
+
+    </select>
+
+
+    <resultMap id="RegisterFormDTOMap" type="RegisterFormDTO">
+        <result column="projectName" property="projectName"/>
+        <result column="groupName" property="groupName"/>
+        <result column="projectId" property="projectId"/>
+        <result column="content" property="content"/>
+        <result column="level" property="level"/>
+        <result column="requirement" property="requirement"/>
+        <result column="reason" property="reason"/>
+        <result column="description" property="description"/>
+        <result column="type" property="type"/>
+
+        <collection property="lsStudent" ofType="StudentDTO">
+            <result column="studentId" property="studentId"/>
+            <result column="firstName" property="firstName"/>
+            <result column="lastName" property="lastName"/>
+            <result column="userId" property="userId"/>
+        </collection>
+    </resultMap>
 
 </mapper>

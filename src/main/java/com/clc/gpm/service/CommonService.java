@@ -2,9 +2,12 @@ package com.clc.gpm.service;
 
 import com.clc.gpm.common.CommonConstants;
 import com.clc.gpm.dao.mapper.GraduationthesisMapper;
+import com.clc.gpm.dao.mapper.LecturerMapper;
 import com.clc.gpm.dao.mapper.RegistrationFormMapper;
 import com.clc.gpm.dao.mapper.UserMapper;
+import com.clc.gpm.dto.UserDTO;
 import com.clc.gpm.entity.BaseEntity;
+import com.clc.gpm.entity.Lecturer;
 import com.clc.gpm.entity.User;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +19,9 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
+/**
+ * The type Common service.
+ */
 @Service
 public class CommonService {
 
@@ -25,9 +31,17 @@ public class CommonService {
     @Autowired
     private GraduationthesisMapper graduationthesisMapper;
 
+    @Autowired
+    private LecturerMapper lecturerMapper;
 
     private static String userLogin = "USER_LOGIN";
 
+    /**
+     * Map.
+     *
+     * @param source      the source
+     * @param destination the destination
+     */
     public static void map(Object source, Object destination) {
 
         ModelMapper modelMapper = new ModelMapper();
@@ -35,6 +49,11 @@ public class CommonService {
         modelMapper.map(source, destination);
     }
 
+    /**
+     * Copy create info.
+     *
+     * @param baseEntity the base entity
+     */
     public static void copyCreateInfo(BaseEntity baseEntity) {
         baseEntity.setCreateUser(userLogin);
         baseEntity.setCreateTime(LocalDateTime.now());
@@ -46,6 +65,11 @@ public class CommonService {
     @Autowired
     private UserMapper userMapper;
 
+    /**
+     * Gets current user id.
+     *
+     * @return the current user id
+     */
     public Integer getCurrentUserId() {
 
         SecurityContext securityContext = SecurityContextHolder.getContext();
@@ -64,6 +88,11 @@ public class CommonService {
         }
     }
 
+    /**
+     * Gets current username.
+     *
+     * @return the current username
+     */
     public String getCurrentUsername() {
 
         SecurityContext securityContext = SecurityContextHolder.getContext();
@@ -82,6 +111,11 @@ public class CommonService {
     }
 
 
+    /**
+     * Check exits regist form boolean.
+     *
+     * @return the boolean
+     */
     public Boolean checkExitsRegistForm() {
         Integer currentUserId = getCurrentUserId();
 
@@ -92,6 +126,11 @@ public class CommonService {
         return false;
     }
 
+    /**
+     * Check exits gp boolean.
+     *
+     * @return the boolean
+     */
     public Boolean checkExitsGP() {
         Integer currentUserId = getCurrentUserId();
 
@@ -103,55 +142,36 @@ public class CommonService {
     }
 
 
+    /**
+     * Gets lecturer id.
+     *
+     * @return the lecturer id
+     */
+//Get current LecturerID
+    public String getLecturerId() {
+        Lecturer lecturer = new Lecturer();
+        lecturer.setUserId(getCurrentUserId());
+
+        Lecturer lecturer1 = (Lecturer) lecturerMapper.selectWithExample(lecturer);
+
+        if (lecturer1 != null)
+            return lecturer.getLecturerId();
+        return "";
+    }
 
 
-        Integer solved(int[] input){
-            int sum = 0;
-            int min = getMinNum(input);
-            for(int i = 0; i < input.length; i++){
-                if (input[i] != min)
-                    sum += input[i];
-            }
-            return sum;
+    /**
+     * Logined infor user dto.
+     *
+     * @return the user dto
+     */
+    public UserDTO loginedInfor() {
+        String currentUsername = getCurrentUsername();
+        if (currentUsername == null) {
+            return new UserDTO();
         }
-
-
-        Integer getMinNum(int[] input){
-            if(input.length < 1)
-                return 0;
-            else {
-                int min = input[0];
-                for(int i = 0; i < input.length; i++){
-                    if (input[i] < min)
-                        min = input[i];
-                }
-                return min;
-            }
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        return userMapper.getLoginedInfor(currentUsername);
+    }
 
 
 }
