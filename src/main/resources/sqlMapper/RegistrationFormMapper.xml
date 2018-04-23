@@ -58,49 +58,57 @@
 
     <select id="getRequestRegisterFormDetail" resultMap="RegisterFormDTOMap">
         SELECT
-          s.STUDENT_ID as studentId,
-          u.FIRSTNAME as firstName,
-          u.LASTNAME as lastName,
-          p.ID as projectId,
-          p.NAME as projectName,
-          gr.NAME as groupName,
-          p.CONTENT_PROJECT_GP as content,
-          lvl.LEVEL_NAME as level,
-          p.REQUIREMENT_GP as requirement,
-          u.ID as userId,
-          r.REASON as reason,
-          r.DESCRIPTION as description,
-          r.TYPE as type,
-          u.AVATAR as avatar,
-          p.CREATE_TIME as createTime,
-          p.UPDATE_TIME as updateTime,
-          task.NAME as taskName,
+          s.STUDENT_ID            as studentId,
+          u.FIRSTNAME             as firstName,
+          u.LASTNAME              as lastName,
+          p.ID                    as projectId,
+          p.NAME                  as projectName,
+          gr.NAME                 as groupName,
+          p.CONTENT_PROJECT_GP    as content,
+          lvl.LEVEL_NAME          as level,
+          p.REQUIREMENT_GP        as requirement,
+          u.ID                    as userId,
+          r.REASON                as reason,
+          r.DESCRIPTION           as description,
+          r.TYPE                  as type,
+          u.AVATAR                as avatar,
+          p.CREATE_TIME           as createTime,
+          p.UPDATE_TIME           as updateTime,
+          task.NAME               as taskName,
           task.PERCENT_COMPLETION as perCompletion,
-          task.STATUS as taskStatus,
-          task.UPDATE_TIME as taskUpdateTime
-        FROM
-          student as s,
-          user as u,
-          project as p,
-          group_project as gr,
-          lecturer AS l,
-          level as lvl,
-          registration_form as r,
-          team_user as tu,
-          task,
-          graduation_thesis as gp
-        WHERE
-          p.ID = r.PROJECT_ID and
-          gr.id = p.GROUP_PROJECT_ID and
-          p.LECTURER_ID = l.LECTURER_ID AND
-          lvl.LEVEL_ID = p.LEVEL AND
-          p.DELETE_FLG = '0' AND
-          r.TEAM_ID = #{teamId} AND
-          tu.user_id = u.ID AND
-          s.USER_ID = u.id AND
-          tu.team_id = #{teamId} AND
-          gp.REGISTRATION_FORM_ID = r.ID AND
-          task.GRADUATION_THESIS_ID = gp.ID
+          task.STATUS             as taskStatus,
+          task.UPDATE_TIME        as taskUpdateTime
+        FROM student as s, user as u, project as p, group_project as gr, lecturer AS l, level as lvl, registration_form as r,
+          team_user as tu , graduation_thesis as gp left join task on task.GRADUATION_THESIS_ID = gp.ID
+        WHere
+          p.ID = r.PROJECT_ID and gr.id = p.GROUP_PROJECT_ID and p.LECTURER_ID = l.LECTURER_ID AND lvl.LEVEL_ID = p.LEVEL AND
+          p.DELETE_FLG = '0' AND r.TEAM_ID = #{teamId} AND tu.user_id = u.ID AND s.USER_ID = u.id AND tu.team_id = #{teamId} AND
+          gp.REGISTRATION_FORM_ID = r.ID
+    </select>
+
+    <select id="getRequestRegisterFormDetailNotApprove" resultMap="RegisterFormDTOMap">
+        SELECT
+          s.STUDENT_ID            as studentId,
+          u.FIRSTNAME             as firstName,
+          u.LASTNAME              as lastName,
+          p.ID                    as projectId,
+          p.NAME                  as projectName,
+          gr.NAME                 as groupName,
+          p.CONTENT_PROJECT_GP    as content,
+          lvl.LEVEL_NAME          as level,
+          p.REQUIREMENT_GP        as requirement,
+          u.ID                    as userId,
+          r.REASON                as reason,
+          r.DESCRIPTION           as description,
+          r.TYPE                  as type,
+          u.AVATAR                as avatar,
+          p.CREATE_TIME           as createTime,
+          p.UPDATE_TIME           as updateTime
+        FROM student as s, user as u, project as p, group_project as gr, lecturer AS l, level as lvl, registration_form as r,
+          team_user as tu
+        WHere
+          p.ID = r.PROJECT_ID and gr.id = p.GROUP_PROJECT_ID and p.LECTURER_ID = l.LECTURER_ID AND lvl.LEVEL_ID = p.LEVEL AND
+          p.DELETE_FLG = '0' AND r.TEAM_ID = #{teamId} AND tu.user_id = u.ID AND s.USER_ID = u.id AND tu.team_id = #{teamId}
     </select>
 
     <select id="getAllRegistForm" resultType="SearchRegisterFormDTO">

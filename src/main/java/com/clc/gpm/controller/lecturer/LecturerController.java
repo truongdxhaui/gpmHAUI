@@ -106,9 +106,11 @@ public class LecturerController extends PaginationController {
     @PostMapping("registration-form-detail")
     public ModelAndView getRegistrationForm(String teamId) {
         ModelAndView modelAndView = new ModelAndView("sites/lecturer/lecturer-registration-form-detail");
+
         if (teamId != null) {
             LecturerVO lecturerVO = lecturerService.getRegisterFormDetail(teamId);
-            lecturerVO.getRegisterFormDTO().setTeamId(teamId);
+            if (lecturerVO.getRegisterFormDTO() != null)
+                lecturerVO.getRegisterFormDTO().setTeamId(teamId);
             modelAndView.addObject("registerForm", lecturerVO.getRegisterFormDTO());
         }
 
@@ -149,7 +151,7 @@ public class LecturerController extends PaginationController {
         ModelAndView modelAndView = new ModelAndView("sites/lecturer/lecturer-gp-detail");
 
         if (teamId != null) {
-            LecturerVO lecturerVO = lecturerService.getRegisterFormDetail(teamId);
+            LecturerVO lecturerVO = lecturerService.getRegisterFormDetail2(teamId);
             lecturerVO.getRegisterFormDTO().setTeamId(teamId);
             modelAndView.addObject("registerForm", lecturerVO.getRegisterFormDTO());
         }

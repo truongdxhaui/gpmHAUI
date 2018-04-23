@@ -49,7 +49,6 @@ public class CommonController {
         if (auth != null) {
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
-        session.removeAttribute("user");
         return "redirect:/";
     }
 

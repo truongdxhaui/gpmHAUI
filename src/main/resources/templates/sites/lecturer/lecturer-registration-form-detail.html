@@ -66,9 +66,9 @@
                             </div>
                         </div>
 
-                        <div class="ibox-content">
+                        <div class="ibox-content" th:if="${registerForm != null}">
                             <form class="form-horizontal"
-                                  th:object="${registerForm}" th:if="${registerForm != null}">
+                                  th:object="${registerForm}" >
 
                                 <h3>Thông tin cá nhân</h3>
                                 <p>Sinh viên điền thông tin cá nhân</p>
@@ -150,8 +150,8 @@
                             </form>
                             <div class="form-group">
                                 <div class="col-sm-4 col-sm-offset-5">
-                                    <button class="btn btn-primary" th:onclick="|doRedirect(${registerForm.getTeamId()}, true, '/lecturer/approve-form-detail')|">Nhận hướng dẫn</button>
-                                    <button class="btn btn-danger" th:onclick="|doRedirect(${registerForm.getTeamId()}, false, '/lecturer/approve-form-detail')|">Từ chối hướng dẫn</button>
+                                    <button class="btn btn-primary" th:onclick="|doRedirect(${registerForm?.getTeamId()}, true, '/lecturer/approve-form-detail')|">Nhận hướng dẫn</button>
+                                    <button class="btn btn-danger" th:onclick="|doRedirect(${registerForm?.getTeamId()}, false, '/lecturer/approve-form-detail')|">Từ chối hướng dẫn</button>
                                 </div>
                             </div>
                             <div th:unless="${registerForm != null}" class="error">

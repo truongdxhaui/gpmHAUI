@@ -70,6 +70,13 @@ public class LecturerServiceImpl extends BaseService implements LecturerService 
     @Override
     public LecturerVO getRegisterFormDetail(String teamId) {
         LecturerVO lecturerVO = new LecturerVO();
+        lecturerVO.setRegisterFormDTO(registrationFormMapper.getRequestRegisterFormDetailNotApprove(teamId));
+        return lecturerVO;
+    }
+
+    @Override
+    public LecturerVO getRegisterFormDetail2(String teamId) {
+        LecturerVO lecturerVO = new LecturerVO();
         lecturerVO.setRegisterFormDTO(registrationFormMapper.getRequestRegisterFormDetail(teamId));
         return lecturerVO;
     }

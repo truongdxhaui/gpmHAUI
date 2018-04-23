@@ -12,6 +12,8 @@ public interface LecturerService {
 
     LecturerVO getRegisterFormDetail(String teamId);
 
+    LecturerVO getRegisterFormDetail2(String teamId);
+
     public Boolean approveRegisterForm(boolean flag, Integer formId);
 
     public String getNextTeamId();

@@ -30,6 +30,8 @@ public interface RegistrationFormMapper extends BaseMapper<RegistrationForm> {
 
     List<RegisterFormDTO> getAllGP(SearchRegisterFormDTO searchProjectForm);
 
+    RegisterFormDTO getRequestRegisterFormDetailNotApprove(String teamId);
+
     RegisterFormDTO getRequestRegisterFormDetail(String teamId);
 
     int countRequestRegistForm(SearchRegisterForm searchProjectForm);
