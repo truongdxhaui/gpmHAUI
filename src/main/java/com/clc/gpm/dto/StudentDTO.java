@@ -14,4 +14,7 @@ public class StudentDTO {
     private String lastName;
 
     private String userId;
+
+    private String avatar;
+
 }

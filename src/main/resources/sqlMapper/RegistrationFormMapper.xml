@@ -70,10 +70,26 @@
           u.ID as userId,
           r.REASON as reason,
           r.DESCRIPTION as description,
-          r.TYPE as type
+          r.TYPE as type,
+          u.AVATAR as avatar,
+          p.CREATE_TIME as createTime,
+          p.UPDATE_TIME as updateTime,
+          task.NAME as taskName,
+          task.PERCENT_COMPLETION as perCompletion,
+          task.STATUS as taskStatus,
+          task.UPDATE_TIME as taskUpdateTime
         FROM
-          student as s, user as u, project as p, group_project as gr, lecturer AS l, level as lvl, registration_form as r, team_user as tu
-        WHere
+          student as s,
+          user as u,
+          project as p,
+          group_project as gr,
+          lecturer AS l,
+          level as lvl,
+          registration_form as r,
+          team_user as tu,
+          task,
+          graduation_thesis as gp
+        WHERE
           p.ID = r.PROJECT_ID and
           gr.id = p.GROUP_PROJECT_ID and
           p.LECTURER_ID = l.LECTURER_ID AND
@@ -82,7 +98,9 @@
           r.TEAM_ID = #{teamId} AND
           tu.user_id = u.ID AND
           s.USER_ID = u.id AND
-          tu.team_id = #{teamId}
+          tu.team_id = #{teamId} AND
+          gp.REGISTRATION_FORM_ID = r.ID AND
+          task.GRADUATION_THESIS_ID = gp.ID
     </select>
 
     <select id="getAllRegistForm" resultType="SearchRegisterFormDTO">
@@ -90,7 +108,6 @@
         rf.ID as id,
         TEAM_ID as teamId,
         p.NAME as projectName,
-
         rf.CREATE_TIME as createTime
         FROm registration_form as rf, project as p
         where rf.STATUS = 0 AND p.ID = rf.PROJECT_ID AND p.LECTURER_ID = #{lecturerId} AND p.DELETE_FLG = '0'
@@ -172,7 +189,6 @@
 
     </select>
 
-
     <resultMap id="RegisterFormDTOMap" type="RegisterFormDTO">
         <result column="projectName" property="projectName"/>
         <result column="groupName" property="groupName"/>
@@ -183,12 +199,22 @@
         <result column="reason" property="reason"/>
         <result column="description" property="description"/>
         <result column="type" property="type"/>
+        <result column="createTime" property="createTime"/>
+        <result column="updateTime" property="updateTime"/>
 
         <collection property="lsStudent" ofType="StudentDTO">
             <result column="studentId" property="studentId"/>
             <result column="firstName" property="firstName"/>
             <result column="lastName" property="lastName"/>
             <result column="userId" property="userId"/>
+            <result column="avatar" property="avatar"/>
+        </collection>
+
+        <collection property="lstTask" ofType="TaskDTO">
+            <result column="taskName" property="taskName"/>
+            <result column="perCompletion" property="perCompletion"/>
+            <result column="taskStatus" property="taskStatus"/>
+            <result column="taskUpdateTime" property="taskUpdateTime"/>
         </collection>
     </resultMap>
 

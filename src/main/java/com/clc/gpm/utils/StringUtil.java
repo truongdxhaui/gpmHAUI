@@ -5,10 +5,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * <p>ファイル名 : StringUtil</p>
- * <p>説明  FIXME StringUtil</p>
- * @author : truong.pq
- * @since  : 2017/11/25
+ * The type String util.
  */
 public class StringUtil {
 
@@ -16,10 +13,10 @@ public class StringUtil {
     private static final int SPACE_HEX_IN_ASCII = 0x20;
 
     /**
-     * オブジェクトを文字列に変換し、nullの場合空に変換する
+     * Convert null string.
      *
-     * @param obj Object
-     * @return String
+     * @param obj the obj
+     * @return the string
      */
     public static String convertNull(Object obj) {
         if (obj == null) {
@@ -29,29 +26,30 @@ public class StringUtil {
     }
 
     /**
-     * チェックオブジェクトがnullです
+     * Is null object boolean.
      *
-     * @param str Object
-     * @return 真のオブジェクト入力はnullまたは長さです=0
+     * @param str the str
+     * @return the boolean
      */
     public static boolean isNullObject(Object str) {
         return str == null || str.toString().length() <= 0;
     }
-    
-    /**Check String is null
+
+    /**
+     * Is null boolean.
      *
-     * @param str String
-     * @return true String input is null or length = 0
+     * @param str the str
+     * @return the boolean
      */
     public static boolean isNull(String str) {
         return str == null || str.trim().length() <= 0;
     }
 
     /**
-     * ナル値あるいは空文字を「""」へ変換する場合、trim()を使用してスペースを削除します。
+     * Chg null string.
      *
-     * @param str
-     * @return String
+     * @param str the str
+     * @return the string
      */
     public static String chgNull(String str) {
         if (str == null || "".equals(str.trim())) {
@@ -61,10 +59,10 @@ public class StringUtil {
     }
 
     /**
-     * 文字入力のトリム
+     * Trim str string.
      *
-     * @param str String
-     * @return String
+     * @param str the str
+     * @return the string
      */
     public static String trimStr(String str) {
         if (str != null) {
@@ -74,50 +72,50 @@ public class StringUtil {
     }
 
     /**
-     * isEmpty
+     * Is empty boolean.
      *
-     * @param str String
-     * @return boolean
+     * @param str the str
+     * @return the boolean
      */
     public static boolean isEmpty(String str) {
         return str == null || str.length() == 0;
     }
 
     /**
-     * isNotEmpty
+     * Is not empty boolean.
      *
-     * @param str String
-     * @return boolean
+     * @param str the str
+     * @return the boolean
      */
     public static boolean isNotEmpty(String str) {
         return !isEmpty(str);
     }
 
     /**
-     * isUppercaseAlpha
-     * 
-     * @param c char
-     * @return boolean
+     * Is uppercase alpha boolean.
+     *
+     * @param c the c
+     * @return the boolean
      */
     public static boolean isUppercaseAlpha(char c) {
         return (c >= 'A') && (c <= 'Z');
     }
 
     /**
-     * isLowercaseAlpha
-     * 
-     * @param c char
-     * @return boolean
+     * Is lowercase alpha boolean.
+     *
+     * @param c the c
+     * @return the boolean
      */
     public static boolean isLowercaseAlpha(char c) {
         return (c >= 'a') && (c <= 'z');
     }
 
     /**
-     * toUpperAscii
-     * 
-     * @param c char
-     * @return char
+     * To upper ascii char.
+     *
+     * @param c the c
+     * @return the char
      */
     public static char toUpperAscii(char c) {
         if (isLowercaseAlpha(c)) {
@@ -127,10 +125,10 @@ public class StringUtil {
     }
 
     /**
-     * toLowerAscii
-     * 
-     * @param c char
-     * @return char
+     * To lower ascii char.
+     *
+     * @param c the c
+     * @return the char
      */
     public static char toLowerAscii(char c) {
         if (isUppercaseAlpha(c)) {
@@ -140,12 +138,10 @@ public class StringUtil {
     }
 
     /**
-     * 
-     * <p>説明 : camelhumpToUnderline</p> 
-     * @author : [bp.thien.nv]
-     * @since : [2017/12/26]
-     * @param str String
-     * @return String
+     * Camelhump to underline string.
+     *
+     * @param str the str
+     * @return the string
      */
     public static String camelhumpToUnderline(String str) {
         final int size;
@@ -165,10 +161,10 @@ public class StringUtil {
     }
 
     /**
-     * String to int
-     * 
-     * @param str String
-     * @return Integer
+     * To int integer.
+     *
+     * @param str the str
+     * @return the integer
      */
     public static Integer toInt(String str) {
         if (str != null && str.length() > 0) {
@@ -179,10 +175,10 @@ public class StringUtil {
     }
 
     /**
-     * String to long
-     * 
-     * @param str String 
-     * @return Long
+     * To long long.
+     *
+     * @param str the str
+     * @return the long
      */
     public static Long toLong(String str) {
         if (str != null && str.length() > 0) {
@@ -193,11 +189,10 @@ public class StringUtil {
     }
 
     /**
-     * <p>説明 : String to BigInteger</p> 
-     * @author : [bp.thien.nv]
-     * @since : [2017/12/21]
-     * @param str String
-     * @return BigInteger
+     * To big integer big integer.
+     *
+     * @param str the str
+     * @return the big integer
      */
     public static BigInteger toBigInteger(String str) {
         if (str != null && str.length() > 0) {
@@ -208,12 +203,11 @@ public class StringUtil {
     }
 
     /**
-     * <p>説明 : Convert LocalDateTime to String Date by Format</p> 
-     * @author : [minh.ls]
-     * @since : [2018/02/02]
-     * @param date LocalDateTime
-     * @param format format date
-     * @return String str date format
+     * To str date format string.
+     *
+     * @param date   the date
+     * @param format the format
+     * @return the string
      */
     public static String toStrDateFormat(LocalDateTime date, String format) {
         if (date == null || isNull(format)) {

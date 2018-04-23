@@ -5,31 +5,27 @@ import org.modelmapper.ModelMapper;
 import java.lang.reflect.Field;
 import java.util.List;
 
+
 /**
- * <p>ファイル名 : Utilities.java</p>
- * <p>説明 : Utilities.java</p>
- * @author minh.ls
- * @since 2018/03/03
+ * The type Utilities.
  */
 public class Utilities {
-/**
- * 
- * <p>説明 : FIXME get system id </p> 
- * @author : phong.nd
- * @since : 2018/02/22
- * @return String
- */
+
+    /**
+     * Gets system id.
+     *
+     * @return the system id
+     */
     public static String getSystemId() {
         //TODO implement
         return "1";
     }
+
     /**
-     * 
-     * <p>説明 : FIXME Mô tả ý nghia method</p> 
-     * @author : duc.bv
-     * @since : 2018/02/27
-     * @param targetObj
-     * @return FIXME Mô nghĩa param/return
+     * Trim object.
+     *
+     * @param targetObj the target obj
+     * @return the object
      */
     public static Object trim(Object targetObj) {
         // get class
@@ -52,18 +48,17 @@ public class Utilities {
                     e.printStackTrace();
                 }
             } else if(field.getType().equals(List.class)) {
-                //TODO
             }
         }
         return targetObj;
     }
 
+
     /**
-     * <p>説明 : map data</p> 
-     * @author : minh.ls
-     * @since : 2018/03/03
-     * @param source Object
-     * @param destination Object
+     * Map.
+     *
+     * @param source      the source
+     * @param destination the destination
      */
     public static void map(Object source, Object destination) {
         if (source != null && destination != null) {
@@ -72,16 +67,15 @@ public class Utilities {
             modelMapper.map(source, destination);
         }
     }
-    
+
+
     /**
-    *
-    * <p>説明 : getNextElement</p>
-    * @author : thien.nv
-    * @since 2017/12/25
-    * @param mdCd Integer
-    * @param list List<Integer>
-    * @return Integer
-    */
+     * Gets next element.
+     *
+     * @param mdCd the md cd
+     * @param list the list
+     * @return the next element
+     */
     public static int getNextElement(int mdCd, List<Integer> list) {
         int idNext = -1;
         if (list != null) {
@@ -94,16 +88,15 @@ public class Utilities {
         }
         return idNext;
     }
-    
+
+
     /**
-    *
-    * <p>説明 : getPrevElement</p>
-    * @author : minh.nt
-    * @since  : 2017/12/27
-    * @param mdCd Integer
-    * @param list List<Integer>
-    * @return Integer
-    */
+     * Gets prev element.
+     *
+     * @param mdCd the md cd
+     * @param list the list
+     * @return the prev element
+     */
     public static int getPrevElement(int mdCd, List<Integer> list) {
         int idPrev = -1;
         if (list != null) {
@@ -116,15 +109,13 @@ public class Utilities {
         }
         return idPrev;
     }
-    
+
     /**
-     * 
-     * <p>説明 : FIXME Kiem tra 2 string co giong nhau hay khong</p> 
-     * @author : duc.bv
-     * @since : 2018/03/04
-     * @param source String
-     * @param target String
-     * @return boolean result
+     * Compare str boolean.
+     *
+     * @param source the source
+     * @param target the target
+     * @return the boolean
      */
     public static boolean compareStr(String source, String target) {
         if (source == null) {

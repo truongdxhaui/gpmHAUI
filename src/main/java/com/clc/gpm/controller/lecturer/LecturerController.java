@@ -55,6 +55,7 @@ public class LecturerController extends PaginationController {
         if (!CollectionUtils.isEmpty(userVO.getLstProject())) {
             totalRow = userService.countAllProject(searchProjectForm);
             modelAndView.addObject("totalRowCount", totalRow);
+
             setPaginationData(modelAndView, searchProjectForm.getPage(), totalRow);
         }else {
             setPaginationData(modelAndView, 0, totalRow);
@@ -152,11 +153,11 @@ public class LecturerController extends PaginationController {
             lecturerVO.getRegisterFormDTO().setTeamId(teamId);
             modelAndView.addObject("registerForm", lecturerVO.getRegisterFormDTO());
         }
-        
+
         return modelAndView;
     }
 
-/*    public LecturerController() {
+    /*public LecturerController() {
         if (session.getAttribute("user") == null) {
             UserDTO userDTO = commonService.loginedInfor();
             session.setAttribute("user", userDTO);

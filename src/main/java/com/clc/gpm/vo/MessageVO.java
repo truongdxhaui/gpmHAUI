@@ -4,11 +4,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * 
  * <p>ファイル名 : MessageVO</p>
  * FIXME<p>説明 : Thong tin message</p>
+ *
  * @author hung.pd
- * @since 2018/02/08
+ * @since 2018 /02/08
  */
 @Getter
 @Setter
@@ -25,8 +25,9 @@ public class MessageVO {
 
     /**
      * This constructor message vo
-     * @param type          Type message
-     * @param messageId     Message id
+     *
+     * @param type      Type message
+     * @param messageId Message id
      */
     public MessageVO(String type, String messageId) {
         this.type = type;
@@ -34,33 +35,37 @@ public class MessageVO {
     }
 
     /**
-    * This constructor message vo
-    * @param messageId     Message id
-    */
+     * This constructor message vo
+     *
+     * @param messageId Message id
+     */
     public MessageVO(String messageId) {
         this.messageId = messageId;
     }
 
     /**
-    * This constructor message vo
-    * @param messageId     Message id
-    * @param params        Message parameter
-    */
+     * This constructor message vo
+     *
+     * @param messageId Message id
+     * @param params    Message parameter
+     */
     public MessageVO(String messageId, String[] params) {
         this.messageId = messageId;
         this.params = params;
     }
 
     /**
-     * This constructor message vo no agrument*/
+     * This constructor message vo no agrument
+     */
     public MessageVO() {
     }
 
     /**
      * This constructor message vo
-     * @param type          Type message
-     * @param messageId     Message id
-     * @param params        Message parameter
+     *
+     * @param type      Type message
+     * @param messageId Message id
+     * @param params    Message parameter
      */
     public MessageVO(String type, String messageId, String[] params) {
         this.type = type;

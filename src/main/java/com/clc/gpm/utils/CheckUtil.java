@@ -9,12 +9,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
 /**
- * <p>ファイル名 : CheckUtil</p>
- * <p>説明 : CheckUtil</p>
- *
- * @author bp.truong.pq
- * @since 2017/11/25
+ * The type Check util.
  */
 public class CheckUtil {
     /**
@@ -36,7 +33,7 @@ public class CheckUtil {
      * Input valid : Katakana/Numbers/Letters
      *
      * @param input String
-     * @return boolean
+     * @return boolean boolean
      */
     public static boolean isFullSize(String input) {
         if (StringUtil.isNull(input)) {
@@ -52,7 +49,7 @@ public class CheckUtil {
      * Check HaftSizeAlphabet
      *
      * @param input String
-     * @return boolean
+     * @return boolean boolean
      */
     public static boolean isHaftSizeAlphabet(String input) {
         if (StringUtil.isNull(input)) {
@@ -64,11 +61,12 @@ public class CheckUtil {
         return m.find();
     }
 
+
     /**
-     * チェック文字列が数値である
+     * Is haftsize numeric boolean.
      *
-     * @param input String
-     * @return 数値は、trueの場合はnullまたは空白である
+     * @param input the input
+     * @return the boolean
      */
     public static boolean isHaftsizeNumeric(String input) {
         if (StringUtil.isNull(input)) {
@@ -79,11 +77,12 @@ public class CheckUtil {
         return m.matches();
     }
 
+
     /**
-     * Check string is haft size alphabet and is haft size number
+     * Is half size alphabet and number boolean.
      *
-     * @param input String
-     * @return true if string is haft size engligh
+     * @param input the input
+     * @return the boolean
      */
     public static boolean isHalfSizeAlphabetAndNumber(String input) {
         if (StringUtil.isNull(input)) {
@@ -100,7 +99,7 @@ public class CheckUtil {
      * Check HalfSizeAlphabetAndNumber
      *
      * @param val String
-     * @return boolean
+     * @return boolean boolean
      */
     public static boolean isHalfSizeAlphabetAndNumber2(String val) {
         if (StringUtil.isNull(val)) {
@@ -127,7 +126,7 @@ public class CheckUtil {
      * check HalfAlphabet or Number or Symbol
      *
      * @param input String
-     * @return boolean
+     * @return boolean boolean
      */
     public static boolean isHalfAlphabetNumberSymbol(String input) {
         if (StringUtil.isNull(input)) {
@@ -150,14 +149,13 @@ public class CheckUtil {
         return true;
     }
 
+
     /**
-     * Check format of date string.
+     * Is date format boolean.
      *
-     * @param dateString   Date string value
-     * @param formatString Format date
-     * @return boolean
-     * true : string is valid date format
-     * false : string is invalid date format
+     * @param dateString   the date string
+     * @param formatString the format string
+     * @return the boolean
      */
     public static boolean isDateFormat(String dateString, String formatString) {
         if (StringUtil.isNull(dateString)) {
@@ -172,11 +170,12 @@ public class CheckUtil {
         }
     }
 
+
     /**
-     * Validate email address.
+     * Is valid email address boolean.
      *
-     * @param email Eメール
-     * @return Eメールチェック結果
+     * @param email the email
+     * @return the boolean
      */
     public static boolean isValidEmailAddress(String email) {
         if (StringUtil.isNull(email)) {
@@ -189,11 +188,12 @@ public class CheckUtil {
         return m.matches();
     }
 
+
     /**
-     * FIXME　Check String input is number
+     * Is sign number boolean.
      *
-     * @param number FIXME　String
-     * @return true: FIXME　String input is number. false: String input is not number
+     * @param number the number
+     * @return the boolean
      */
     public static boolean isSignNumber(String number) {
         if (StringUtil.isNull(number)) {
@@ -206,11 +206,12 @@ public class CheckUtil {
         return m.find();
     }
 
+
     /**
-     * FIXME Check char input is number
+     * Is digit boolean.
      *
-     * @param c char
-     * @return true: char is number. false: char not number
+     * @param c the c
+     * @return the boolean
      */
     public static boolean isDigit(char c) {
         int x = (int) c;
@@ -220,13 +221,12 @@ public class CheckUtil {
         return false;
     }
 
+
     /**
-     * <p>説明 : FIXME Check giá nhập có phải integer không</p>
+     * Is integer number boolean.
      *
-     * @param input value String
-     * @return true : FIXME nếu giá trị nhập vào là số nguyên
-     * @author : truong.pq
-     * @since : 2018/03/07
+     * @param input the input
+     * @return the boolean
      */
     public static boolean isIntegerNumber(String input) {
         try {
@@ -237,13 +237,12 @@ public class CheckUtil {
         return true;
     }
 
+
     /**
-     * <p>説明 : FIXME Check SQL injection</p>
+     * Is sql injection boolean.
      *
-     * @param value script sql
-     * @return True if error sql injection
-     * @author hung.pd
-     * @since 2018/02/07
+     * @param value the value
+     * @return the boolean
      */
     public static boolean isSQLInjection(String value) {
         boolean isValid = false;
@@ -360,17 +359,15 @@ public class CheckUtil {
 
     public static boolean checkMultipartFile(MultipartFile file, String fileName, FileExtension fileExtention) {
 
-        // ファイルのサイズをチェック
         if (file == null || file.getSize() == 0) {
             return false;
         }
 
-        // ファイル名をチェック
         if (!StringUtils.isEmpty(fileName) && !file.getOriginalFilename().equals(fileName)) {
             return false;
         }
 
-        // ファイルextentionsをチェック
+
         List<FileExtension> fileExtensions = Arrays.asList(FileExtension.values());
         if (!fileExtensions.contains(fileExtention)) {
             return false;

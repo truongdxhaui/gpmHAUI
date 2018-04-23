@@ -12,23 +12,20 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.List;
 
+
 /**
- * <p>ファイル名 : CommonValidator</p>
- * <p>説明 : CommonValidator</p>
- * @author bp.truong.pq
- * @since 2017/11/25
+ * The type Common validator.
  */
 @Component("commonValidator")
 public class CommonValidator {
 
     /**
-     * <p>説明 : validateWithAnnotation</p> 
-     * @author : truong.dx
-     * @since : 2017/12/26
-     * @param field Field
-     * @param fieldVal String
-     * @param errorItemNameList List<String>
-     * @throws InputCheckException  Input Check Exception
+     * Validate with annotation.
+     *
+     * @param field             the field
+     * @param fieldVal          the field val
+     * @param errorItemNameList the error item name list
+     * @throws InputCheckException the input check exception
      */
     public void validateWithAnnotation(Field field, String fieldVal, List<String> errorItemNameList) throws InputCheckException {
         // FIXME NO CHECK
@@ -38,7 +35,6 @@ public class CommonValidator {
             return;
         }
 
-        // requireチェック
         Required annotation = field.getDeclaredAnnotation(Required.class);
         if (annotation != null && StringUtil.isNull(fieldVal)) {
             InputCheckException ex = new InputCheckException(MessageConstants.MSG_SC101,
@@ -48,7 +44,6 @@ public class CommonValidator {
             throw ex;
         }
 
-        // 長さチェック
         MaxLength annotationML = field.getDeclaredAnnotation(MaxLength.class);
         if (annotationML != null) {
             String val = fieldVal == null ? fieldVal : fieldVal.trim();
@@ -60,7 +55,6 @@ public class CommonValidator {
             }
         }
 
-        // 半角数字のチェック : 0-9
         HaftsizeNumber annotationHN = field.getDeclaredAnnotation(HaftsizeNumber.class);
         if (annotationHN != null) {
             if (!CheckUtil.isHaftsizeNumeric(fieldVal)) {
@@ -71,7 +65,6 @@ public class CommonValidator {
             }
         }
 
-        // 半角英語のチェック : a-z, A-Z
         HalftsizeAlphabet annotationHA = field.getDeclaredAnnotation(HalftsizeAlphabet.class);
         if (annotationHA != null) {
             if (!CheckUtil.isHaftSizeAlphabet(fieldVal)) {
@@ -82,7 +75,6 @@ public class CommonValidator {
             }
         }
 
-        // 半角（英数）のチェック : a-z, A-Z
         HalftsizeAlphabetNumber annotationHAN = field.getDeclaredAnnotation(HalftsizeAlphabetNumber.class);
         if (annotationHAN != null) {
             if (!CheckUtil.isHalfSizeAlphabetAndNumber(fieldVal)) {
@@ -93,7 +85,6 @@ public class CommonValidator {
             }
         }
 
-        // 半角（英/数/記号）のチェック : a-z, A-Z,...
         HalftsizeAlphabetNumberSymbol annotationHANS = field.getDeclaredAnnotation(HalftsizeAlphabetNumberSymbol.class);
         if (annotationHANS != null) {
             if (!CheckUtil.isHalfAlphabetNumberSymbol(fieldVal)) {
@@ -104,7 +95,6 @@ public class CommonValidator {
             }
         }
 
-        // 全角文字のチェック : a-z, A-Z
         Fullsize annotationF = field.getDeclaredAnnotation(Fullsize.class);
         if (annotationF != null) {
             if (!CheckUtil.isFullSize(fieldVal)) {
@@ -115,11 +105,9 @@ public class CommonValidator {
             }
         }
 
-        // 日付フォーマットのチェック
-        // 検証フォーマット
         Format annotationFormat = field.getDeclaredAnnotation(Format.class);
         if (annotationFormat != null) {
-            // 日付フォーマットのチェック
+
             if (annotationFormat.type().equals(Format.FormatType.DATE)) {
                 boolean isValidDate = CheckUtil.isDateFormat(fieldVal, annotationFormat.pattern());
                 if (!isValidDate) {
@@ -132,8 +120,6 @@ public class CommonValidator {
             }
         }
 
-        // sizeのチェック
-        // 検証フォーマット
         Size annotationSize = field.getDeclaredAnnotation(Size.class);
         if (annotationSize != null) {
             if (CheckUtil.isHaftsizeNumeric(fieldVal)) {

@@ -62,8 +62,8 @@
                                         <dd th:text="|${registerForm.lsStudent.get(0).getFirstName()} ${ registerForm.lsStudent.get(0).getLastName()}|">Trường Đào Xuân</dd>
                                         <dt>Task:</dt>
                                         <dd> 162</dd>
-                                        <dt>Client:</dt>
-                                        <dd><a href="#" class="text-navy"> Zender Company</a></dd>
+                                        <dt>Task còn lại:</dt>
+                                        <dd>40</dd>
                                         <dt>Version:</dt>
                                         <dd> v1.0.0</dd>
                                     </dl>
@@ -72,21 +72,17 @@
                                     <dl class="dl-horizontal">
 
                                         <dt>Lần cập nhật cuối:</dt>
-                                        <dd>16.08.2014 12:15:57</dd>
+                                        <dd th:text="${registerForm?.updateTime}"></dd>
                                         <dt>Ngày tạo:</dt>
-                                        <dd> 10.07.2014 23:36:57</dd>
+                                        <dd th:text="${registerForm?.createTime}"> 10.07.2014 23:36:57</dd>
                                         <dt>Người tham gia:</dt>
-                                        <dd class="project-people">
+                                        <dd class="project-people" th:each="itm : ${registerForm.getLsStudent()}">
                                             <a href="#"><img alt="image" class="img-circle"
-                                                             src="project_detail_files/a3.jpg"></a>
+                                                             th:src="@{/img/profile/default_profile.png}"
+                                                             th:if="${itm.avatar == null}"></a>
                                             <a href="#"><img alt="image" class="img-circle"
-                                                             src="project_detail_files/a1.jpg"></a>
-                                            <a href="#"><img alt="image" class="img-circle"
-                                                             src="project_detail_files/a2.jpg"></a>
-                                            <a href="#"><img alt="image" class="img-circle"
-                                                             src="project_detail_files/a4.jpg"></a>
-                                            <a href="#"><img alt="image" class="img-circle"
-                                                             src="project_detail_files/a5.jpg"></a>
+                                                             src="project_detail_files/a1.jpg"
+                                                             th:unless="${itm.avatar == null}"></a>
                                         </dd>
                                     </dl>
                                 </div>
@@ -99,15 +95,44 @@
                                             <div class="progress progress-striped active m-b-sm">
                                                 <div style="width: 0%;" class="progress-bar"></div>
                                             </div>
-                                            <small>Project completed in <strong>0%</strong>. Remaining close the
-                                                project, sign a contract and invoice.
-                                            </small>
+                                            <small>Tiến độ hoàn thành <strong>0%</strong></small>
                                         </dd>
                                     </dl>
                                 </div>
                             </div>
                             <div class="row m-t-sm">
+                                <!--Task-->
+                                <div class="col-lg-12">
+                                    <div class="panel blank-panel">
+                                        <div class="panel-heading">
+                                            <div class="panel-options">
+                                                <ul class="nav nav-tabs">
+                                                    <li class="active"><a href="#tab-1" data-toggle="tab"
+                                                                          aria-expanded="true">Danh sách Task</a></li>
+                                                    <li class=""><a href="#tab-2" data-toggle="tab"
+                                                                    aria-expanded="false">Lịch sử</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
 
+                                        <div class="panel-body">
+                                            <div class="tab-content">
+                                                <div class="tab-pane active" id="tab-1">
+                                                    <div class="feed-activity-list">
+
+                                                    </div>
+
+                                                </div>
+                                                <div class="tab-pane" id="tab-2">
+                                                    Coming Soon
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <!--END Task-->
                             </div>
                         </div>
                     </div>
@@ -115,33 +140,26 @@
             </div>
             <div class="col-lg-3">
                 <div class="wrapper wrapper-content project-manager">
-                    <h4>Project description</h4>
+                    <h4>Thông tin đề tài</h4>
 
-                    <p class="small">
-                        There are many variations of passages of Lorem
-                        Ipsum available, but the majority have suffered alteration in some form,
-                        by injected humour, or randomised words which don't look
-                        even slightly believable. If you are going to use a
-                        passage of Lorem Ipsum, you need to be sure there isn't anything
-                        embarrassing
+                    <p class="small" th:text="${registerForm.content}">
+
                     </p>
                     <p class="small font-bold">
                         <span><i class="fa fa-circle text-warning"></i> High priority</span>
                     </p>
-                    <h5>Project tag</h5>
-                    <ul class="tag-list" style="padding: 0">
-                        <li><a href="#"><i class="fa fa-tag"></i> Zender</a></li>
-                        <li><a href="#"><i class="fa fa-tag"></i> Lorem ipsum</a></li>
-                        <li><a href="#"><i class="fa fa-tag"></i> Passages</a></li>
-                        <li><a href="#"><i class="fa fa-tag"></i> Variations</a></li>
-                    </ul>
-                    <h5>Project files</h5>
-                    <ul class="list-unstyled project-files">
-                        <li><a href="#"><i class="fa fa-file"></i> Project_document.docx</a></li>
-                        <li><a href="#"><i class="fa fa-file-picture-o"></i> Logo_zender_company.jpg</a></li>
-                        <li><a href="#"><i class="fa fa-stack-exchange"></i> Email_from_Alex.mln</a></li>
-                        <li><a href="#"><i class="fa fa-file"></i> Contract_20_11_2014.docx</a></li>
-                    </ul>
+                    <div>
+                        <h5>Project tag</h5>
+                        <ul class="tag-list" style="padding: 0">
+                            <li><a href="#" ><i class="fa fa-tag" th:text="| ${registerForm.getGroupName()}|"> </i> </a></li>
+                        </ul>
+                    </div>
+                    <div style="clear: both; padding-top: 10px">
+                        <h5>Project files</h5>
+                        <ul class="list-unstyled project-files">
+                            <li><a href="#"><i class="fa fa-file"></i> default.docx</a></li>
+                        </ul>
+                    </div>
                     <div class="text-center m-t-md">
                         <a href="#" class="btn btn-xs btn-primary">Add files</a>
                         <a href="#" class="btn btn-xs btn-primary">Report contact</a>

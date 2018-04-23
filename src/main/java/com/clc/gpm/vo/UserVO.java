@@ -12,6 +12,9 @@ import lombok.Setter;
 import java.util.List;
 
 
+/**
+ * The type User vo.
+ */
 @Getter
 @Setter
 public class UserVO {

@@ -4,20 +4,17 @@ import com.clc.gpm.common.CommonConstants;
 import com.clc.gpm.dto.search.BaseSearchDTO;
 
 /**
-* <p>ファイル名 : PageUtil </p>
-* <p>説明        : Tên cụm MH</p>
-* @author   : cau.nh
-* @since    : 2018/02/25
+ * The type Page util.
  */
 public class PageUtil {
 
+
     /**
-     * <p>説明 : FIXME Mô tả ý nghia method</p> 
-     * @author : cau.nh
-     * @since  : 2018/02/25
-     * @param searchDTO FIXME Mô nghĩa param
-     * @param sortColumns FIXME Mô nghĩa param
-     * @param sortColumn FIXME Mô nghĩa param/return
+     * Init search dto.
+     *
+     * @param searchDTO   the search dto
+     * @param sortColumns the sort columns
+     * @param sortColumn  the sort column
      */
     public static void initSearchDTO(BaseSearchDTO searchDTO, String[] sortColumns, String sortColumn) {
         // init page
@@ -55,13 +52,13 @@ public class PageUtil {
         }
     }
 
+
     /**
-     * <p>説明 : FIXME Mô tả ý nghia method</p> 
-     * @author : cau.nh
-     * @since 2018/02/25
-     * @param page
-     * @param totalRowCount
-     * @return FIXME Mô nghĩa param/return
+     * Gets page.
+     *
+     * @param page          the page
+     * @param totalRowCount the total row count
+     * @return the page
      */
     public static int getPage(int page, int totalRowCount) {
         // kiem tra neu chi co 1 page

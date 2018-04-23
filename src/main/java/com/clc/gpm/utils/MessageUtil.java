@@ -7,55 +7,54 @@ import org.springframework.stereotype.Component;
 import java.util.Locale;
 
 /**
- * 
- * <p>ファイル名 : MessageUtil</p>
- * <p>説明 : Get message from properties file</p>
- * @author hung.pd
- * @since 2018/01/31
+ * The type Message util.
  */
-
 @Component
 public class MessageUtil {
-    /** declare message reource*/
+    /**
+     * declare message reource
+     */
     @Autowired
     MessageSource messageSource;
 
     /** declare locale*/
     private Locale locale = Locale.getDefault();
 
+
     /**
-     * Contructor none agrument
+     * Instantiates a new Message util.
      */
     MessageUtil() {
     }
 
+
     /**
-     * Message util Constructor
-     * @param locale        Locale
+     * Instantiates a new Message util.
+     *
+     * @param locale the locale
      */
     MessageUtil(Locale locale) {
         this.locale = locale;
     }
 
-    /** 
-     * <p>説明 : getMessage</p> 
-     * @author hung.pd
-     * @since 2018/01/31
-     * @param msgCode メッセージコード
-     * @return メッセージ内容
+
+    /**
+     * Gets message.
+     *
+     * @param msgCode the msg code
+     * @return the message
      */
     public String getMessage(String msgCode) {
         return messageSource.getMessage(msgCode, null, locale);
     }
 
+
     /**
-     * 
-     * <p>説明 : getMessage</p> 
-     * @author hung.pd
-     * @since 2018/01/31
-     * @param msgCode メッセージコード
-     * @param agrs 
-     * @return メッセージ内容
+     * Gets message.
+     *
+     * @param msgCode the msg code
+     * @param agrs    the agrs
+     * @return the message
      */
     public String getMessage(String msgCode, String[] agrs) {
         return messageSource.getMessage(msgCode, agrs, locale);

@@ -15,18 +15,18 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
- * <p>ファイル名 : AppValidator</p>
- * <p>説明 : AppValidator</p>
- * @author bp.truong.pq
- * @since 2017/11/25
+ * The type App validator.
  */
 public abstract class AppValidator {
 
     /** CAN_NOT_TO_GET_DATA_FOR_FIELD  */
     private static final String CAN_NOT_TO_GET_DATA_FOR_FIELD = "Can not to get data for Field {}.";
 
-    /** SCREEN MESSAGE  */
+    /**
+     * SCREEN MESSAGE
+     */
     protected final static String SCREEN_MESSAGE_ITEM = "screenMessage";
     /**
      * HAS_ERROR
@@ -75,33 +75,33 @@ public abstract class AppValidator {
         this.logger = LogManager.getLogger(this.getClass());
     }
 
+
     /**
-     * <p>説明 : validateField</p> 
-     * @author : truong.dx
-     * @since : 2017/12/26
-     * @param fieldName String
-     * @param fieldValue String
-     * @param errors BindingResult
-     * @param clazz AppForm
+     * Validate field.
+     *
+     * @param clazz      the clazz
+     * @param fieldName  the field name
+     * @param fieldValue the field value
+     * @param errors     the errors
      */
     public abstract void validateField(AppForm clazz, String fieldName, String fieldValue, BindingResult errors);
 
+
     /**
-     * <p>説明 : Validate logic</p>
-     * @author [bp.truong.pq]
-     * @since : 2017/11/25] 
-     * @param clazz AppForm
-     * @param errors BindingResult
+     * Validate logic.
+     *
+     * @param clazz  the clazz
+     * @param errors the errors
      */
     public abstract void validateLogic(AppForm clazz, BindingResult errors);
 
+
     /**
-     * <p>説明 : validate</p> 
-     * @author : truong.dx
-     * @since : 2017/12/26
-     * @param targetObj Object
-     * @param errors BindingResult
-     * @param items 
+     * Validate.
+     *
+     * @param targetObj the target obj
+     * @param errors    the errors
+     * @param items     the items
      */
     public void validate(Object targetObj, BindingResult errors, String... items) {
 
@@ -128,7 +128,6 @@ public abstract class AppValidator {
 
                 List<?> objVal = new ArrayList<Object>();
                 try {
-                    // プロパティリストの値を設定する
                     Method method = targetObj.getClass().getMethod("get" + property.substring(0, 1).toUpperCase() + property.substring(1), new Class[] {});
                     objVal = (List<?>) method.invoke(targetObj, new Object[] {});
                 } catch (Exception e) {
@@ -174,7 +173,6 @@ public abstract class AppValidator {
 
         }
 
-        // ロジック検証
         if (!errors.hasErrors()) {
             validateLogic(appForm, errors);
         }
@@ -207,15 +205,6 @@ public abstract class AppValidator {
         }
     }
 
-    /**
-     * <p>説明 : validate for list object in form</p> 
-     * @author : minh.ls
-     * @since : 2018/02/27
-     * @param targetObj Object
-     * @param errors BindingResult
-     * @param listName listName
-     * @param appForm AppForm
-     */
     private void validateListObject(AppForm appForm, Object targetObj, BindingResult errors, String listName) {
         String property = "";
         String fieldVal = "";
@@ -256,35 +245,24 @@ public abstract class AppValidator {
     }
 
     /**
-     * <p>説明 : getErrorItemNameList</p> 
-     * @author : truong.dx
-     * @since : 2017/12/26
-     * @return List<String>
+     * Gets error item name list.
+     *
+     * @return the error item name list
      */
     public List<String> getErrorItemNameList() {
         return errorItemNameList;
     }
 
     /**
-     * <p>説明 : setErrorItemNameList</p> 
-     * @author : truong.dx
-     * @since : 2017/12/26
-     * @param errorItemNameList 
+     * Sets error item name list.
+     *
+     * @param errorItemNameList the error item name list
      */
     public void setErrorItemNameList(List<String> errorItemNameList) {
         this.errorItemNameList = errorItemNameList;
     }
 
 /*    *//**
-     *
-     * <p>説明 : validateMultiPartFileItem</p>
-     * @author hung.pd
-     * @since 2018/02/12
-     * @param field Field
-     * @param fieldVal MultipartFile
-     * @param property String
-     * @param errors BindingResult
-     *//*
     private void validateMultiPartFileItem(Field field, MultipartFile fieldVal, String property, BindingResult errors) {
         if (field.isAnnotationPresent(FileValidation.class)) {
             FileValidation anno = field.getAnnotation(FileValidation.class);

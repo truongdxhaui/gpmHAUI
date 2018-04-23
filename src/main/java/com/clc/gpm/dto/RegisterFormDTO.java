@@ -51,6 +51,8 @@ public class RegisterFormDTO extends BaseDTO {
 
     private List<StudentDTO> lsStudent;
 
+    private List<TaskDTO> lstTask;
+
     public void setLecturerInfo(UserDTO userDTO) {
         this.firstnameLecturer = userDTO.getFirstnameLecturer();
         this.lastnameLecturer = userDTO.getLastnameLecturer();

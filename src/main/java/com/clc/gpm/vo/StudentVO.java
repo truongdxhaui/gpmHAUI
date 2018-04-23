@@ -11,6 +11,9 @@ import lombok.Setter;
 import java.util.List;
 
 
+/**
+ * The type Student vo.
+ */
 @Getter
 @Setter
 public class StudentVO {

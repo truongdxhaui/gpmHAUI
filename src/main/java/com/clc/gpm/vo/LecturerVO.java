@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 
+/**
+ * The type Lecturer vo.
+ */
 @Getter
 @Setter
 public class LecturerVO {

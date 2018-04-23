@@ -7,11 +7,9 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+
 /**
- * <p>ファイル名 : BindingResult</p>
- * <p>説明 : ErrorResult class contain info error</p>
- * @author bp.truong.pq
- * @since 2017/11/25
+ * The type Binding result.
  */
 @Component
 // @Scope("request")
@@ -24,11 +22,11 @@ public class BindingResult implements Serializable {
      */
     protected List<Throwable> errors = new LinkedList<Throwable>();
 
+
     /**
-     * <p>説明 :hasErrors</p> 
-     * @author : truong.dx
-     * @since : 2017/12/26
-     * @return boolean
+     * Has errors boolean.
+     *
+     * @return the boolean
      */
     public boolean hasErrors() {
         return this.errors.size() > 0;
@@ -36,21 +34,19 @@ public class BindingResult implements Serializable {
 
 
     /**
-     * <p>説明 : addError</p> 
-     * @author : truong.dx
-     * @since : 2017/12/26
-     * @param error 
+     * Add error.
+     *
+     * @param error the error
      */
     public void addError(Throwable error) {
         this.errors.add(error);
     }
 
+
     /**
-     * Add all errors from the given {@code ErrorResult} instance to this
-     * {@code ErrorResult} instance.
-     * 
-     * @param errors
-     *            the {@code Errors} instance to merge in
+     * Add all errors.
+     *
+     * @param errors the errors
      */
     public void addAllErrors(BindingResult errors) {
         this.errors.addAll(errors.getAllErrors());
@@ -58,7 +54,7 @@ public class BindingResult implements Serializable {
 
     /**
      * Get all errors.
-     * 
+     *
      * @return List of {@link Throwable} instances
      */
     public List<Throwable> getAllErrors() {
